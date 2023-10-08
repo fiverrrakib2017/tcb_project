@@ -1,0 +1,23 @@
+.print-design img {
+    height: 70px;
+}
+
+.header-area {
+    width: 400px;
+    float: left;
+}
+
+.header-img {
+    float: left;
+}
+.print-design ul {
+    margin: -4px 0px 0px 0px;
+    padding: 0px;
+    list-style: none;
+}
+.print-design {
+    margin-bottom: 5px;
+}
+.header-area h5 {
+    margin-top: -5px;
+}
