@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('upozila_id');
             $table->unsignedBigInteger('union_id');
             $table->unsignedBigInteger('ward_id');
+            $table->string('village_name');
             $table->timestamps();
             $table->integer('status')->comment('1=received,2=hold');
 

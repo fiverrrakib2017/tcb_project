@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/login',function(){
     return view('Backend.Auth.Login');
 });
+
+Route::get('/admin/dashboard',function(){
+    return view('Backend.Pages.Dashboard');
+});
