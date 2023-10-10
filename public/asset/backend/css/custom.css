@@ -19,9 +19,15 @@ ul.custom-menu li a {
     padding: 10px;
     margin: 2px 0px;
     color: #fff;
+    text-decoration: none;
 }
 
 ul.custom-menu li:hover a {
+    background-color: #57a147;
+    transition-delay: .2s; /* delays for 1 second */
+    -webkit-transition-delay: .2s; /* for Safari & Chrome */
+}
+.active-button {
     background-color: #57a147;
     transition-delay: .2s; /* delays for 1 second */
     -webkit-transition-delay: .2s; /* for Safari & Chrome */

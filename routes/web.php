@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\DivisionController;
+use App\Http\Controllers\Backend\zilaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +26,14 @@ Route::get('/login',function(){
 Route::get('/admin/dashboard',function(){
     return view('Backend.Pages.Dashboard');
 });
+
+Route::get('/admin/beneficiary',function(){
+    return view('Backend.Pages.Beneficiary.index');
+});
+
+/* Division Route*/
+Route::get('/admin/division/list',[DivisionController::class,'index'])->name('admin.division.list');
+
+
+/* Zila Route*/
+Route::get('/admin/zila/list',[zilaController::class,'index'])->name('admin.zila.list');

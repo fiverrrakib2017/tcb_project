@@ -1,7 +1,7 @@
 <div class="leftpanel">
     <div class="media profile-left">
         <a class="pull-left profile-thumb" href="profile.html">
-            <img class="img-circle" src="{{asset('asset/backend/images/photos/profile.png')}}" height="50" alt="">
+            <img class="img-circle" src="{{asset('asset/backend/images/photos/profile.png')}}" height="50" alt="Profile Image">
         </a>
         <div class="media-body">
             {{-- <h4 class="media-heading">{{ \Auth::user()->name }}</h4> --}}
@@ -13,11 +13,18 @@
 
     <ul class="custom-menu">
         <li><a href=""><i class="fa fa-home"></i> <span>ড্যাশবোর্ড</span></a></li>
-        <!--<li><a href="{{url('admin/add-vgd-beneficiary')}}"> <i class="fa fa-plus"></i> টিসিবি উপকারভোগী যুক্ত করুন</a></li>-->
+        <li><a href="{{route('admin.division.list')}}" class="active-button"><i class="fa fa-list"></i> <span>বিভাগ তালিকা</span></a></li>
+        <li><a href="{{route('admin.zila.list')}}"><i class="fa fa-list"></i> <span>জেলা তালিকা</span></a></li>
+        <li><a href=""><i class="fa fa-list"></i> <span>উপজেলা তালিকা</span></a></li>
+        <li><a href=""><i class="fa fa-list"></i> <span>ইউনিয়ন তালিকা</span></a></li>
+
+        <li><a href=""> <i class="fa fa-plus"></i> টিসিবি উপকারভোগী যুক্ত করুন</a></li>
         <li><a href=""> <i class="fa fa-upload"></i> উপকারভোগী আপলোড</a></li>
-        <li><a href=""><i class="fa fa-pencil"></i> গুদামে পণ্য মজুদ করুন</a></li>
         <li><a href=""> <i class="fa fa-share-square-o"></i> উপকারভোগী পণ্য প্রদান করুন</a></li>
         <li><a href=""> <i class="fa fa-list"></i> উপকারভোগী তালিকা</a></li>
+
+
+        <li><a href=""><i class="fa fa-pencil"></i> গুদামে পণ্য মজুদ করুন</a></li>
         <li><a href=""> <i class="fa fa-users"></i> ইউজার তালিকা</a></li>
         <li><a href=""> <i class="fa fa-folder-open"></i> প্রতিবেদন দেখুন</a></li>
        <li><a href=""> <i class="fa fa-envelope"></i> ফ্যামিলি কার্ড অপশন</a></li>
