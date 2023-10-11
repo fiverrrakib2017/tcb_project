@@ -25,7 +25,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">উপজেলার নাম</label>
-                                        <input type="text" name="name"  class="form-control" placeholder="জেলার নাম লিখুন" />
+                                        <input type="text" name="name"  class="form-control" placeholder="উপজেলার নাম লিখুন" />
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
                         </div>
@@ -39,7 +39,7 @@
         </div><!-- panel -->
 
         <div class="contentpanel">
-            <h2 class="control-label text-center text-danger"> সকল জেলার তালিকা </h2>
+            <h2 class="control-label text-center text-danger"> সকল উপজেলার তালিকা </h2>
             <h3></h3>
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
