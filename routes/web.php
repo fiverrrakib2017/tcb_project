@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\BeneficiriesController;
 use App\Http\Controllers\Backend\DivisionController;
 use App\Http\Controllers\Backend\UnionController;
 use App\Http\Controllers\Backend\UpzilaController;
@@ -51,10 +52,18 @@ Route::post('/admin/upzila/add',[UpzilaController::class,'store'])->name('admin.
 Route::get('/admin/upzila/delete/{id}',[UpzilaController::class,'delete'])->name('admin.upzila.delete');
 Route::get('/admin/upzila/edit/{id}',[UpzilaController::class,'edit'])->name('admin.upzila.edit');
 Route::post('/admin/upzila/update/',[UpzilaController::class,'update'])->name('admin.upzila.update');
-/* Union Route*/
 
+
+/* Union Route*/
 Route::get('/admin/union/list',[UnionController::class,'index'])->name('admin.union.list');
 Route::post('/admin/union/add',[UnionController::class,'store'])->name('admin.union.store');
 Route::get('/admin/union/delete/{id}',[UnionController::class,'delete'])->name('admin.union.delete');
 Route::get('/admin/union/edit/{id}',[UnionController::class,'edit'])->name('admin.union.edit');
 Route::post('/admin/union/update/',[UnionController::class,'update'])->name('admin.union.update');
+
+
+/* Beneficiries Route*/
+Route::get('/admin/beneficiries/list',[BeneficiriesController::class,'index'])->name('admin.beneficiries.list');
+Route::get('/admin/beneficiries/add',[BeneficiriesController::class,'add'])->name('admin.beneficiries.add');
+Route::post('/admin/beneficiries/store',[BeneficiriesController::class,'store'])->name('admin.beneficiries.store');
+

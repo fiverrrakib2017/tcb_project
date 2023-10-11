@@ -18,10 +18,10 @@
         <li><a href="{{route('admin.upzila.list')}}"><i class="fa fa-list"></i> <span>উপজেলা তালিকা</span></a></li>
         <li><a href="{{route('admin.union.list')}}"><i class="fa fa-list"></i> <span>ইউনিয়ন তালিকা</span></a></li>
 
-        <li><a href=""> <i class="fa fa-plus"></i> টিসিবি উপকারভোগী যুক্ত করুন</a></li>
+        <li><a href="{{route('admin.beneficiries.add')}}"> <i class="fa fa-plus"></i> টিসিবি উপকারভোগী যুক্ত করুন</a></li>
         <li><a href=""> <i class="fa fa-upload"></i> উপকারভোগী আপলোড</a></li>
         <li><a href=""> <i class="fa fa-share-square-o"></i> উপকারভোগী পণ্য প্রদান করুন</a></li>
-        <li><a href=""> <i class="fa fa-list"></i> উপকারভোগী তালিকা</a></li>
+        <li><a href="{{route('admin.beneficiries.list')}}"> <i class="fa fa-list"></i> উপকারভোগী তালিকা</a></li>
 
 
         <li><a href=""><i class="fa fa-pencil"></i> গুদামে পণ্য মজুদ করুন</a></li>

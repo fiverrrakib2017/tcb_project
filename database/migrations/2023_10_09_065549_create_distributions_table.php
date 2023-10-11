@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('zila_id');
             $table->unsignedBigInteger('upozila_id');
             $table->unsignedBigInteger('union_id');
-            $table->unsignedBigInteger('ward_id');
+            $table->integer('ward_id');
             $table->timestamps();
 
             $table->foreign('beneficiary_id')
@@ -48,10 +48,7 @@ return new class extends Migration
                 ->on('unions')
                 ->onDelete('cascade');
 
-            $table->foreign('ward_id')
-            ->references('id')
-                ->on('wards')
-                ->onDelete('cascade');
+
 
 
         });

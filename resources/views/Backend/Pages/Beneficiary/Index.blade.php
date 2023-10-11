@@ -1,197 +1,99 @@
 @extends('Backend.Layout.App')
-@section('title','টিসিবি উপকারভোগী যুক্ত করুন')
+@section('title','সকল উপকারভোগীর  তালিকা')
 @section('content')
-
     <div class="mainpanel">
+        <div class="pageheader">
+            <div class="media">
+                <div class="pageicon pull-left">
+                     <i class="fa fa-th-list"></i>
+                </div>
+                <div class="media-body">
+                    <h4>সকল উপকারভোগীর  তালিকা</h4>
+
+                </div>
+            </div><!-- media -->
+        </div><!-- pageheader -->
         <div class="contentpanel">
+                <div class="panel panel-default">
 
-            {{-- @if(session()->has('alert-error'))
-                <p class="alert alert-error">{{ session()->get('alert-error') }}</p>
-            @endif
-            @if(session()->has('alert-success'))
-                <p class="alert alert-success">{{ session()->get('alert-success') }}</p>
-            @endif --}}
+                    <div class="panel-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> নতুন উপকারভোগী তৈরি করুন
+                        </button>
+                    </div><!-- panel-footer -->
+                </div><!-- panel -->
+        </div><!-- panel -->
 
+        <div class="contentpanel">
+            <h2 class="control-label text-center text-danger"> সকল উপকারভোগী তালিকা </h2>
+            <h3></h3>
+            <table id="basicTable" class="table table-striped  table-hover">
+                <thead>
+                <tr>
+                    <th>ক্রমিক নং</th>
+                    <th>উপজেলার নাম</th>
+                    <th>সংযোজন তারিখ</th>
+                    <th></th>
+                </tr>
+                </thead>
 
-
-            {{-- @include('backend.include.flash') --}}
-            <form method="post" action="" enctype="multipart/form-data">
-                {{-- @csrf
-                @method('post') --}}
-
-
-                <form method="post" action="" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">কার্ড নং</label>
-
-                                <input type="text" name="card_no" value="" class="form-control"/>
-                                {{-- @if($errors->has('card_no'))
-                                    <div class="error">{{ $errors->first('card_no') }}</div>
-                                @endif --}}
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">ভোটার আইডি নং</label>
-
-                                <input type="text" value="" name="nid" class="form-control"/>
-                                {{-- @if($errors->has('nid'))
-                                    <div class="error">{{ $errors->first('nid') }}</div>
-                                @endif --}}
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">উপকারভোগী নাম</label>
-
-                                <input type="text" name="name" value="" class="form-control"/>
-                                {{-- @if($errors->has('name'))
-                                    <div class="error">{{ $errors->first('name') }}</div>
-                                @endif --}}
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">উপকারভোগী পিতা/স্বামীর নাম</label>
-
-                                <input type="text" name="fh_name" value="" class="form-control"/>
-                                {{-- @if($errors->has('fh_name'))
-                                    <div class="error">{{ $errors->first('fh_name') }}</div>
-                                @endif --}}
+                <tbody>
+                    @php
+                        $key=0;
+                    @endphp
+                @foreach($data as $item)
+                    {{-- <tr>
+                        <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
+                        <td>{{ $item->name }}</td>
+                        <td><span
+                                style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}</span>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.upzila.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
 
 
-                            </div>
-                        </div>
+                            <a type="button" onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{ route('admin.upzila.delete', $item->id) }}"><i class="icon ion-compose tx-28"></i>Delete</a>
 
-                        {{-- <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">মাতার নাম</label>
-
-                                <input type="text" value="{{ old('mother_name') }}" name="mother_name"
-                                       class="form-control"/>
-                                @if($errors->has('mother_name'))
-                                    <div class="error">{{ $errors->first('mother_name') }}</div>
-                                @endif
-
-                            </div>
-                        </div> --}}
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">ইউনিয়ন</label>
-
-                                <select name="union_id" class="form-control">
-                                    <option value="">---নির্বাচন করুন---</option>
-                                    {{-- @foreach($unions as $union)
-                                        <option
-                                            @if(!empty(old('union_id')) && $union->id == old('union_id')) selected
-                                            @endif value="{{ $union->id }}">{{ $union->union_name }}</option>
-                                    @endforeach --}}
+                        </td>
+                    </tr> --}}
 
 
-                                </select>
-                                {{-- @if($errors->has('union_id'))
-                                    <div class="error">{{ $errors->first('union_id') }}</div>
-                                @endif --}}
-                            </div>
-                        </div>
 
+                @endforeach
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">গ্রাম</label>
+                </tbody>
+            </table>
+        </div><!-- panel -->
+    </div><!-- mainwrapper -->
+@endsection
 
-                                <input type="text" name="village" value="" class="form-control"/>
-                                {{-- @if($errors->has('village'))
-                                    <div class="error">{{ $errors->first('village') }}</div>
-                                @endif --}}
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">ওয়ার্ড নং</label>
-                                <select name="ward" class="form-control">
-                                    <option value="">---নির্বাচন করুন---</option>
-                                    {{-- @for($i=1; $i<=9; $i++)
-                                        <option
-                                            @if(!empty(old('ward')) && old('ward') == $i) selected
-                                            @endif  value="{{ $i }}">{{ $i }}
-                                        </option>
-                                    @endfor --}}
-                                </select>
-                                {{-- @if($errors->has('ward'))
-                                    <div class="error">{{ $errors->first('ward') }}</div>
-                                @endif --}}
-
-
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">মোবাইল</label>
-
-                                <input type="text" name="mobile" id="mobile" class="form-control"/>
-                                {{-- @if($errors->has('mobile'))
-                                    <div class="error">{{ $errors->first('mobile') }}</div>
-                                @endif --}}
-
-                            </div>
-                        </div>
-
-                        {{-- <div class="col-md-3">
-                            <div class="form-group">
-
-                                <label class="control-label">ছবি (সর্বচ্চ ৫০ কে.বি)</label>
-                                <input type="file" name="photo" class="form-control"/>
-                                @if($errors->has('photo'))
-                                    <div class="error">{{ $errors->first('photo') }}</div>
-                                @endif
-                                <label class="control-label">ছবি (সর্বচ্চ ৫০ কে.বি)</label><br>
-
-
-                            </div><!-- form-group -->
-                        </div> --}}
-
-                    </div>
-                    <button type="submit" class="btn btn-primary">সংরক্ষন</button>
-
-                </form><!-- panel-wizard -->
-
-        </div><!-- contentpanel -->
-    </div><!-- mainpanel -->
-
-
-    <!-- Input Image Show javascript -->
-
-    <script type="text/javascript">
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#image')
-                        .attr('src', e.target.result)
-                        .width(100)
-                        .height(80);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $(document).ready(function(){
-          // $('#mobile').html();
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $('#basicTable').dataTable();
         });
     </script>
-    <!-- Input Image Show javascript -->
+
+    @if(session('success'))
+    <script>
+        toastr.success('{{ session('success') }}');
+    </script>
+    @elseif(session('error'))
+    <script>
+        toastr.error('{{ session('error') }}');
+    </script>
+    @endif
+
+
+
+    @if(session('errors'))
+        <script>
+            var errors = @json(session('errors'));
+            errors.forEach(function(error) {
+                toastr.error(error);
+            });
+        </script>
+    @endif
+
 
 @endsection
+
