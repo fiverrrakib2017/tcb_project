@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\DivisionController;
+use App\Http\Controllers\Backend\UpzilaController;
 use App\Http\Controllers\Backend\zilaController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,3 +42,11 @@ Route::post('/admin/zila/add',[zilaController::class,'store'])->name('admin.zila
 Route::get('/admin/zila/delete/{id}',[zilaController::class,'delete'])->name('admin.zila.delete');
 Route::get('/admin/zila/edit/{id}',[zilaController::class,'edit'])->name('admin.zila.edit');
 Route::post('/admin/zila/update/',[zilaController::class,'update'])->name('admin.zila.update');
+
+/* Upzila Route*/
+
+Route::get('/admin/upzila/list',[UpzilaController::class,'index'])->name('admin.upzila.list');
+Route::post('/admin/upzila/add',[UpzilaController::class,'store'])->name('admin.upzila.store');
+Route::get('/admin/upzila/delete/{id}',[UpzilaController::class,'delete'])->name('admin.upzila.delete');
+Route::get('/admin/upzila/edit/{id}',[UpzilaController::class,'edit'])->name('admin.upzila.edit');
+Route::post('/admin/upzila/update/',[UpzilaController::class,'update'])->name('admin.upzila.update');
