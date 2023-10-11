@@ -1,5 +1,5 @@
 @extends('Backend.Layout.App')
-@section('title','সকল জিলা তালিকা')
+@section('title','সকল জেলা তালিকা')
 @section('content')
     <div class="mainpanel">
         <div class="pageheader">
@@ -9,13 +9,13 @@
                 </div>
                 <div class="media-body">
 
-                    <h4>বিভাগ জিলা করুন</h4>
+                    <h4>জেলা যুক্ত করুন</h4>
                 </div>
             </div><!-- media -->
         </div><!-- pageheader -->
         <div class="contentpanel">
 
-            <form action="{{url('admin/add/stock')}}" method="post">
+            <form action="{{route('admin.zila.store')}}" method="post">
                 @csrf
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -24,50 +24,10 @@
 
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                    <label class="control-label">ইউনিয়ন</label>
-                                    <select data-placeholder="Choose One" name="union_id" class="form-control" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        {{-- @foreach($unions as $key=> $union)
-                                            <option value="{{ $union->id }}">{{ $union->union_name }}</option>
-                                        @endforeach --}}
-
-                                    </select>
+                                    <label class="control-label">জেলার নাম</label>
+                                        <input type="text" name="name"  class="form-control" placeholder="জেলার নাম লিখুন" />
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="control-label">মাস</label>
-
-                                    <select data-placeholder="Choose One" name="month" class="form-control" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        {{-- @foreach($months as $key=> $month)
-                                            <option value="{{ $key }}">{{ $month }}</option>
-                                        @endforeach --}}
-                                    </select>
-                                </div><!-- form-group -->
-                            </div><!-- col-sm-6 -->
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="control-label">অর্থ বছর</label>
-                                    <select data-placeholder="Choose One" name="year" class="form-control" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        {{-- <option value="2021" @if(date('Y') == 2021) selected @endif >২০২১-২০২২</option>
-                                        <option value="2022">২০২২-২০২৩</option> --}}
-                                    </select>
-                                </div><!-- form-group -->
-                            </div><!-- col-sm-6 -->
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="control-label">পরিমাণ (ইংরেজিতে লিখুন)</label>
-                                    <input type="number" name="amount" class="form-control" required/>
-
-                                </div>
-                            </div>
-
-
                         </div>
                     </div><!-- panel-body -->
                     <div class="panel-footer">
@@ -95,14 +55,46 @@
                     @php
                         $key=0;
                     @endphp
-                @foreach($data as $data)
+                @foreach($data as $item)
                     <tr>
                         <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
                         <td>{{ $item->name }}</td>
                         <td><span
-                                style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($stock->created_at)) }}</span>
+                                style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}</span>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.zila.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
+
+
+                            <a type="button" onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{ route('admin.zila.delete', $item->id) }}"><i class="icon ion-compose tx-28"></i>Delete</a>
+
                         </td>
                     </tr>
+
+
+                    {{-- <div id="deleteModal{{$item->id}}" class="modal fade">
+                        <div class="modal-dialog modal-confirm">
+                            <form action="{{route('admin.zila.delete',$item->id)}}" method="post">
+                                <div class="modal-content">
+                                    <div class="modal-header flex-column">
+                                        <div class="icon-box">
+                                            <i class="fas fa-trash"></i>
+                                        </div>
+                                        <h4 class="modal-title w-100">Are you sure?</h4>
+                                        <h4 class="modal-title w-100 d-none" id="deleteId"></h4>
+                                        <a class="close" data-bs-dismiss="modal" aria-hidden="true"><i class="mdi mdi-close"></i></a>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <a href="" data-id="12" class="btn btn-danger" id="deleteConfirmBtn">Delete</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div> --}}
 
                 @endforeach
 
@@ -115,10 +107,31 @@
 @section('script')
     <script>
         $(document).ready(function () {
-            var table = $('#basicTable').DataTable({
-                pageLength: 25, //hello bos
-            });
+            $('#basicTable').dataTable();
         });
     </script>
+
+    @if(session('success'))
+    <script>
+        toastr.success('{{ session('success') }}');
+    </script>
+    @elseif(session('error'))
+    <script>
+        toastr.error('{{ session('error') }}');
+    </script>
+    @endif
+
+
+
+    @if(session('errors'))
+        <script>
+            var errors = @json(session('errors'));
+            errors.forEach(function(error) {
+                toastr.error(error);
+            });
+        </script>
+    @endif
+
+
 @endsection
 
