@@ -13,8 +13,20 @@ return new class extends Migration
     {
         Schema::create('upozilas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('division_id');
+            $table->unsignedBigInteger('zila_id');
             $table->string('name');
             $table->timestamps();
+
+            $table->foreign('division_id')
+            ->references('id')
+            ->on('divisions')
+            ->onDelete('cascade');
+
+            $table->foreign('zila_id')
+            ->references('id')
+            ->on('zilas')
+            ->onDelete('cascade');
         });
     }
 

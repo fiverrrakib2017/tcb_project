@@ -21,12 +21,25 @@
                     <div class="panel-body">
 
                         <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">বিভাগ</label>
 
+                                    <select name="division_id" id="division_id" style="width: 100%;" required>
+                                        <option value="" >---নির্বাচন করুন---</option>
+                                        @foreach($division as $division)
+                                            <option value="{{ $division->id }}" {{ $zila->division_id == $division->id ? 'selected' : '' }}>{{ $division->name }}</option>
+                                        @endforeach
+
+
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">জেলার নাম</label>
-                                        <input type="hidden" name="id"   value="{{$data->id}}" required/>
-                                        <input type="text" name="name"  class="form-control" placeholder="জেলার নাম লিখুন" value="{{$data->name}}" required/>
+                                        <input type="hidden" name="id"   value="{{$zila->id}}" required/>
+                                        <input type="text" name="name"  class="form-control" placeholder="জেলার নাম লিখুন" value="{{$zila->name}}" required/>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
                         </div>
@@ -47,6 +60,7 @@
     <script>
         $(document).ready(function () {
             $('#basicTable').dataTable();
+            $("#division_id").select2();
         });
     </script>
 

@@ -24,8 +24,22 @@
 
                             <div class="col-sm-2">
                                 <div class="form-group">
+                                    <label class="control-label">বিভাগ</label>
+
+                                    <select name="division_id" id="division_id" style="width: 100%;" required>
+                                        <option value="" >---নির্বাচন করুন---</option>
+                                        @foreach($division as $division)
+
+                                        <option value="{{$division->id}}">{{$division->name}}</option>
+
+                                        @endforeach
+                                    </select>
+                                </div><!-- form-group -->
+                            </div><!-- col-sm-6 -->
+                            <div class="col-sm-2">
+                                <div class="form-group">
                                     <label class="control-label">জেলার নাম</label>
-                                        <input type="text" name="name"  class="form-control" placeholder="জেলার নাম লিখুন" />
+                                        <input type="text" name="name"  class="form-control" placeholder="জেলার নাম লিখুন" required/>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
                         </div>
@@ -45,8 +59,8 @@
                 <thead>
                 <tr>
                     <th>ক্রমিক নং</th>
+                    <th>বিভাগের নাম </th>
                     <th>জেলার নাম</th>
-                    <th>সংযোজন তারিখ</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -58,10 +72,10 @@
                 @foreach($data as $item)
                     <tr>
                         <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
+
+                        <td>{{ $item->division->name }}</td>
                         <td>{{ $item->name }}</td>
-                        <td><span
-                                style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}</span>
-                        </td>
+                        
                         <td>
                             <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.zila.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
 
@@ -108,6 +122,7 @@
     <script>
         $(document).ready(function () {
             $('#basicTable').dataTable();
+            $("#division_id").select2();
         });
     </script>
 

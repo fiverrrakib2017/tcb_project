@@ -13,8 +13,25 @@ return new class extends Migration
     {
         Schema::create('unions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('division_id');
+            $table->unsignedBigInteger('zila_id');
+            $table->unsignedBigInteger('upozila_id');
             $table->string('name');
             $table->timestamps();
+            $table->foreign('division_id')
+            ->references('id')
+            ->on('divisions')
+            ->onDelete('cascade');
+
+            $table->foreign('zila_id')
+            ->references('id')
+            ->on('zilas')
+            ->onDelete('cascade');
+
+            $table->foreign('upozila_id')
+            ->references('id')
+            ->on('divisions')
+            ->onDelete('cascade');
         });
     }
 
