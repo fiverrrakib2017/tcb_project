@@ -21,12 +21,37 @@
                     <div class="panel-body">
 
                         <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">বিভাগ</label>
 
+                                    <select name="division_id" id="division_id" style="width: 100%;" required>
+                                        <option value="" >---নির্বাচন করুন---</option>
+                                        @foreach($division as $division)
+                                            <option value="{{ $division->id }}" {{ $upzila->division_id == $division->id ? 'selected' : '' }}>{{ $division->name }}</option>
+                                        @endforeach
+
+
+                                    </select>
+                                </div><!-- form-group -->
+                            </div><!-- col-sm-2 -->
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">জেলা</label>
+
+                                    <select name="zila_id" id="zila_id" style="width: 100%;" required>
+                                        <option value="" >---নির্বাচন করুন---</option>
+                                        @foreach($zila as $zila)
+                                            <option value="{{$zila->id}}" {{$upzila->zila_id==$zila->id ? 'selected':''}}>{{$zila->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div><!-- form-group -->
+                            </div><!-- col-sm-2 -->
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">উপজেলার নাম</label>
-                                        <input type="hidden" name="id"   value="{{$data->id}}" required/>
-                                        <input type="text" name="name"  class="form-control" placeholder="উপজেলার নাম লিখুন" value="{{$data->name}}" required/>
+                                        <input type="hidden" name="id"   value="{{$upzila->id}}" required/>
+                                        <input type="text" name="name"  class="form-control" placeholder="উপজেলার নাম লিখুন" value="{{$upzila->name}}" required/>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
                         </div>
@@ -53,7 +78,10 @@
         toastr.error('{{ session('error') }}');
     </script>
     @endif
-
+    <script>
+        $("#division_id").select2();
+        $("#zila_id").select2();
+    </script>
 
 
 @endsection

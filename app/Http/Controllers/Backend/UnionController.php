@@ -4,16 +4,22 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Union;
+use App\Models\Upozila;
+use App\Models\Division;
+use App\Models\Zila;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class UnionController extends Controller
 {
     public function index(){
-        $data= Union::all();
-        return view('Backend.Pages.Union.index',compact('data'));
+        $union= Union::with('division','zila','upzila',)->get();
+        $division=Division::all();  $zila=Zila::all();   $upzila= Upozila::all();
+
+        return view('Backend.Pages.Union.index',compact('union','division','zila','upzila'));
     }
     public function store(Request $request){
+
 
         $rules = [
             'name' => 'required|unique:unions|max:255',
@@ -26,6 +32,9 @@ class UnionController extends Controller
         }
 
          $object=New Union();
+         $object->division_id=$request->division_id;
+         $object->zila_id=$request->zila_id;
+         $object->upozila_id=$request->upzila_id;
          $object->name=$request->name;
          $object->save();
          return redirect()->back()->with('success','সফল হয়েছে');
@@ -36,8 +45,9 @@ class UnionController extends Controller
         return redirect()->back()->with('success','মুছে ফেলা সম্পূর্ণ  হয়েছে');
     }
     public function edit($id){
-        $data=Union::find($id);
-        return view('Backend.Pages.Union.Update',compact('data'));
+        $union=Union::find($id);
+        $division=Division::all();  $zila=Zila::all();   $upzila= Upozila::all();
+        return view('Backend.Pages.Union.Update',compact('union','division','zila','upzila'));
 
     }
     public function update(Request $request){
@@ -52,6 +62,9 @@ class UnionController extends Controller
         }
 
          $object=Union::find($request->id);
+         $object->division_id=$request->division_id;
+         $object->zila_id=$request->zila_id;
+         $object->upozila_id=$request->upzila_id;
          $object->name=$request->name;
          $object->update();
          return redirect()->route('admin.union.list')->with('success','সফল হয়েছে');

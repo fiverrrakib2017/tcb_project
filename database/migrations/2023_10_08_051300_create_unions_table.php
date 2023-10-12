@@ -30,7 +30,7 @@ return new class extends Migration
 
             $table->foreign('upozila_id')
             ->references('id')
-            ->on('divisions')
+            ->on('upozilas')
             ->onDelete('cascade');
         });
     }

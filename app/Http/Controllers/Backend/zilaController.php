@@ -50,7 +50,7 @@ class zilaController extends Controller
 
     }
     public function update(Request $request){
-        
+
         $rules = [
             'name' => 'required|unique:zilas|max:255',
         ];
@@ -66,5 +66,16 @@ class zilaController extends Controller
          $zila->division_id=$request->division_id;
          $zila->update();
          return redirect()->route('admin.zila.list')->with('success','সফল হয়েছে');
+    }
+
+
+
+
+
+    /*Get Ajax Request and fetch data with response*/
+    public function get_zila($division_id){
+        $zilas = Zila::where('division_id', $division_id)->get();
+
+        return response()->json($zilas);
     }
 }
