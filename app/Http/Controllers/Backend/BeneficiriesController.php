@@ -10,6 +10,8 @@ use App\Models\Upozila;
 use App\Models\Ward;
 use App\Models\Zila;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class BeneficiriesController extends Controller
 {
@@ -19,13 +21,10 @@ class BeneficiriesController extends Controller
     }
     public function add(){
         $division=Division::all();
-        $zila=Zila::all();
-        $upzila=Upozila::all();
-        $union=Union::all();
-        return view('Backend.Pages.Beneficiary.add',compact('division','zila','upzila','union'));
+        return view('Backend.Pages.Beneficiary.add',compact('division'));
     }
     public function store(Request $request){
-        $request->validate([
+        $rules = [
             'card_no' => 'required',
             'nid' => 'required',
             'name' => 'required',
@@ -37,9 +36,28 @@ class BeneficiriesController extends Controller
             'union_id' => 'required',
             'ward_id' => 'required',
             'village' => 'required',
-            'mobile' => 'required',
+            'mobile' => [
+                'regex:/^(01[3-9]{1}\d{8})$/',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/^01[3-9]{1}\d{8}$/", $value)) {
+                        $fail('অসম্পূর্ণ বা ভুল মোবাইল নাম্বার।');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    $exists = Beneficiaries::where('phone_number', $value)->exists();
+                    if ($exists) {
+                        $fail('এই মোবাইল নাম্বারটি ইতিমধ্যে রেজিস্টার করা হয়েছে।');
+                    }
+                },
+            ],
             'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('errors', $validator->errors()->all())->withInput();
+        }
 
         // Handle file upload
         if ($request->hasFile('photo')) {

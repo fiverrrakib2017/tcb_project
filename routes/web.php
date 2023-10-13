@@ -30,9 +30,7 @@ Route::get('/admin/dashboard',function(){
     return view('Backend.Pages.Dashboard');
 });
 
-Route::get('/admin/beneficiary',function(){
-    return view('Backend.Pages.Beneficiary.index');
-});
+
 
 /* Division Route*/
 Route::get('/admin/division/list',[DivisionController::class,'index'])->name('admin.division.list');
@@ -65,7 +63,8 @@ Route::post('/admin/union/add',[UnionController::class,'store'])->name('admin.un
 Route::get('/admin/union/delete/{id}',[UnionController::class,'delete'])->name('admin.union.delete');
 Route::get('/admin/union/edit/{id}',[UnionController::class,'edit'])->name('admin.union.edit');
 Route::post('/admin/union/update/',[UnionController::class,'update'])->name('admin.union.update');
-
+/* Get Union with ajax request */
+Route::get('/get-union/{Id}', [UnionController::class,'get_union']);
 
 /* Beneficiries Route*/
 Route::get('/admin/beneficiries/list',[BeneficiriesController::class,'index'])->name('admin.beneficiries.list');
