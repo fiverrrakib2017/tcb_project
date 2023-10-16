@@ -70,4 +70,7 @@ Route::get('/get-union/{Id}', [UnionController::class,'get_union']);
 Route::get('/admin/beneficiries/list',[BeneficiriesController::class,'index'])->name('admin.beneficiries.list');
 Route::get('/admin/beneficiries/add',[BeneficiriesController::class,'add'])->name('admin.beneficiries.add');
 Route::post('/admin/beneficiries/store',[BeneficiriesController::class,'store'])->name('admin.beneficiries.store');
+Route::get('/admin/beneficiries/edit/{id}',[BeneficiriesController::class,'edit'])->name('admin.beneficiries.edit');
+Route::post('/admin/beneficiries/update',[BeneficiriesController::class,'update'])->name('admin.beneficiries.update');
+Route::get('/admin/beneficiries/delete/{id}',[BeneficiriesController::class,'delete'])->name('admin.beneficiries.delete');
 
