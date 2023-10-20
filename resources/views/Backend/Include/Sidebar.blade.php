@@ -5,8 +5,16 @@
         </a>
         <div class="media-body">
             {{-- <h4 class="media-heading">{{ \Auth::user()->name }}</h4> --}}
-           <h4 class="media-heading">Rakib Mahmud</h4>
-            <small class="text-muted">অ্যাডমিন</small>
+           <h4 class="media-heading">{{Auth::user()->name}}</h4>
+
+           @if (Auth::user()->user_type==1)
+                <small class="text-muted">অ্যাডমিন</small>
+            @elseif(Auth::user()->user_type==2)
+            <small class="text-muted">BDDD</small>
+           @endif
+           
+
+
         </div>
     </div><!-- media -->
 
@@ -25,7 +33,7 @@
 
 
         <li><a href="{{route('admin.stock.list')}}"><i class="fa fa-pencil"></i> গুদামে পণ্য মজুদ করুন</a></li>
-        <li><a href=""> <i class="fa fa-users"></i> ইউজার তালিকা</a></li>
+        <li><a href="{{route('admin.users.list')}}"> <i class="fa fa-users"></i> ইউজার তালিকা</a></li>
         <li><a href=""> <i class="fa fa-folder-open"></i> প্রতিবেদন দেখুন</a></li>
        <li><a href=""> <i class="fa fa-envelope"></i> ফ্যামিলি কার্ড অপশন</a></li>
     </ul>

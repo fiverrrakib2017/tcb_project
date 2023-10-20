@@ -7,6 +7,7 @@
     <meta name="author" content="">
     <title>টিসিবি ভাতা প্রদান লগিন করুন</title>
     <link href="{{asset('asset/backend/css/style.default.css')}}" rel="stylesheet">
+    <link href="{{asset('asset/backend/css/toastr.min.css')}}" rel="stylesheet">
     <style>
         body {
             font-family: SolaimanLipiNormal !important;
@@ -36,12 +37,12 @@
 
                 <div class="input-group mb15">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="email" name="email" class="form-control" placeholder="Username">
+                    <input id="email" name="email" class="form-control" placeholder="Enter Email" value="{{old('email')}}" required>
                     
                 </div><!-- input-group -->
                 <div class="input-group mb15">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="password" type="password" name="password" class="form-control" placeholder="Password">
+                    <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
                    
                 </div><!-- input-group -->
 
@@ -65,8 +66,16 @@
 <script src="{{asset('asset/backend/js/pace.min.js')}}"></script>
 <script src="{{asset('asset/backend/js/retina.min.js')}}"></script>
 <script src="{{asset('asset/backend/js/jquery.cookies.js')}}"></script>
-
+<script src="{{asset('asset/backend/js/toastr.min.js')}}"></script>
 <script src="js/custom.js')}}"></script>
+
+@if ($errors->any())
+    <script>
+        @foreach ($errors->all() as $error)
+            toastr.error('{{ $error }}');
+        @endforeach
+    </script>
+@endif
 
 </body>
 </html>

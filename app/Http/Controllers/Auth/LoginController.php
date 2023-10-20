@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -44,25 +45,26 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {   
-       $input= $request->all();
-   
-        $this->validate($request, [
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        
    
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        if(auth()->attempt(array('email' => $request->email, 'password' => $request->password)))
         {
             if (auth()->user()->user_type == 1) {
                 return redirect()->route('admin.dashboard');
+                exit;
               
             }else{
-                return 'this is user panel';
                // return redirect()->route('home');
             }
         }else{
             return redirect()->route('admin.login')
-                ->with('error','Email-Address And Password Are Wrong.');
+            ->with('error','Email-Address And Password Are Wrong.')
+            ->withErrors(['email' => 'আপনার তথ্য আমাদের কাছে নেই ! ']); 
+                
         }
           
     }
