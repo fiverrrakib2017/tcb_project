@@ -173,7 +173,7 @@
                             <input type="file" name="photo" id="photo" class="form-control"
                                 onchange="previewImage(event)" />
                                 @if ($item->photo)
-                                <img src="{{ asset('images/' . $item->photo) }}" alt="Photo">
+                                <img height="50px" src="{{ asset('images/' . $item->photo) }}" alt="Photo">
                                 @else
 
                                 @endif

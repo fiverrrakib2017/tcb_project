@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\BeneficiriesController;
 use App\Http\Controllers\Backend\DivisionController;
+use App\Http\Controllers\Backend\StockController;
 use App\Http\Controllers\Backend\UnionController;
 use App\Http\Controllers\Backend\UpzilaController;
 use App\Http\Controllers\Backend\zilaController;
@@ -74,3 +75,6 @@ Route::get('/admin/beneficiries/edit/{id}',[BeneficiriesController::class,'edit'
 Route::post('/admin/beneficiries/update',[BeneficiriesController::class,'update'])->name('admin.beneficiries.update');
 Route::get('/admin/beneficiries/delete/{id}',[BeneficiriesController::class,'delete'])->name('admin.beneficiries.delete');
 
+/* Stock Route*/
+Route::get('/admin/stock/list',[StockController::class,'index'])->name('admin.stock.list');
+Route::post('/admin/stock/store',[StockController::class,'store'])->name('admin.stock.store');

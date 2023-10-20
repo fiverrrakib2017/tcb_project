@@ -68,7 +68,7 @@
                             <img class="img-circle" height="50px"  src="{{ asset('images/' . $item->photo) }}" alt="Photo">
 
                             @else
-                                <img src="{{ asset('images/no_image.png') }}" alt="Default Photo">
+                                <img src="{{ asset('images/no_image.png') }}" height="50px" alt="Default Photo">
                             @endif
                         </td>
                         <td>{{ $item->card_no }}</td>

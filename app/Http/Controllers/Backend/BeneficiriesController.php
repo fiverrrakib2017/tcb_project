@@ -142,8 +142,8 @@ class BeneficiriesController extends Controller
         // Check if a new photo is uploaded
         if ($request->hasFile('photo')) {
             // Get the path of the old image
-           echo  $oldImagePath = public_path('images/' . $request->photo);
-            exit;
+             $oldImagePath = public_path('images/' . $request->photo);
+            
             // Check if the old image exists before trying to delete it
             if(file_exists($oldImagePath)) {
                 unlink($oldImagePath); // Delete the old image
@@ -156,7 +156,7 @@ class BeneficiriesController extends Controller
         } else {
             $imageName = $request->photo; // Use the existing photo name
         }
-        exit;
+        
 
         // Create a new Beneficiary instance and assign values
         $beneficiary = Beneficiaries::find($request->id);
@@ -176,7 +176,7 @@ class BeneficiriesController extends Controller
         $beneficiary->status = '0';
 
         // Save the beneficiary to the database
-        $beneficiary->save();
+        $beneficiary->update();
 
         return redirect()->back()->with('success','উপকারভোগী তথ্য পরিবর্তন হয়েছে');
     }

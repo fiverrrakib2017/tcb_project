@@ -24,7 +24,7 @@
         <li><a href="{{route('admin.beneficiries.list')}}"> <i class="fa fa-list"></i> উপকারভোগী তালিকা</a></li>
 
 
-        <li><a href=""><i class="fa fa-pencil"></i> গুদামে পণ্য মজুদ করুন</a></li>
+        <li><a href="{{route('admin.stock.list')}}"><i class="fa fa-pencil"></i> গুদামে পণ্য মজুদ করুন</a></li>
         <li><a href=""> <i class="fa fa-users"></i> ইউজার তালিকা</a></li>
         <li><a href=""> <i class="fa fa-folder-open"></i> প্রতিবেদন দেখুন</a></li>
        <li><a href=""> <i class="fa fa-envelope"></i> ফ্যামিলি কার্ড অপশন</a></li>
