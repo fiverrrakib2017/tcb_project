@@ -31,26 +31,18 @@
 
             <div class="mb30"></div>
 
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('login') }}">
                 @csrf
 
                 <div class="input-group mb15">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                     <input id="email" name="email" class="form-control" placeholder="Username">
-                    @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                    
                 </div><!-- input-group -->
                 <div class="input-group mb15">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                     <input id="password" type="password" name="password" class="form-control" placeholder="Password">
-                    @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                   
                 </div><!-- input-group -->
 
 

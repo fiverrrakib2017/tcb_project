@@ -50,17 +50,17 @@
                 <div class="btn-group btn-group-option">
                     <button type="button">
                         <i class="glyphicon glyphicon-log-out"></i>
-                        <a href="">লগআউট</a>
+                        <a href="{{route('admin.logout')}}">লগআউট</a>
                     </button>
-                   <!--  <ul class="dropdown-menu pull-right" role="menu">
+                     {{-- <ul class="dropdown-menu pull-right" role="menu">
                         <li><a href="#"><i class="glyphicon glyphicon-list"></i> সাইট প্রোফাইল</a>
                         </li>
                         <li><a href="#"><i class="glyphicon glyphicon-star"></i> অ্যাক্টিভ লগ</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> সহযোগীতা</a></li>
                         <li class="divider"></li>
                         <li><a href="#"><i class="glyphicon glyphicon-cog"></i> ইউজার সেটিংস</a></li>
-                        <li><a href="{{ url('do-logout') }}"><i class="glyphicon glyphicon-log-out"></i>লগআউট</a></li>
-                    </ul> -->
+                        <li><a href="{{ route('admin.logout') }}"><i class="glyphicon glyphicon-log-out"></i>লগআউট</a></li>
+                    </ul>  --}}
                 </div><!-- btn-group -->
 
             </div><!-- pull-right -->
