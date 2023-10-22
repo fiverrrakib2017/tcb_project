@@ -152,6 +152,7 @@
                     <th>উপজেলার নাম</th>
                     <th>ইউনিয়নের নাম</th>
                     <th>মাস</th>
+                    <th>অর্থ বছর</th>
                     <th>পরিমান</th> 
                     <th>সংযোজন তারিখ</th>
                     <th></th>
@@ -159,9 +160,34 @@
                 </thead>
 
                 <tbody>
+                    @php
+                        $key=0;
+                    @endphp
 
-                {{-- @foreach($stocks as $key=> $stock)
-                    <tr>
+                @foreach($stocks as $item)
+                <tr>
+                    <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
+                    <td>{{ $item->division->name }}</td>
+                    <td>{{ $item->zila->name }}</td>
+                    <td>{{ $item->upzila->name }}</td>
+                    <td>{{ $item->union->name }}</td>
+                    <td>{{ $item->month }}</td>
+                    <td>{{ $item->year }}</td>
+                    <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ $item->amount }}</span></td>
+                    <td>
+                        <span
+                        style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}
+                    </span>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.union.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
+
+
+                        <a type="button" onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{ route('admin.union.delete', $item->id) }}"><i class="icon ion-compose tx-28"></i>Delete</a>
+
+                    </td>
+                </tr>
+                    {{-- <tr>
                         <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
                         <td>{{ $stock->union->union_name }}</td>
                         <td>{{ \App\Providers\HelperProvider::getBengaliName($stock->month) }}</td>
@@ -169,9 +195,9 @@
                         <td><span
                                 style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($stock->created_at)) }}</span>
                         </td>
-                    </tr>
+                    </tr> --}}
 
-                @endforeach --}}
+                @endforeach
 
                 </tbody>
             </table>
@@ -279,5 +305,28 @@
             }
         }
     </script>
+
+
+
+@if(session('success'))
+<script>
+    toastr.success('{{ session('success') }}');
+</script>
+@elseif(session('error'))
+<script>
+    toastr.error('{{ session('error') }}');
+</script>
+@endif
+
+@if(session('errors'))
+<script>
+    var errors = @json(session('errors'));
+    errors.forEach(function(error) {
+        toastr.error(error);
+    });
+</script>
+@endif
+
+
 @endsection
 

@@ -13,16 +13,20 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
+            $table->integer('division_id');
+            $table->integer('zila_id');
+            $table->integer('upzila_id');
+            $table->integer('union_id');
+            $table->integer('dealer_id');
             $table->string('month');
             $table->string('year');
             $table->integer('amount');
-            $table->unsignedBigInteger('user_id');
             $table->integer('status');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')
-            ->on('users')
-            ->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')
+            // ->on('users')
+            // ->onDelete('cascade'); 
         });
     }
 

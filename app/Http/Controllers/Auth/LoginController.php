@@ -45,6 +45,7 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {   
+       //return $request->all();exit;
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
