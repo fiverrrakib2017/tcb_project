@@ -142,18 +142,23 @@
 
                 <tbody>
 
-                {{-- @foreach($stocks as $key=> $stock)
+                @foreach($users as $key=> $item)
                     <tr>
                         <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
-                        <td>{{ $stock->union->union_name }}</td>
-                        <td>{{ \App\Providers\HelperProvider::getBengaliName($stock->month) }}</td>
-                        <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ $stock->amount }}</span></td>
-                        <td><span
-                                style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($stock->created_at)) }}</span>
+                        <td>{{ $item->email }}</td>
+                        <td>{{$item->phone_number}}</td>
+                        <td>{{$item->status}}</td>
+                        <td>
+                        @if ($item->user_type==1)
+                            admin
+                        @endif    
+                        
+                        
                         </td>
+                        
                     </tr>
 
-                @endforeach --}}
+                @endforeach
 
                 </tbody>
             </table>
