@@ -14,4 +14,10 @@ class userController extends Controller
         $users=User::all();
         return view('Backend.Pages.User.index',compact('division','users'));
     }
+    public function delete($id){
+        $data = User::find($id);
+        $data->delete();
+        return redirect()->back()->with('success','মুছে ফেলা সম্পূর্ণ  হয়েছে');
+    }
+    
 }

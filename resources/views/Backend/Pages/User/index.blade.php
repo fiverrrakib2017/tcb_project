@@ -147,14 +147,19 @@
                         <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
                         <td>{{ $item->email }}</td>
                         <td>{{$item->phone_number}}</td>
-                        <td>{{$item->status}}</td>
+                        <td>Active</td>
                         <td>
                         @if ($item->user_type==1)
                             admin
-                        @endif    
-                        
-                        
+                        @endif 
                         </td>
+                        <td>
+                        <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.user.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
+
+
+                        <a type="button" onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{ route('admin.user.delete', $item->id) }}"><i class="icon ion-compose tx-28"></i>Delete</a>
+
+                    </td>
                         
                     </tr>
 

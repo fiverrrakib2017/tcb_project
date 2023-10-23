@@ -85,6 +85,8 @@ Route::post('/admin/stock/store',[StockController::class,'store'])->name('admin.
 
 /* Users Route*/
 Route::get('/admin/users/list',[userController::class,'index'])->name('admin.users.list')->middleware('is_admin');
+Route::get('/admin/users/edit/{id}',[userController::class,'edit'])->name('admin.user.edit')->middleware('is_admin');
+Route::get('/admin/users/delete/{id}',[userController::class,'delete'])->name('admin.user.delete')->middleware('is_admin');
 
 
 
