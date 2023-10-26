@@ -19,32 +19,27 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('division_id');
-            $table->unsignedBigInteger('zila_id');
-            $table->unsignedBigInteger('upozila_id');
-            $table->unsignedBigInteger('union_id');
-            $table->integer('ward_id');
-            $table->integer('user_type')->comment('1: Admin, 2: User');
+            $table->unsignedInteger('user_type')->comment('1: Admin, 2: Division, 3: Zila, 4: Upzila, 5: Union, 6:Dealer');
             $table->rememberToken();
             $table->timestamps();
 
 
 
-            $table->foreign('division_id')->references('id')
-                ->on('divisions')
-                ->onDelete('cascade');
+            // $table->foreign('division_id')->references('id')
+            //     ->on('divisions')
+            //     ->onDelete('cascade');
 
-            $table->foreign('zila_id')->references('id')
-                ->on('zilas')
-                ->onDelete('cascade');
+            // $table->foreign('zila_id')->references('id')
+            //     ->on('zilas')
+            //     ->onDelete('cascade');
 
-            $table->foreign('upozila_id')->references('id')
-                ->on('upozilas')
-                ->onDelete('cascade');
+            // $table->foreign('upozila_id')->references('id')
+            //     ->on('upozilas')
+            //     ->onDelete('cascade');
 
-            $table->foreign('union_id')->references('id')
-                ->on('unions')
-                ->onDelete('cascade');
+            // $table->foreign('union_id')->references('id')
+            //     ->on('unions')
+            //     ->onDelete('cascade');
 
 
         });

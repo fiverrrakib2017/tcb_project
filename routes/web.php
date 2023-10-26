@@ -82,6 +82,9 @@ Route::get('/admin/beneficiries/delete/{id}',[BeneficiriesController::class,'del
 /* Stock Route*/
 Route::get('/admin/stock/list',[StockController::class,'index'])->name('admin.stock.list')->middleware('is_admin');
 Route::post('/admin/stock/store',[StockController::class,'store'])->name('admin.stock.store')->middleware('is_admin');
+Route::get('/admin/stock/edit/{id}',[StockController::class,'edit'])->name('admin.stock.edit')->middleware('is_admin');
+Route::post('/admin/stock/update',[StockController::class,'update'])->name('admin.stock.update')->middleware('is_admin');
+Route::get('/admin/stock/delete/{id}',[StockController::class,'delete'])->name('admin.stock.delete')->middleware('is_admin');
 
 /* Users Route*/
 Route::get('/admin/users/list',[userController::class,'index'])->name('admin.users.list')->middleware('is_admin');

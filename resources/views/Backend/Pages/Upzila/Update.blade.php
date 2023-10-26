@@ -1,5 +1,5 @@
 @extends('Backend.Layout.App')
-@section('title','উপজেলার পরিবর্তন  পেজ ')
+@section('title', 'উপজেলার পরিবর্তন পেজ ')
 @section('content')
     <div class="mainpanel">
         <div class="pageheader">
@@ -9,13 +9,13 @@
                 </div>
                 <div class="media-body">
 
-                    <h4>উপজেলার পরিবর্তন  করুন</h4>
+                    <h4>উপজেলার পরিবর্তন করুন</h4>
                 </div>
             </div><!-- media -->
         </div><!-- pageheader -->
         <div class="contentpanel">
 
-            <form action="{{route('admin.upzila.update')}}" method="post">
+            <form action="{{ route('admin.upzila.update') }}" method="post">
                 @csrf
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -26,9 +26,11 @@
                                     <label class="control-label">বিভাগ</label>
 
                                     <select name="division_id" id="division_id" style="width: 100%;" required>
-                                        <option value="" >---নির্বাচন করুন---</option>
-                                        @foreach($division as $division)
-                                            <option value="{{ $division->id }}" {{ $upzila->division_id == $division->id ? 'selected' : '' }}>{{ $division->name }}</option>
+                                        <option value="">---নির্বাচন করুন---</option>
+                                        @foreach ($division as $division)
+                                            <option value="{{ $division->id }}"
+                                                {{ $upzila->division_id == $division->id ? 'selected' : '' }}>
+                                                {{ $division->name }}</option>
                                         @endforeach
 
 
@@ -40,9 +42,11 @@
                                     <label class="control-label">জেলা</label>
 
                                     <select name="zila_id" id="zila_id" style="width: 100%;" required>
-                                        <option value="" >---নির্বাচন করুন---</option>
-                                        @foreach($zila as $zila)
-                                            <option value="{{$zila->id}}" {{$upzila->zila_id==$zila->id ? 'selected':''}}>{{$zila->name}}</option>
+                                        <option value="">---নির্বাচন করুন---</option>
+                                        @foreach ($zila as $zila)
+                                            <option value="{{ $zila->id }}"
+                                                {{ $upzila->zila_id == $zila->id ? 'selected' : '' }}>{{ $zila->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div><!-- form-group -->
@@ -50,8 +54,9 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">উপজেলার নাম</label>
-                                        <input type="hidden" name="id"   value="{{$upzila->id}}" required/>
-                                        <input type="text" name="name"  class="form-control" placeholder="উপজেলার নাম লিখুন" value="{{$upzila->name}}" required/>
+                                    <input type="hidden" name="id" value="{{ $upzila->id }}" required />
+                                    <input type="text" name="name" class="form-control"
+                                        placeholder="উপজেলার নাম লিখুন" value="{{ $upzila->name }}" required />
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
                         </div>
@@ -69,14 +74,14 @@
 @endsection
 
 @section('script')
-    @if(session('success'))
-    <script>
-        toastr.success('{{ session('success') }}');
-    </script>
+    @if (session('success'))
+        <script>
+            toastr.success('{{ session('success') }}');
+        </script>
     @elseif(session('error'))
-    <script>
-        toastr.error('{{ session('error') }}');
-    </script>
+        <script>
+            toastr.error('{{ session('error') }}');
+        </script>
     @endif
     <script>
         $("#division_id").select2();
@@ -85,4 +90,3 @@
 
 
 @endsection
-
