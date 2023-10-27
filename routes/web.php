@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Backend\BeneficiriesController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\dealerController;
 use App\Http\Controllers\Backend\DivisionController;
 use App\Http\Controllers\Backend\StockController;
 use App\Http\Controllers\Backend\UnionController;
@@ -91,8 +92,11 @@ Route::get('/admin/users/list',[userController::class,'index'])->name('admin.use
 Route::get('/admin/users/edit/{id}',[userController::class,'edit'])->name('admin.user.edit')->middleware('is_admin');
 Route::get('/admin/users/delete/{id}',[userController::class,'delete'])->name('admin.user.delete')->middleware('is_admin');
 
-
-
+/* Dealer Route*/
+Route::get('/admin/dealer/list',[dealerController::class,'index'])->name('admin.dealer.list')->middleware('is_admin');
+Route::post('/admin/dealer/store',[dealerController::class,'store'])->name('admin.dealer.store')->middleware('is_admin');
+Route::get('/admin/dealer/delete/{id}',[dealerController::class,'delete'])->name('admin.dealer.delete')->middleware('is_admin');
+Route::get('/admin/dealer/edit/{id}',[dealerController::class,'edit'])->name('admin.dealer.edit')->middleware('is_admin');
 
 Auth::routes();
 

@@ -1,5 +1,5 @@
 @extends('Backend.Layout.App')
-@section('title','সকল মাল মজুদ তালিকা')
+@section('title','সকল ডিলার তালিকা')
 @section('content')
     <div class="mainpanel">
         <div class="pageheader">
@@ -9,18 +9,60 @@
                 </div>
                 <div class="media-body">
 
-                    <h4>গুদামে মাল মজুদ করুন</h4>
+                    <h4>ডিলার যুক্ত করুন</h4>
                 </div>
             </div><!-- media -->
         </div><!-- pageheader -->
         <div class="contentpanel">
 
-            <form action="{{route('admin.stock.store')}}" method="post">
+            <form action="{{route('admin.dealer.store')}}" method="post">
                 @csrf
                 <div class="panel panel-default">
                     <div class="panel-body">
 
                         <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"> ডিলার নাম </label>
+                                    <input type="text" name="name" class="form-control" placeholder="ডিলার নাম লিখুন " required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">ব্যাবহারকারীর নাম</label>
+                                    <input type="text" name="username" class="form-control" placeholder="ব্যাবহারকারীর নাম" required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"> মোবাইল নাম্ভার </label>
+                                    <input type="number" name="mobile" class="form-control" placeholder="ডিলার মোবাইল " required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">এনআইডি নাম্ভার </label>
+                                    <input type="text" name="nid_number" class="form-control" placeholder="ডিলার এনআইডি নাম্ভার  লিখুন " required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">কার্ড নাম্ভার শুরু</label>
+                                    <input type="text" name="card_number_start" class="form-control" placeholder="ডিলার কার্ড নাম্ভার" required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">কার্ড নাম্ভার শেষ </label>
+                                    <input type="text" name="card_number_end" class="form-control" placeholder="ডিলার কার্ড নাম্ভার লিখুন " required/>
+
+                                </div>
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
@@ -72,70 +114,13 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">ওয়ার্ড নং</label>
-                                    <select name="ward_id" value="{{old('ward_id')}}" id="ward_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="control-label">মাস</label>
+                            
+                           
 
-                                    <select data-placeholder="Choose One" name="month" id="month" class="form-select" style="width: 100%;" required>
-                                            <option value="january">জানুয়ারি</option>
-                                            <option value="february">ফেব্রুয়ারি</option>
-                                            <option value="march">মার্চ</option>
-                                            <option value="april">এপ্রিল</option>
-                                            <option value="may">মে</option>
-                                            <option value="june">জুন</option>
-                                            <option value="july">জুলাই</option>
-                                            <option value="august">আগস্ট</option>
-                                            <option value="september">সেপ্টেম্বর</option>
-                                            <option value="october">অক্টোবর</option>
-                                            <option value="november">নভেম্বর</option>
-                                            <option value="december">ডিসেম্বর</option>
-                                    </select>
-                                </div><!-- form-group -->
-                            </div><!-- col-sm-6 -->
+                           
+                            
 
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="control-label">অর্থ বছর</label>
-                                    <select data-placeholder="Choose One" name="year" class="form-control" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        <option value="2021" @if(date('Y') == 2021) selected @endif >২০২১-২০২২</option>
-                                        <option value="2022">২০২২-২০২৩</option> 
-                                    </select>
-                                </div><!-- form-group -->
-                            </div><!-- col-sm-6 -->
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="control-label">ডিলার নাম </label>
-                                    <select name="leader_id" value="{{old('leader_id')}}" id="leader_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                    </select>
-                                </div><!-- form-group -->
-                            </div><!-- col-sm-6 -->
-
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="control-label">পরিমাণ (ইংরেজিতে লিখুন)</label>
-                                    <input type="number" name="amount" class="form-control" required/>
-
-                                </div>
-                            </div>
+                            
 
 
                         </div>
@@ -149,19 +134,21 @@
         </div><!-- panel -->
 
         <div class="contentpanel">
-            <h2 class="control-label text-center text-danger">গুদামে মজুদকৃত চাউল তালিকা</h2>
+            <h2 class="control-label text-center text-danger">সকল ডিলার তালিকা</h2>
             <h3></h3>
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
                 <tr>
-                    <th>ক্রমিক নং</th>
+                    <th>ক্রমিক নং</th> 
+                    <th>নাম</th>
+                    <th>মোবাইল নাম্ভার </th>
+                    <th>এনআইডি নাম্ভার </th>
                     <th>বিভাগের নাম</th>
                     <th>জেলার নাম</th>
                     <th>উপজেলার নাম</th>
                     <th>ইউনিয়নের নাম</th>
-                    <th>মাস</th>
-                    <th>অর্থ বছর</th>
-                    <th>পরিমান</th> 
+                   
+                    
                     <th>সংযোজন তারিখ</th>
                     <th></th>
                 </tr>
@@ -172,26 +159,26 @@
                         $key=0;
                     @endphp
 
-                @foreach($stocks as $item)
+                @foreach($dealer as $item)
                 <tr>
                     <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->phone_number }}</td>
+                    <td>{{ $item->nid_no }}</td>
                     <td>{{ $item->division->name }}</td>
                     <td>{{ $item->zila->name }}</td>
                     <td>{{ $item->upzila->name }}</td>
                     <td>{{ $item->union->name }}</td>
-                    <td>{{ $item->month }}</td>
-                    <td>{{ $item->year }}</td>
-                    <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ $item->amount }}</span></td>
                     <td>
                         <span
                         style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}
                     </span>
                     </td>
                     <td>
-                        <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.stock.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.dealer.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
 
 
-                        <a type="button" onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{ route('admin.stock.delete', $item->id) }}"><i class="icon ion-compose tx-28"></i>Delete</a>
+                        <a type="button" onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{ route('admin.dealer.delete', $item->id) }}"><i class="icon ion-compose tx-28"></i>Delete</a>
 
                     </td>
                 </tr>

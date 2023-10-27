@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Dealer;
 use Illuminate\Http\Request;
 use App\Models\Division;
 use App\Models\Stock;
@@ -14,11 +15,13 @@ use Illuminate\Support\Facades\Validator;
 class StockController extends Controller
 {
     public function index(){
+        $dealer=Dealer::all();
+        // $stocks=Stock::all();
         $division=Division::all();
-        $stocks=Stock::all();
-        return view('Backend.Pages.Stock.index',compact('division','stocks'));
+         return view('Backend.Pages.Stock.index',compact('division','dealer'));
     }
     public function store(Request $request){
+        
         $rules=[
             'division_id' => 'required',
             'zila_id' => 'required',
@@ -28,6 +31,7 @@ class StockController extends Controller
             'month' => 'required',
             'year' => 'required',
             'amount' => 'required',
+            'dealer_id' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $rules);

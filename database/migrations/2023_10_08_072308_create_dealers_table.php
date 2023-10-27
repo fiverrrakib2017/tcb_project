@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('dealers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('username');
+            $table->string('phone_number');
+            $table->string('card_no_start')->nullable();
+            $table->string('card_no_end')->nullable();
+            $table->string('nid_no')->nullable();
             $table->unsignedBigInteger('division_id');
             $table->unsignedBigInteger('zila_id');
             $table->unsignedBigInteger('upzila_id');
             $table->unsignedBigInteger('union_id');
-            $table->unsignedBigInteger('dealer_id');
-            $table->string('month');
-            $table->string('year');
-            $table->integer('amount');
-            $table->integer('status');
             $table->timestamps();
 
             $table->foreign('division_id')->references('id')
@@ -39,11 +40,6 @@ return new class extends Migration
             $table->foreign('union_id')->references('id')
                 ->on('unions')
                 ->onDelete('cascade');
-
-            $table->foreign('dealer_id')->references('id')
-                ->on('dealers')
-                ->onDelete('cascade');
-
         });
     }
 
@@ -52,6 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('dealers');
     }
 };

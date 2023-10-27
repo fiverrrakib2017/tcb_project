@@ -1,5 +1,5 @@
 @extends('Backend.Layout.App')
-@section('title','সকল মাল মজুদ তালিকা')
+@section('title', 'মজুদ পণ্য পরিবর্তন পেজ ')
 @section('content')
     <div class="mainpanel">
         <div class="pageheader">
@@ -9,27 +9,32 @@
                 </div>
                 <div class="media-body">
 
-                    <h4>গুদামে মাল মজুদ করুন</h4>
+                    <h4>মজুদ পণ্য পরিবর্তন করুন</h4>
                 </div>
             </div><!-- media -->
         </div><!-- pageheader -->
         <div class="contentpanel">
 
-            <form action="{{route('admin.stock.store')}}" method="post">
+        <form action="{{route('admin.stock.update')}}" method="post">
                 @csrf
                 <div class="panel panel-default">
                     <div class="panel-body">
 
                         <div class="row">
                             <div class="col-md-3">
+
                                 <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
-
+                                        <input type="hidden" value="{{$stocks->id}}">
                                     <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" style="width: 100%;"
                                         required>
                                         <option value="">---নির্বাচন করুন---</option>
+                                        
+
                                         @foreach ($division as $division)
-                                            <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                            <option value="{{ $division->id }}"
+                                                {{ $stocks->division_id == $division->id ? 'selected' : '' }}>
+                                                {{ $division->name }}</option>
                                         @endforeach
                                     </select>
 
@@ -42,7 +47,11 @@
                                     <select onchange="loadUpZilas();" name="zila_id" value="{{old('zila_id')}}" id="zila_id" style="width: 100%;" required>
                                         <option value="">---নির্বাচন করুন---</option>
 
-
+                                        @foreach ($zila as $zila)
+                                            <option value="{{ $zila->id }}"
+                                                {{ $stocks->zila_id == $zila->id ? 'selected' : '' }}>{{ $zila->name }}
+                                            </option>
+                                        @endforeach
 
                                     </select>
 
@@ -54,7 +63,11 @@
 
                                     <select onchange="loadUnion();" name="upzila_id" value="{{old('upzila_id')}}" id="upzila_id" style="width: 100%;" required>
                                         <option value="">---নির্বাচন করুন---</option>
-
+                                        @foreach ($upzila as $upzila)
+                                            <option value="{{ $upzila->id }}"
+                                                {{ $stocks->upzila_id == $upzila->id ? 'selected' : '' }}>{{ $upzila->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
 
                                 </div>
@@ -65,9 +78,12 @@
 
                                     <select name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
                                         <option value="">---নির্বাচন করুন---</option>
-
-
-
+                                        @foreach ($union as $union)
+                                            <option value="{{ $union->id }}"
+                                                {{ $stocks->union_id == $union->id ? 'selected' : '' }}>{{ $union->name }}
+                                            </option>
+                                        @endforeach
+                                       
                                     </select>
 
                                 </div>
@@ -75,9 +91,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">ওয়ার্ড নং</label>
-                                    <select name="ward_id" value="{{old('ward_id')}}" id="ward_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        <option value="1">1</option>
+                                    <select name="ward_id"  id="ward_id" style="width: 100%;" required>
+                                        <option value="{{$stocks->month}}">2</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -94,6 +109,42 @@
                                     <label class="control-label">মাস</label>
 
                                     <select data-placeholder="Choose One" name="month" id="month" class="form-select" style="width: 100%;" required>
+                                            <option value="{{$stocks->month}}">
+                                            @if($stocks->month == 'january')
+                                                জানুয়ারি
+                                            @elseif($stocks->month == 'february')
+                                                ফেব্রুয়ারি
+                                            @elseif($stocks->month == 'march')
+                                                মার্চ
+                                            
+                                            @elseif($stocks->month == 'april')
+                                            এপ্রিল
+                                            
+                                            @elseif($stocks->month == 'may')
+                                            মে
+                                            
+                                            @elseif($stocks->month == 'june')
+                                            জুন
+                                            
+                                            @elseif($stocks->month == 'july')
+                                            জুলাই
+                                            
+                                            @elseif($stocks->month == 'august')
+                                            আগস্ট
+                                            
+                                            @elseif($stocks->month == 'september')
+                                            সেপ্টেম্বর
+                                            
+                                            @elseif($stocks->month == 'october')
+                                            অক্টোবর
+                                            
+                                            @elseif($stocks->month == 'november')
+                                            নভেম্বর
+                                            @elseif($stocks->month == 'december')
+                                            ডিসেম্বর
+                                            
+                                            @endif
+                                            </option>
                                             <option value="january">জানুয়ারি</option>
                                             <option value="february">ফেব্রুয়ারি</option>
                                             <option value="march">মার্চ</option>
@@ -114,17 +165,14 @@
                                 <div class="form-group">
                                     <label class="control-label">অর্থ বছর</label>
                                     <select data-placeholder="Choose One" name="year" class="form-control" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        <option value="2021" @if(date('Y') == 2021) selected @endif >২০২১-২০২২</option>
-                                        <option value="2022">২০২২-২০২৩</option> 
-                                    </select>
-                                </div><!-- form-group -->
-                            </div><!-- col-sm-6 -->
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="control-label">ডিলার নাম </label>
-                                    <select name="leader_id" value="{{old('leader_id')}}" id="leader_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
+                                        <option value="{{$stocks->year}}">
+
+                                            @if ($stocks->year==2022)
+                                            ২০২১-২০২২
+                                            @endif
+
+                                        </option>
+                                        
                                     </select>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
@@ -132,7 +180,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">পরিমাণ (ইংরেজিতে লিখুন)</label>
-                                    <input type="number" name="amount" class="form-control" required/>
+                                    <input type="number" name="amount" class="form-control" value="{{$stocks->amount}}" required/>
 
                                 </div>
                             </div>
@@ -148,60 +196,7 @@
             </form>
         </div><!-- panel -->
 
-        <div class="contentpanel">
-            <h2 class="control-label text-center text-danger">গুদামে মজুদকৃত চাউল তালিকা</h2>
-            <h3></h3>
-            <table id="basicTable" class="table table-striped  table-hover">
-                <thead>
-                <tr>
-                    <th>ক্রমিক নং</th>
-                    <th>বিভাগের নাম</th>
-                    <th>জেলার নাম</th>
-                    <th>উপজেলার নাম</th>
-                    <th>ইউনিয়নের নাম</th>
-                    <th>মাস</th>
-                    <th>অর্থ বছর</th>
-                    <th>পরিমান</th> 
-                    <th>সংযোজন তারিখ</th>
-                    <th></th>
-                </tr>
-                </thead>
 
-                <tbody>
-                    @php
-                        $key=0;
-                    @endphp
-
-                @foreach($stocks as $item)
-                <tr>
-                    <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
-                    <td>{{ $item->division->name }}</td>
-                    <td>{{ $item->zila->name }}</td>
-                    <td>{{ $item->upzila->name }}</td>
-                    <td>{{ $item->union->name }}</td>
-                    <td>{{ $item->month }}</td>
-                    <td>{{ $item->year }}</td>
-                    <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ $item->amount }}</span></td>
-                    <td>
-                        <span
-                        style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}
-                    </span>
-                    </td>
-                    <td>
-                        <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.stock.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
-
-
-                        <a type="button" onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{ route('admin.stock.delete', $item->id) }}"><i class="icon ion-compose tx-28"></i>Delete</a>
-
-                    </td>
-                </tr>
-                 
-
-                @endforeach
-
-                </tbody>
-            </table>
-        </div><!-- panel -->
     </div><!-- mainwrapper -->
 @endsection
 
@@ -329,4 +324,3 @@
 
 
 @endsection
-
