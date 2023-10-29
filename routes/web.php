@@ -97,6 +97,10 @@ Route::get('/admin/dealer/list',[dealerController::class,'index'])->name('admin.
 Route::post('/admin/dealer/store',[dealerController::class,'store'])->name('admin.dealer.store')->middleware('is_admin');
 Route::get('/admin/dealer/delete/{id}',[dealerController::class,'delete'])->name('admin.dealer.delete')->middleware('is_admin');
 Route::get('/admin/dealer/edit/{id}',[dealerController::class,'edit'])->name('admin.dealer.edit')->middleware('is_admin');
+Route::post('/admin/dealer/update',[dealerController::class,'update'])->name('admin.dealer.update')->middleware('is_admin');
+/* Get Dealer data with ajax request */
+Route::get('/get-dealer/{Id}', [dealerController::class,'get_dealer'])->middleware('is_admin');
 
 Auth::routes();
+
 

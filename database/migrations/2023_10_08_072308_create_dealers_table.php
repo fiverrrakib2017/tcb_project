@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('dealers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('username');
             $table->string('phone_number');
             $table->string('card_no_start')->nullable();
             $table->string('card_no_end')->nullable();

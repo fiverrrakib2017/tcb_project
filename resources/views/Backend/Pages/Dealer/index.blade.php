@@ -23,48 +23,6 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label"> ডিলার নাম </label>
-                                    <input type="text" name="name" class="form-control" placeholder="ডিলার নাম লিখুন " required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">ব্যাবহারকারীর নাম</label>
-                                    <input type="text" name="username" class="form-control" placeholder="ব্যাবহারকারীর নাম" required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label"> মোবাইল নাম্ভার </label>
-                                    <input type="number" name="mobile" class="form-control" placeholder="ডিলার মোবাইল " required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">এনআইডি নাম্ভার </label>
-                                    <input type="text" name="nid_number" class="form-control" placeholder="ডিলার এনআইডি নাম্ভার  লিখুন " required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">কার্ড নাম্ভার শুরু</label>
-                                    <input type="text" name="card_number_start" class="form-control" placeholder="ডিলার কার্ড নাম্ভার" required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">কার্ড নাম্ভার শেষ </label>
-                                    <input type="text" name="card_number_end" class="form-control" placeholder="ডিলার কার্ড নাম্ভার লিখুন " required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
 
                                     <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" style="width: 100%;"
@@ -114,6 +72,42 @@
 
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"> ডিলার নাম </label>
+                                    <input type="text" name="name" class="form-control" placeholder="ডিলার নাম লিখুন " required/>
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"> মোবাইল নাম্ভার </label>
+                                    <input type="number" name="mobile" class="form-control" placeholder="ডিলার মোবাইল " required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">এনআইডি নাম্ভার </label>
+                                    <input type="number" name="nid_number" class="form-control" placeholder="ডিলার এনআইডি নাম্ভার  লিখুন " required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">কার্ড নাম্ভার শুরু</label>
+                                    <input type="number" name="card_number_start" class="form-control" placeholder="ডিলার কার্ড নাম্ভার" required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">কার্ড নাম্ভার শেষ </label>
+                                    <input type="number" name="card_number_end" class="form-control" placeholder="ডিলার কার্ড নাম্ভার লিখুন " required/>
+
+                                </div>
+                            </div>
+                            
                             
                            
 
@@ -134,22 +128,62 @@
         </div><!-- panel -->
 
         <div class="contentpanel">
-            <h2 class="control-label text-center text-danger">সকল ডিলার তালিকা</h2>
-            <h3></h3>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">বিভাগ</label>
+
+                        <select name="division_id" onchange="loadZilas();"  id="" style="width: 100%;"
+                            required>
+                            <option value="">---নির্বাচন করুন---</option>
+                           {{ var_dump($division)}}
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">জেলা</label>
+
+                        <select onchange="loadUpZilas();" name="zila_id" value="{{old('zila_id')}}" id="zila_id" style="width: 100%;" required>
+                            <option value="">---নির্বাচন করুন---</option>
+
+
+
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">উপজেলা</label>
+
+                        <select onchange="loadUnion();" name="upzila_id" value="{{old('upzila_id')}}" id="upzila_id" style="width: 100%;" required>
+                            <option value="">---নির্বাচন করুন---</option>
+
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success">Filter Now</button>
+                </div>
+                
+            </div>
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
                 <tr>
                     <th>ক্রমিক নং</th> 
-                    <th>নাম</th>
-                    <th>মোবাইল নাম্ভার </th>
-                    <th>এনআইডি নাম্ভার </th>
                     <th>বিভাগের নাম</th>
                     <th>জেলার নাম</th>
                     <th>উপজেলার নাম</th>
                     <th>ইউনিয়নের নাম</th>
+                    <th>নাম</th>
+                    <th>মোবাইল নাম্ভার </th>
+                    <th>এনআইডি নাম্ভার </th>
+                   
                    
                     
-                    <th>সংযোজন তারিখ</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -162,18 +196,15 @@
                 @foreach($dealer as $item)
                 <tr>
                     <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->phone_number }}</td>
-                    <td>{{ $item->nid_no }}</td>
                     <td>{{ $item->division->name }}</td>
                     <td>{{ $item->zila->name }}</td>
                     <td>{{ $item->upzila->name }}</td>
                     <td>{{ $item->union->name }}</td>
-                    <td>
-                        <span
-                        style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}
-                    </span>
-                    </td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->phone_number }}</td>
+                    <td>{{ $item->nid_no }}</td>
+                   
+                    
                     <td>
                         <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.dealer.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
 

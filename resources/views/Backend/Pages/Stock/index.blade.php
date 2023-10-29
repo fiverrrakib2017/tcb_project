@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <label class="control-label">ইউনিয়ন</label>
 
-                                    <select name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
+                                    <select onchange="loadDealer();" name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
                                         <option value="">---নির্বাচন করুন---</option>
 
 
@@ -72,7 +72,16 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="control-label">ডিলার নাম </label>
+                                    <select name="dealer_id" value="{{old('dealer_id')}}" id="dealer_id" style="width: 100%;" required>
+                                        <option value="">---নির্বাচন করুন---</option>
+                                       
+                                    </select>
+                                </div><!-- form-group -->
+                            </div><!-- col-sm-3 -->
+                            <!-- <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">ওয়ার্ড নং</label>
                                     <select name="ward_id" value="{{old('ward_id')}}" id="ward_id" style="width: 100%;" required>
@@ -88,12 +97,13 @@
                                         <option value="9">9</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-sm-2">
+                            </div> -->
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label class="control-label">মাস</label>
 
                                     <select data-placeholder="Choose One" name="month" id="month" class="form-select" style="width: 100%;" required>
+                                            <option value="">---নির্বাচন করুন---</option>
                                             <option value="january">জানুয়ারি</option>
                                             <option value="february">ফেব্রুয়ারি</option>
                                             <option value="march">মার্চ</option>
@@ -110,7 +120,7 @@
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
 
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label class="control-label">অর্থ বছর</label>
                                     <select data-placeholder="Choose One" name="year" class="form-control" required>
@@ -120,24 +130,17 @@
                                     </select>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label class="control-label">ডিলার নাম </label>
-                                    <select name="leader_id" value="{{old('leader_id')}}" id="leader_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                    </select>
-                                </div><!-- form-group -->
-                            </div><!-- col-sm-6 -->
+                            
 
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label class="control-label">পরিমাণ (ইংরেজিতে লিখুন)</label>
-                                    <input type="number" name="amount" class="form-control" required/>
+                                    <input type="number" name="amount" class="form-control" placeholder="পরিমাণ লিখুন" required/>
 
                                 </div>
                             </div>
 
-
+ 
                         </div>
                     </div><!-- panel-body -->
                     <div class="panel-footer">
@@ -162,7 +165,6 @@
                     <th>মাস</th>
                     <th>অর্থ বছর</th>
                     <th>পরিমান</th> 
-                    <th>সংযোজন তারিখ</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -179,14 +181,36 @@
                     <td>{{ $item->zila->name }}</td>
                     <td>{{ $item->upzila->name }}</td>
                     <td>{{ $item->union->name }}</td>
-                    <td>{{ $item->month }}</td>
+                    <td>
+                    @if($item->month == 'january')
+                        জানুয়ারি
+                    @elseif($item->month == 'february')
+                        ফেব্রুয়ারি
+                    @elseif($item->month == 'march')
+                        মার্চ
+                    @elseif($item->month == 'april')
+                        এপ্রিল
+                    @elseif($item->month == 'may')
+                        মে
+                    @elseif($item->month == 'june')
+                        জুন
+                    @elseif($item->month == 'july')
+                        জুলাই
+                    @elseif($item->month == 'august')
+                        আগস্ট
+                    @elseif($item->month == 'september')
+                        সেপ্টেম্বর
+                    @elseif($item->month == 'october')
+                        অক্টোবর
+                    @elseif($item->month == 'november')
+                        নভেম্বর
+                    @elseif($item->month == 'december')
+                        ডিসেম্বর
+                    @endif
+                    </td>
                     <td>{{ $item->year }}</td>
                     <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ $item->amount }}</span></td>
-                    <td>
-                        <span
-                        style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}
-                    </span>
-                    </td>
+                   
                     <td>
                         <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.stock.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
 
@@ -215,6 +239,7 @@
             $("#union_id").select2();
             $("#ward_id").select2();
             $("#month").select2();
+            $("#dealer_id").select2();
         });
 
 
@@ -299,6 +324,30 @@
                         data.forEach(final_data => {
                             var option = new Option(final_data.name, final_data.id, false, false);
                             unionDropdown.append(option).trigger('change');
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function loadDealer() {
+            selectedUnion = $("#union_id").val();
+            var unionId = selectedUnion;
+
+            var dealerDropdown = $("#dealer_id");
+            dealerDropdown.empty(); // Clear previous options
+
+            if (unionId) {
+                // Send an AJAX request to get the upzilas for the selected zila
+                fetch('/get-dealer/' + unionId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var defaultOption = new Option('------- ডিলার নির্বাচন করুন -------', '');
+                        dealerDropdown.append(defaultOption).trigger('change');
+
+                        data.forEach(final_data => {
+                            var option = new Option(final_data.name, final_data.id, false, false);
+                            dealerDropdown.append(option).trigger('change');
                         });
                     })
                     .catch(error => console.error('Error:', error));
