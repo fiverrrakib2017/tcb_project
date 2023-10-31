@@ -129,46 +129,51 @@
 
         <div class="contentpanel">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label">বিভাগ</label>
-
-                        <select name="division_id" onchange="loadZilas();"  id="" style="width: 100%;"
-                            required>
-                            <option value="">---নির্বাচন করুন---</option>
-                           {{ var_dump($division)}}
-                        </select>
-
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">বিভাগ</label>
+                            <select name="search_division_id" onchange="searchloadZilas();"  id="search_division_id" style="width: 100%;"
+                                        required>
+                                <option value="">---নির্বাচন করুন---</option>
+                                    @foreach ($filter_div as $division)
+                                        <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                    @endforeach
+                            </select> 
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label">জেলা</label>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">জেলা</label>
 
-                        <select onchange="loadUpZilas();" name="zila_id" value="{{old('zila_id')}}" id="zila_id" style="width: 100%;" required>
-                            <option value="">---নির্বাচন করুন---</option>
-
+                            <select onchange="searchloadUpZilas();" name="search_zila_id"  id="search_zila_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
 
 
-                        </select>
 
+                            </select>
+
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label">উপজেলা</label>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">উপজেলা</label>
 
-                        <select onchange="loadUnion();" name="upzila_id" value="{{old('upzila_id')}}" id="upzila_id" style="width: 100%;" required>
-                            <option value="">---নির্বাচন করুন---</option>
+                            <select  name="search_upzila_id"  id="search_upzila_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
 
-                        </select>
+                            </select>
 
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-success">Filter Now</button>
-                </div>
-                
+                    <div class="col-md-3 ">
+                    <div class="form-group">
+                           
+
+                            <button id="fillter_button" type="button" class="btn btn-success " style="margin-top: 24px;">Filter Now</button>
+
+                        </div>
+                       
+                    </div>
             </div>
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
@@ -229,6 +234,9 @@
             $('#basicTable').dataTable();
             $("#zila_id").select2();
             $("#division_id").select2();
+            $("#search_division_id").select2();
+            $("#search_zila_id").select2();
+            $("#search_upzila_id").select2();
             $("#upzila_id").select2();
             $("#union_id").select2();
             $("#ward_id").select2();
@@ -274,7 +282,66 @@
                     .catch(error => console.error('Error:', error));
             }
         }
+        function searchloadZilas() {
+            var selectedZila = null;
+            var divisionId = $("#search_division_id").val();
 
+            var zilaDropdown = $("#search_zila_id");
+            zilaDropdown.empty(); // Clear previous options
+
+            var upzilaDropdown = $("#search_upzila_id");
+            upzilaDropdown.empty(); // Clear upzila options
+
+
+
+            if (divisionId) {
+                fetch('/get-zilas/' + divisionId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var defaultOption = new Option('------- জেলা নির্বাচন করুন -------', '');
+                        zilaDropdown.append(defaultOption).trigger('change');
+
+                        var defaultOption2 = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                        upzilaDropdown.append(defaultOption2).trigger('change');
+
+                        data.forEach(zila => {
+                            var option = new Option(zila.name, zila.id, false, false);
+                            zilaDropdown.append(option).trigger('change');
+                        });
+
+                        // Restore selected zila if it exists in the new zilas list
+                        if (selectedZila && data.some(zila => zila.id === selectedZila)) {
+                            zilaDropdown.val(selectedZila).trigger('change');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+
+     
+        function searchloadUpZilas() {
+            selectedZila = $("#search_zila_id").val();
+            var zilaId = selectedZila;
+
+            var upzilaDropdown = $("#search_upzila_id");
+            upzilaDropdown.empty(); // Clear previous options
+
+            if (zilaId) {
+                // Send an AJAX request to get the upzilas for the selected zila
+                fetch('/get-upzila/' + zilaId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var defaultOption = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                        upzilaDropdown.append(defaultOption).trigger('change');
+
+                        data.forEach(upzila => {
+                            var option = new Option(upzila.name, upzila.id, false, false);
+                            upzilaDropdown.append(option).trigger('change');
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
         function loadUpZilas() {
             selectedZila = $("#zila_id").val();
             var zilaId = selectedZila;
@@ -322,6 +389,63 @@
                     .catch(error => console.error('Error:', error));
             }
         }
+
+        $(document).ready(function() {
+        $('#fillter_button').click(function() {
+                var division_id = $('#search_division_id').val();
+                var zila_id = $('#search_zila_id').val();
+                var upzila_id = $('#search_upzila_id').val();
+
+                $.ajax({
+                    url: '/filter-dealers',
+                    method: 'POST',
+                    data: {
+                        division_id: division_id,
+                        zila_id: zila_id,
+                        upzila_id: upzila_id,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        var response_data = response.data;
+
+                       console.log(response_data);
+                        $('#basicTable tbody').empty();
+
+                        
+                        response_data.forEach(function(dealer) {
+
+                            //create edit link
+                            var editUrl = '{{ route("admin.dealer.edit", ":id") }}';
+                            editUrl = editUrl.replace(':id', dealer.id);
+
+                            //create delete link
+                            var deleteUrl = '{{ route("admin.dealer.delete", ":id") }}';
+                            deleteUrl = deleteUrl.replace(':id', dealer.id);
+
+                            var row = '<tr>' +
+                            '<td>' + dealer.id + '</td>' +
+                            '<td>' + dealer.division.name + '</td>' +
+                            '<td>' + dealer.zila.name + '</td>' +
+                            '<td>' + dealer.upzila.name + '</td>' +
+                            '<td>' + dealer.union.name + '</td>' +
+                            '<td>' + dealer.name + '</td>' +
+                            '<td>' + dealer.phone_number + '</td>' +
+                            '<td>' + dealer.nid_no + '</td>' +
+                            '<td>' +
+                                '<a class="btn btn-primary btn-sm mr-3 fillter_edit_button" href="' + editUrl + '"><i class="fa fa-edit"></i></a>' +
+                                '<a type="button" onclick="return confirm(\'Are you sure\')" class="btn btn-danger btn-sm mr-3" href="'+deleteUrl+'"><i class="icon ion-compose tx-28"></i>Delete</a>'
+                            '</td>' +
+                            '</tr>';
+
+                        $('#basicTable tbody').append(row);
+                        });
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
     </script>
 
 

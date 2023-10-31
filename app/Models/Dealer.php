@@ -10,7 +10,6 @@ class Dealer extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'username',
         'phone_number',
         'card_no_start',
         'card_no_end',

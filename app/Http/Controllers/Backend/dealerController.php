@@ -16,7 +16,8 @@ class dealerController extends Controller
     public function index(){
         $division=Division::all();
         $dealer=Dealer::all();
-        return view('Backend.Pages.Dealer.index',compact('division','dealer'));
+        $filter_div=Division::all();
+        return view('Backend.Pages.Dealer.index',compact('division','dealer','filter_div'));
     }
     public function store(Request $request){
       
@@ -132,5 +133,17 @@ class dealerController extends Controller
        $data = Dealer::where('union_id', $id)->get();
 
         return response()->json($data);
+    }
+    public function filterDealers(Request $request){
+
+     
+        $division_id = $request->input('division_id');
+        $zila_id = $request->input('zila_id');
+        $upzila_id = $request->input('upzila_id');
+
+        $data=Dealer::where(['division_id'=>$division_id,'zila_id'=>$zila_id,'upzila_id'=>$upzila_id,])->with('division','zila','upzila','union')->get();
+        return response()->json([
+            'data'=>$data
+        ]);
     }
 }   

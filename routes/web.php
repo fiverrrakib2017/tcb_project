@@ -100,6 +100,8 @@ Route::get('/admin/dealer/edit/{id}',[dealerController::class,'edit'])->name('ad
 Route::post('/admin/dealer/update',[dealerController::class,'update'])->name('admin.dealer.update')->middleware('is_admin');
 /* Get Dealer data with ajax request */
 Route::get('/get-dealer/{Id}', [dealerController::class,'get_dealer'])->middleware('is_admin');
+Route::post('/filter-dealers', [dealerController::class,'filterDealers']);
+
 
 Auth::routes();
 
