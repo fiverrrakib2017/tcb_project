@@ -14,8 +14,9 @@ class UpzilaController extends Controller
     public function index(){
         $data= Upozila::with('division','zila')->get();
         $division=Division::all();
+        $filter_div=Division::all();
         $zila=Zila::all();
-        return view('Backend.Pages.Upzila.index',compact('data','division','zila'));
+        return view('Backend.Pages.Upzila.index',compact('data','division','zila','filter_div'));
     }
     public function store(Request $request){
 
@@ -74,5 +75,23 @@ class UpzilaController extends Controller
         $data = Upozila::where('zila_id', $id)->get();
 
         return response()->json($data);
+    }
+    public function filter_upzila(Request $request){
+        $division_id = $request->input('division_id');
+        $zila_id = $request->input('zila_id');
+        $query = Upozila::query(); // Initialize query
+    
+        if (!empty($division_id)) {
+            $query->where('division_id', $division_id);
+        }
+        if (!empty($zila_id)) {
+            $query->where('zila_id', $zila_id);
+        }
+    
+        $data = $query->with('division', 'zila')->get();
+    
+        return response()->json([
+            'data' => $data
+        ]);
     }
 }

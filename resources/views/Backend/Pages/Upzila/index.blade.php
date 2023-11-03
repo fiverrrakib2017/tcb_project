@@ -65,7 +65,35 @@
 
         <div class="contentpanel">
             <h2 class="control-label text-center text-danger"> সকল উপজেলার তালিকা </h2>
-            <h3></h3>
+            <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">বিভাগ</label>
+                            <select name="search_division_id" onchange="searchloadZilas();"  id="search_division_id" style="width: 100%;"
+                                        required>
+                                <option value="">---নির্বাচন করুন---</option>
+                                    @foreach ($filter_div as $division)
+                                        <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                    @endforeach
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">জেলা</label>
+
+                            <select  id="search_zila_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+
+
+
+                            </select>
+
+                        </div>
+                    </div>
+                   
+            </div>
+            
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
                 <tr>
@@ -88,7 +116,6 @@
                         <td>{{ $item->division->name }}</td>
                         <td>{{ $item->zila->name }}</td>
 
-                        {{-- উপজেলার নাম --}}
                         <td>{{ $item->name }}</td>
 
                         <td>
@@ -116,6 +143,8 @@
             $('#basicTable').dataTable();
             $("#zila_id").select2();
             $("#division_id").select2();
+            $("#search_division_id").select2();
+            $("#search_zila_id").select2();
         });
     </script>
 
@@ -142,6 +171,35 @@
 
  <script type="text/javascript">
 
+        function searchloadZilas() {
+            var selectedZila = null;
+            var divisionId = $("#search_division_id").val();
+
+            var zilaDropdown = $("#search_zila_id");
+            zilaDropdown.empty(); // Clear previous options
+
+            if (divisionId) {
+                fetch('/get-zilas/' + divisionId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var defaultOption = new Option('------- জেলা নির্বাচন করুন -------', '');
+                        zilaDropdown.append(defaultOption).trigger('change');
+
+                      
+
+                        data.forEach(zila => {
+                            var option = new Option(zila.name, zila.id, false, false);
+                            zilaDropdown.append(option).trigger('change');
+                        });
+
+                        // Restore selected zila if it exists in the new zilas list
+                        if (selectedZila && data.some(zila => zila.id === selectedZila)) {
+                            zilaDropdown.val(selectedZila).trigger('change');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
     function loadZilas() {
         var divisionId = document.getElementById('division_id').value;
 
@@ -163,6 +221,61 @@
                 .catch(error => console.error('Error:', error));
         }
     }
+
+
+
+
+
+
+
+    $(document).ready(function() {
+            $('#search_division_id, #search_zila_id').change(function() {
+                var division_id = $('#search_division_id').val();
+                var zila_id = $('#search_zila_id').val();
+                $.ajax({
+                    url: '/filter-upzila',
+                    method: 'POST',
+                    data: {
+                        division_id: division_id,
+                        zila_id: zila_id,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                       var response_data = response.data;
+
+                        $('#basicTable tbody').empty();
+
+                        
+                        response_data.forEach(function(data) {
+
+                            //create edit link
+                            var editUrl = '{{ route("admin.upzila.edit", ":id") }}';
+                            editUrl = editUrl.replace(':id', data.id);
+
+                            //create delete link
+                            var deleteUrl = '{{ route("admin.upzila.delete", ":id") }}';
+                            deleteUrl = deleteUrl.replace(':id', data.id);
+
+                            var row = '<tr>' +
+                            '<td>' + data.id + '</td>' +
+                            '<td>' + data.division.name + '</td>' +
+                            '<td>' + data.zila.name + '</td>' +
+                            '<td>' + data.name + '</td>' +
+                            '<td>' +
+                                '<a class="btn btn-primary btn-sm mr-3 fillter_edit_button" href="' + editUrl + '" style="margin-right:5px"><i class="fa fa-edit"></i></a>' +
+                                '<a type="button" onclick="return confirm(\'Are you sure\')" class="btn btn-danger btn-sm mr-3" href="'+deleteUrl+'"><i class="icon ion-compose tx-28"></i>Delete</a>'
+                            '</td>' +
+                            '</tr>';
+
+                        $('#basicTable tbody').append(row);
+                        });
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
 
 </script>
 

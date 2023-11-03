@@ -60,7 +60,7 @@ Route::get('/admin/upzila/edit/{id}',[UpzilaController::class,'edit'])->name('ad
 Route::post('/admin/upzila/update/',[UpzilaController::class,'update'])->name('admin.upzila.update')->middleware('is_admin');
 /* Get upZila with ajax request */
 Route::get('/get-upzila/{zilaId}', [UpzilaController::class,'get_upzila'])->middleware('is_admin');
-
+Route::post('/filter-upzila', [UpzilaController::class,'filter_upzila']);
 
 
 /* Union Route*/
