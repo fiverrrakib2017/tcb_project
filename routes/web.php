@@ -50,7 +50,7 @@ Route::get('/admin/zila/edit/{id}',[zilaController::class,'edit'])->name('admin.
 Route::post('/admin/zila/update/',[zilaController::class,'update'])->name('admin.zila.update')->middleware('is_admin');
 /* Get Zila with ajax request */
 Route::get('/get-zilas/{division_id}', [zilaController::class,'get_zila'])->middleware('is_admin');
-
+Route::post('/filter-zila', [zilaController::class,'filterZila']);
 
 /* Upzila Route*/
 Route::get('/admin/upzila/list',[UpzilaController::class,'index'])->name('admin.upzila.list')->middleware('is_admin');

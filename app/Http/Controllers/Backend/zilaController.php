@@ -14,7 +14,8 @@ class zilaController extends Controller
     public function index(){
         $data= Zila::with('division')->get();
         $division=Division::all();
-        return view('Backend.Pages.Zila.index',compact('data','division'));
+        $filter_div=Division::all();
+        return view('Backend.Pages.Zila.index',compact('data','division','filter_div'));
 
 
     }
@@ -77,5 +78,19 @@ class zilaController extends Controller
         $zilas = Zila::where('division_id', $division_id)->get();
 
         return response()->json($zilas);
+    }
+    public function filterZila(Request $request){
+        $division_id = $request->input('division_id');
+        $query = Zila::query(); // Initialize query
+    
+        if (!empty($division_id)) {
+            $query->where('division_id', $division_id);
+        }
+    
+        $data = $query->with('division')->get();
+    
+        return response()->json([
+            'data' => $data
+        ]);
     }
 }

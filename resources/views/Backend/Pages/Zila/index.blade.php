@@ -55,6 +55,21 @@
         <div class="contentpanel">
             <h2 class="control-label text-center text-danger"> সকল জেলার তালিকা </h2>
             <h3></h3>
+            <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <div class="form-group">
+                            <label class="control-label">বিভাগ</label>
+                            <select  id="search_division_id" style="width: 100%;"
+                                        required>
+                                <option value="">---নির্বাচন করুন---</option>
+                                    @foreach ($filter_div as $division)
+                                        <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                    @endforeach
+                            </select> 
+                        </div>
+                    </div>
+            </div>
+            
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
                 <tr>
@@ -119,11 +134,58 @@
 @endsection
 
 @section('script')
-    <script>
-        $(document).ready(function () {
+    <script type="text/javascript">
+        $(document).ready(function() {
             $('#basicTable').dataTable();
             $("#division_id").select2();
+            $("#search_division_id").select2();
+
+            $('#search_division_id').change(function() {
+                var division_id = $('#search_division_id').val();
+                $.ajax({
+                    url: '/filter-zila',
+                    method: 'POST',
+                    data: {
+                        division_id: division_id,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                       var response_data = response.data;
+                       //console.log(response);
+
+                        $('#basicTable tbody').empty();
+
+                        
+                        response_data.forEach(function(data) {
+
+                            //create edit link
+                            var editUrl = '{{ route("admin.zila.edit", ":id") }}';
+                            editUrl = editUrl.replace(':id', data.id);
+
+                            //create delete link
+                            var deleteUrl = '{{ route("admin.zila.delete", ":id") }}';
+                            deleteUrl = deleteUrl.replace(':id', data.id);
+
+                            var row = '<tr>' +
+                            '<td>' + data.id + '</td>' +
+                            '<td>' + data.division.name + '</td>' +
+                            '<td>' + data.name + '</td>' +
+                            '<td>' +
+                                '<a class="btn btn-primary btn-sm mr-3 fillter_edit_button" href="' + editUrl + '" style="margin-right:5px"><i class="fa fa-edit"></i></a>' +
+                                '<a type="button" onclick="return confirm(\'Are you sure\')" class="btn btn-danger btn-sm mr-3" href="'+deleteUrl+'"><i class="icon ion-compose tx-28"></i>Delete</a>'
+                            '</td>' +
+                            '</tr>';
+
+                        $('#basicTable tbody').append(row);
+                        });
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
         });
+        
     </script>
 
     @if(session('success'))
