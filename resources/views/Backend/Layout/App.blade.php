@@ -17,7 +17,7 @@
     <link href="{{ asset('asset/backend/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('asset/backend/css/style.datatables.css') }}" rel="stylesheet">
 
-    <!-- <link href="https://cdn.datatables.net/responsive/1.0.1/css/dataTables.responsive.css" rel="stylesheet"> -->
+    <link href="https://cdn.datatables.net/responsive/1.0.1/css/dataTables.responsive.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="{{asset('asset/backend/css/toastr.min.css')}}" rel="stylesheet">

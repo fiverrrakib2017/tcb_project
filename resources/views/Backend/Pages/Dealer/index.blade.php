@@ -165,15 +165,6 @@
 
                         </div>
                     </div>
-                    <div class="col-md-3 ">
-                    <div class="form-group">
-                           
-
-                            <button id="fillter_button" type="button" class="btn btn-success " style="margin-top: 24px;">Filter Now</button>
-
-                        </div>
-                       
-                    </div>
             </div>
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
@@ -391,11 +382,10 @@
         }
 
         $(document).ready(function() {
-        $('#fillter_button').click(function() {
+            $('#search_division_id, #search_zila_id, #search_upzila_id').change(function() {
                 var division_id = $('#search_division_id').val();
                 var zila_id = $('#search_zila_id').val();
                 var upzila_id = $('#search_upzila_id').val();
-
                 $.ajax({
                     url: '/filter-dealers',
                     method: 'POST',
@@ -406,9 +396,8 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
-                        var response_data = response.data;
+                       var response_data = response.data;
 
-                       console.log(response_data);
                         $('#basicTable tbody').empty();
 
                         

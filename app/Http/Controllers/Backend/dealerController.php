@@ -127,7 +127,7 @@ class dealerController extends Controller
         $object->union_id=$request->union_id;
        
         $object->update();
-        return redirect()->back()->with('success','সফল হয়েছে');
+        return redirect()->route('admin.dealer.list')->with('success','সফল হয়েছে');
     }
     public function get_dealer($id){
        $data = Dealer::where('union_id', $id)->get();
@@ -135,15 +135,28 @@ class dealerController extends Controller
         return response()->json($data);
     }
     public function filterDealers(Request $request){
-
-     
         $division_id = $request->input('division_id');
         $zila_id = $request->input('zila_id');
         $upzila_id = $request->input('upzila_id');
-
-        $data=Dealer::where(['division_id'=>$division_id,'zila_id'=>$zila_id,'upzila_id'=>$upzila_id,])->with('division','zila','upzila','union')->get();
+        $query = Dealer::query(); // Initialize query
+    
+        if (!empty($division_id)) {
+            $query->where('division_id', $division_id);
+        }
+    
+        if (!empty($zila_id)) {
+            $query->where('zila_id', $zila_id);
+        }
+    
+        if (!empty($upzila_id)) {
+            $query->where('upzila_id', $upzila_id);
+        }
+    
+        $data = $query->with('division', 'zila', 'upzila', 'union')->get();
+    
         return response()->json([
-            'data'=>$data
+            'data' => $data
         ]);
     }
+    
 }   
