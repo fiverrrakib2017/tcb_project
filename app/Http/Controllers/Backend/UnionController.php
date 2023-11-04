@@ -14,9 +14,12 @@ class UnionController extends Controller
 {
     public function index(){
         $union= Union::with('division','zila','upzila',)->get();
-        $division=Division::all();  $zila=Zila::all();   $upzila= Upozila::all();
+        $division=Division::all();
+        $filter_div=Division::all();
+        $zila=Zila::all();
+        $upzila= Upozila::all();
 
-        return view('Backend.Pages.Union.index',compact('union','division','zila','upzila'));
+        return view('Backend.Pages.Union.index',compact('union','division','zila','upzila','filter_div'));
     }
     public function store(Request $request){
 
@@ -73,5 +76,31 @@ class UnionController extends Controller
         $data = Union::where('upozila_id', $id)->get();
 
         return response()->json($data);
+    }
+
+
+    public function filter_union(Request $request){
+        $division_id = $request->input('division_id');
+        $zila_id = $request->input('zila_id');
+        $upzila_id = $request->input('upzila_id');
+        $query = Union::query(); // Initialize query
+    
+        if (!empty($division_id)) {
+            $query->where('division_id', $division_id);
+        }
+    
+        if (!empty($zila_id)) {
+            $query->where('zila_id', $zila_id);
+        }
+    
+        if (!empty($upzila_id)) {
+            $query->where('upozila_id', $upzila_id);
+        }
+    
+        $data = $query->with('division', 'zila', 'upzila')->get();
+    
+        return response()->json([
+            'data' => $data
+        ]);
     }
 }

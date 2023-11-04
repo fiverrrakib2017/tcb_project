@@ -64,7 +64,6 @@
         </div><!-- panel -->
 
         <div class="contentpanel">
-            <h2 class="control-label text-center text-danger"> সকল উপজেলার তালিকা </h2>
             <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
@@ -232,6 +231,9 @@
             $('#search_division_id, #search_zila_id').change(function() {
                 var division_id = $('#search_division_id').val();
                 var zila_id = $('#search_zila_id').val();
+
+                var html=`<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>`;
+                $('#basicTable tbody').html(html);
                 $.ajax({
                     url: '/filter-upzila',
                     method: 'POST',

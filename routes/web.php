@@ -71,6 +71,10 @@ Route::get('/admin/union/edit/{id}',[UnionController::class,'edit'])->name('admi
 Route::post('/admin/union/update/',[UnionController::class,'update'])->name('admin.union.update')->middleware('is_admin');
 /* Get Union with ajax request */
 Route::get('/get-union/{Id}', [UnionController::class,'get_union'])->middleware('is_admin');
+Route::post('/filter-union', [UnionController::class,'filter_union']);
+
+
+
 
 /* Beneficiries Route*/
 Route::get('/admin/beneficiries/list',[BeneficiriesController::class,'index'])->name('admin.beneficiries.list')->middleware('is_admin');

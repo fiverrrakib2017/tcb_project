@@ -53,8 +53,6 @@
         </div><!-- panel -->
 
         <div class="contentpanel">
-            <h2 class="control-label text-center text-danger"> সকল জেলার তালিকা </h2>
-            <h3></h3>
             <div class="row">
                     <div class="col-md-3 col-sm-3">
                         <div class="form-group">
