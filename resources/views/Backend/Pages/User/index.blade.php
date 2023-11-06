@@ -71,7 +71,7 @@
                                         required>
                                         <option value="">---নির্বাচন করুন---</option>
                                         @foreach ($division as $division)
-                                            <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                            <option value="{{ $division->id }}">{{ $division->name_ban }}</option>
                                         @endforeach
                                     </select>
 

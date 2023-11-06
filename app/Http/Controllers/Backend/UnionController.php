@@ -73,7 +73,12 @@ class UnionController extends Controller
          return redirect()->route('admin.union.list')->with('success','সফল হয়েছে');
     }
     public function get_union($id){
-        $data = Union::where('upozila_id', $id)->get();
+        if (!empty($id)) {
+             $data = Union::where('upozila_id', $id)->get(); 
+        }else{
+            //$data=Union::where('');
+        }
+      
 
         return response()->json($data);
     }

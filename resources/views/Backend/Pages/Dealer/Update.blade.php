@@ -24,43 +24,7 @@
                             <div class="col-md-3" style="display: none;">
                                 <div class="form-group">
                                     <label class="control-label">Update Id </label>
-                                    <input type="text" name="id" value="{{$dealer->id}}" class="form-control" placeholder="ডিলার নাম লিখুন " required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label"> ডিলার নাম </label>
-                                    <input type="text" name="name" value="{{$dealer->name}}" class="form-control" placeholder="ডিলার নাম লিখুন " required/>
-
-                                </div>
-                            </div>
-                           
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label"> মোবাইল নাম্ভার </label>
-                                    <input type="number" name="mobile" value="{{$dealer->phone_number}}" class="form-control" placeholder="ডিলার মোবাইল " required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">এনআইডি নাম্ভার </label>
-                                    <input type="text" name="nid_number" value="{{$dealer->nid_no}}" class="form-control" placeholder="ডিলার এনআইডি নাম্ভার  লিখুন " required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">কার্ড নাম্ভার শুরু</label>
-                                    <input type="text" name="card_number_start" value="{{$dealer->card_no_start}}" class="form-control" placeholder="ডিলার কার্ড নাম্ভার" required/>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">কার্ড নাম্ভার শেষ </label>
-                                    <input type="text" name="card_number_end" value="{{$dealer->card_no_end}}" class="form-control" placeholder="ডিলার কার্ড নাম্ভার লিখুন " required/>
+                                    <input type="text" name="id" value="{{$dealer->id}}"  required/>
 
                                 </div>
                             </div>
@@ -77,7 +41,7 @@
                                         @foreach ($division as $division)
                                             <option value="{{ $division->id }}"
                                                 {{ $dealer->division_id == $division->id ? 'selected' : '' }}>
-                                                {{ $division->name }}</option>
+                                                {{ $division->name_ban }}</option>
                                         @endforeach
                                     </select>
 
@@ -131,6 +95,43 @@
 
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"> ডিলার নাম </label>
+                                    <input type="text" name="name" value="{{$dealer->name}}" class="form-control" placeholder="ডিলার নাম লিখুন " required/>
+
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"> মোবাইল নাম্ভার </label>
+                                    <input type="number" name="mobile" value="{{$dealer->phone_number}}" class="form-control" placeholder="ডিলার মোবাইল " required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">এনআইডি নাম্ভার </label>
+                                    <input type="text" name="nid_number" value="{{$dealer->nid_no}}" class="form-control" placeholder="ডিলার এনআইডি নাম্ভার  লিখুন " required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">কার্ড নাম্ভার শুরু</label>
+                                    <input type="text" name="card_number_start" value="{{$dealer->card_no_start}}" class="form-control" placeholder="ডিলার কার্ড নাম্ভার" required/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">কার্ড নাম্ভার শেষ </label>
+                                    <input type="text" name="card_number_end" value="{{$dealer->card_no_end}}" class="form-control" placeholder="ডিলার কার্ড নাম্ভার লিখুন " required/>
+
+                                </div>
+                            </div>
+                            
                             
                             
 

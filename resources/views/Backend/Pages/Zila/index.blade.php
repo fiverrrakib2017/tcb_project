@@ -30,7 +30,7 @@
                                         <option value="" >---নির্বাচন করুন---</option>
                                         @foreach($division as $division)
 
-                                        <option value="{{$division->id}}">{{$division->name}}</option>
+                                        <option value="{{$division->id}}">{{$division->name_ban}} ({{ $division->name_eng }})</option>
 
                                         @endforeach
                                     </select>
@@ -61,7 +61,7 @@
                                         required>
                                 <option value="">---নির্বাচন করুন---</option>
                                     @foreach ($filter_div as $division)
-                                        <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                        <option value="{{ $division->id }}">{{ $division->name_ban }}({{ $division->name_eng }})</option>
                                     @endforeach
                             </select> 
                         </div>
@@ -86,7 +86,7 @@
                     <tr>
                         <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
 
-                        <td>{{ $item->division->name }}</td>
+                        <td>{{ $item->division->name_ban }}</td>
                         <td>{{ $item->name }}</td>
                         
                         <td>
@@ -166,7 +166,7 @@
 
                             var row = '<tr>' +
                             '<td>' + data.id + '</td>' +
-                            '<td>' + data.division.name + '</td>' +
+                            '<td>' + data.division.name_ban + '</td>' +
                             '<td>' + data.name + '</td>' +
                             '<td>' +
                                 '<a class="btn btn-primary btn-sm mr-3 fillter_edit_button" href="' + editUrl + '" style="margin-right:5px"><i class="fa fa-edit"></i></a>' +

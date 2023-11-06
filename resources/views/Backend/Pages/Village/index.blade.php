@@ -1,5 +1,5 @@
 @extends('Backend.Layout.App')
-@section('title','সকল উনিয়নের তালিকা')
+@section('title','সকল গ্রামের তালিকা') 
 @section('content')
     <div class="mainpanel">
         <div class="pageheader">
@@ -9,13 +9,13 @@
                 </div>
                 <div class="media-body">
 
-                    <h4>উনিয়ন যুক্ত করুন</h4>
+                    <h4>গ্রাম যুক্ত করুন</h4>
                 </div>
             </div><!-- media -->
         </div><!-- pageheader -->
         <div class="contentpanel">
 
-            <form action="{{route('admin.union.store')}}" method="post">
+            <form action="{{route('admin.village.store')}}" method="post">
                 @csrf
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -29,7 +29,7 @@
                                         <option value="" >---নির্বাচন করুন---</option>
                                         @foreach($division as $division)
 
-                                        <option value="{{$division->id}}">{{$division->name_ban}} ({{ $division->name_eng }})</option>
+                                        <option value="{{$division->id}}">{{$division->name_ban}}({{$division->name_eng   }})</option>
 
                                         @endforeach
                                     </select>
@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                     <label class="control-label">উপজেলা</label>
 
-                                    <select name="upzila_id" id="upzila_id" style="width: 100%;" required>
+                                    <select onchange="loadUnion();" name="upzila_id" id="upzila_id" style="width: 100%;" required>
                                         <option value="" >---নির্বাচন করুন---</option>
 
                                     </select>
@@ -58,7 +58,16 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">উনিয়নের নাম</label>
-                                        <input type="text" name="name"  class="form-control" placeholder="উনিয়নের নাম লিখুন" />
+                                    <select name="union_id" id="union_id" style="width: 100%;" required>
+                                        <option value="" >---নির্বাচন করুন---</option>
+
+                                    </select>
+                                </div><!-- form-group -->
+                            </div><!-- col-sm-6 -->
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">গ্রামের নাম</label>
+                                    <input name="name" class="form-control" placeholder="গ্রামের নাম লিখুন" required >
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
                         </div>
@@ -76,11 +85,11 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">বিভাগ</label>
-                            <select name="search_division_id" onchange="searchloadZilas();"  id="search_division_id" style="width: 100%;"
+                            <select  onchange="searchloadZilas();"  id="search_division_id" style="width: 100%;"
                                         required>
                                 <option value="">---নির্বাচন করুন---</option>
                                     @foreach ($filter_div as $division)
-                                        <option value="{{ $division->id }}">{{ $division->name_ban }} ({{ $division->name_eng }})</option>
+                                        <option value="{{ $division->id }}">{{ $division->name_ban }}({{$division->name_eng   }})</option>
                                     @endforeach
                             </select> 
                         </div>
@@ -89,7 +98,7 @@
                         <div class="form-group">
                             <label class="control-label">জেলা</label>
 
-                            <select onchange="searchloadUpZilas();" name="search_zila_id"  id="search_zila_id" style="width: 100%;" required>
+                            <select onchange="searchloadUpZilas();"   id="search_zila_id" style="width: 100%;" required>
                                 <option value="">---নির্বাচন করুন---</option>
 
 
@@ -102,13 +111,22 @@
                         <div class="form-group">
                             <label class="control-label">উপজেলা</label>
 
-                            <select  name="search_upzila_id"  id="search_upzila_id" style="width: 100%;" required>
+                            <select   onchange="searchLoadUnion();"  id="search_upzila_id" style="width: 100%;" required>
                                 <option value="">---নির্বাচন করুন---</option>
 
                             </select>
 
                         </div>
                     </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label">উনিয়নের নাম</label>
+                            <select  id="search_union_id" style="width: 100%;" required>
+                                <option value="" >---নির্বাচন করুন---</option>
+
+                            </select>
+                        </div><!-- form-group -->
+                    </div><!-- col-sm-3 -->
             </div>
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
@@ -118,6 +136,7 @@
                     <th>জেলার নাম</th>
                     <th>উপজেলার নাম</th>
                     <th>উনিয়নের নাম</th>
+                    <th>গ্রামের নাম</th> 
                     <th></th>
                 </tr>
                 </thead>
@@ -126,12 +145,13 @@
                     @php
                         $key=0;
                     @endphp
-                @foreach($union as $item)
+                @foreach($village as $item)
                     <tr>
                         <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
                         <td>{{ $item->division->name_ban }}</td>
                         <td>{{ $item->zila->name }}</td>
                         <td>{{ $item->upzila->name }}</td>
+                        <td>{{ $item->union->name }}</td>
                         <td>{{ $item->name }}</td>
                         {{-- <td><span
                                 style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}</span>
@@ -166,9 +186,13 @@
             $("#zila_id").select2();
             $("#division_id").select2();
             $("#upzila_id").select2();
+            $("#union_id").select2();
+
             $("#search_division_id").select2();
             $("#search_zila_id").select2();
-            $("#search_upzila_id").select2();
+            $("#search_upzila_id").select2(); 
+            $("#search_union_id").select2();
+            
         });
 
 
@@ -280,6 +304,52 @@ function loadUpZilas() {
                 data.forEach(upzila => {
                     var option = new Option(upzila.name, upzila.id, false, false);
                     upzilaDropdown.append(option).trigger('change');
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}
+function loadUnion() {
+    selectedUpZila = $("#upzila_id").val();
+    var UpzilaId = selectedUpZila;
+
+    var unionDropdown = $("#union_id");
+    unionDropdown.empty(); // Clear previous options
+
+    if (UpzilaId) {
+        // Send an AJAX request to get the upzilas for the selected zila
+        fetch('/get-union/' + UpzilaId)
+            .then(response => response.json())
+            .then(data => {
+                var defaultOption = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                unionDropdown.append(defaultOption).trigger('change');
+
+                data.forEach(data => {
+                    var option = new Option(data.name, data.id, false, false);
+                    unionDropdown.append(option).trigger('change');
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}
+function searchLoadUnion() {
+    selectedUpZila = $("#search_upzila_id").val();
+    var UpzilaId = selectedUpZila;
+
+    var unionDropdown = $("#search_union_id");
+    unionDropdown.empty(); // Clear previous options
+
+    if (UpzilaId) {
+        // Send an AJAX request to get the upzilas for the selected zila
+        fetch('/get-union/' + UpzilaId)
+            .then(response => response.json())
+            .then(data => {
+                var defaultOption = new Option('------- ইউনিয়ন  নির্বাচন করুন -------', '');
+                unionDropdown.append(defaultOption).trigger('change');
+
+                data.forEach(data => {
+                    var option = new Option(data.name, data.id, false, false);
+                    unionDropdown.append(option).trigger('change');
                 });
             })
             .catch(error => console.error('Error:', error));

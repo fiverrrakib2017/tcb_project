@@ -30,7 +30,7 @@
                                         @foreach ($division as $division)
                                             <option value="{{ $division->id }}"
                                                 {{ $upzila->division_id == $division->id ? 'selected' : '' }}>
-                                                {{ $division->name }}</option>
+                                                {{ $division->name_ban }}</option>
                                         @endforeach
 
 

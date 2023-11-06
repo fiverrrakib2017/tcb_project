@@ -24,6 +24,7 @@
         <li><a href="{{route('admin.zila.list')}}"><i class="fa fa-list"></i> <span>জেলা তালিকা</span></a></li>
         <li><a href="{{route('admin.upzila.list')}}"><i class="fa fa-list"></i> <span>উপজেলা তালিকা</span></a></li>
         <li><a href="{{route('admin.union.list')}}"><i class="fa fa-list"></i> <span>ইউনিয়ন তালিকা</span></a></li>
+        <li><a href="{{route('admin.village.list')}}"><i class="fa fa-list"></i> <span>গ্রাম তালিকা</span></a></li>
         <li><a href="{{route('admin.dealer.list')}}"> <i class="fa fa-list"></i> ডিলার তালিকা</a></li>
         <li><a href="{{route('admin.beneficiries.add')}}"> <i class="fa fa-plus"></i> টিসিবি উপকারভোগী যুক্ত করুন</a></li>
         <li><a href="#"> <i class="fa fa-upload"></i> উপকারভোগী আপলোড</a></li>

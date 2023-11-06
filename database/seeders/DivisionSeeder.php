@@ -15,28 +15,36 @@ class DivisionSeeder extends Seeder
     {
         $data=[
             [
-                'name'=>'ঢাকা',
+                'name_eng'=>'Dhaka',
+                'name_ban'=>'ঢাকা',
              ],
              [
-                'name'=>'চট্টগ্রাম',
+               'name_eng'=>'Chattogram',
+                'name_ban'=>'চট্টগ্রাম',
              ],
              [
-                'name'=>'রাজশাহী',
+               'name_eng'=>'Rajshahi',
+                'name_ban'=>'রাজশাহী',
              ],
              [
-                'name'=>'খুলনা',
+               'name_eng'=>'Khulna',
+                'name_ban'=>'খুলনা',
              ],
              [
-                'name'=>'সিলেট',
+               'name_eng'=>'Dhaka',
+                'name_ban'=>'সিলেট',
              ],
              [
-                'name'=>'বরিশাল ',
+               'name_eng'=>'Barishal',
+                'name_ban'=>'বরিশাল ',
              ],
              [
-                'name'=>'রংপুর ',
+               'name_eng'=>'Rangpur',
+                'name_ban'=>'রংপুর ',
              ],
              [
-                'name'=>'ময়মনসিংহ ',
+               'name_eng'=>'Mymensingh ',
+                'name_ban'=>'ময়মনসিংহ ',
              ],
         ];
 

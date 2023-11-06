@@ -29,7 +29,7 @@
                                         required>
                                         <option value="">---নির্বাচন করুন---</option>
                                         @foreach ($division as $division)
-                                            <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                            <option value="{{ $division->id }}">{{ $division->name_ban }}</option>
                                         @endforeach
                                     </select>
 
@@ -177,7 +177,7 @@
                 @foreach($stocks as $item)
                 <tr>
                     <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
-                    <td>{{ $item->division->name }}</td>
+                    <td>{{ $item->division->name_ban }}</td>
                     <td>{{ $item->zila->name }}</td>
                     <td>{{ $item->upzila->name }}</td>
                     <td>{{ $item->union->name }}</td>

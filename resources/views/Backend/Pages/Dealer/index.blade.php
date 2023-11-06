@@ -29,7 +29,7 @@
                                         required>
                                         <option value="">---নির্বাচন করুন---</option>
                                         @foreach ($division as $division)
-                                            <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                            <option value="{{ $division->id }}">{{ $division->name_ban }}({{$division->name_eng   }})</option>
                                         @endforeach
                                     </select>
 
@@ -413,7 +413,7 @@
 
                             var row = '<tr>' +
                             '<td>' + dealer.id + '</td>' +
-                            '<td>' + dealer.division.name + '</td>' +
+                            '<td>' + dealer.division.name_ban + '</td>' +
                             '<td>' + dealer.zila.name + '</td>' +
                             '<td>' + dealer.upzila.name + '</td>' +
                             '<td>' + dealer.union.name + '</td>' +

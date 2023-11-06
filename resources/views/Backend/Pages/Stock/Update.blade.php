@@ -37,7 +37,7 @@
                                         @foreach ($division as $division)
                                             <option value="{{ $division->id }}"
                                                 {{ $stocks->division_id == $division->id ? 'selected' : '' }}>
-                                                {{ $division->name }}</option>
+                                                {{ $division->name_ban }}</option>
                                         @endforeach
                                     </select>
                                 </div>
