@@ -72,7 +72,7 @@
                                 @foreach ($division as $division)
                                         <option value="{{ $division->id }}"
                                         {{ $item->division_id == $division->id ? 'selected' : '' }}>
-                                        {{ $division->name }}</option>
+                                        {{ $division->name_ban }}</option>
                                 @endforeach
                             </select>
 
@@ -127,6 +127,22 @@
 
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">গ্রাম</label>
+                            <select name="village_id"  id="village_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+                                @foreach ($village as $village)
+                                <option value="{{ $village->id }}"
+                                    {{ $item->village_id == $village->id ? 'selected' : '' }}>{{ $village->name }}
+                                </option>
+                                @endforeach
+
+
+                            </select>
+
+                        </div>
+                    </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
@@ -143,15 +159,6 @@
                                 <option value="8" {{ $item->ward_id == 8 ? 'selected' : '' }}>8</option>
                                 <option value="9" {{ $item->ward_id == 9 ? 'selected' : '' }}>9</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">গ্রাম</label>
-
-                            <input type="text" name="village" value="{{$item->village_name}}" class="form-control"
-                                placeholder="গ্রামের নাম লিখুন" required />
-
                         </div>
                     </div>
 
@@ -204,6 +211,7 @@
             $("#division_id").select2();
             $("#upzila_id").select2();
             $("#union_id").select2();
+            $("#village_id").select2();
             $("#ward_id").select2();
         });
 
@@ -289,6 +297,29 @@
                         data.forEach(final_data => {
                             var option = new Option(final_data.name, final_data.id, false, false);
                             unionDropdown.append(option).trigger('change');
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+        function loadVillage() {
+            selectedUnion = $("#union_id").val();
+            var unionId = selectedUnion;
+
+            var villageDropdown = $("#village_id");
+            villageDropdown.empty(); // Clear previous options
+
+            if (unionId) {
+                // Send an AJAX request to get the upzilas for the selected zila
+                fetch('/get-village/' + unionId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var defaultOption = new Option('------- গ্রাম নির্বাচন করুন -------', '');
+                        villageDropdown.append(defaultOption).trigger('change');
+
+                        data.forEach(final_data => {
+                            var option = new Option(final_data.name, final_data.id, false, false);
+                            villageDropdown.append(option).trigger('change');
                         });
                     })
                     .catch(error => console.error('Error:', error));

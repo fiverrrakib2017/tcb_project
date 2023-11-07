@@ -23,9 +23,10 @@ return new class extends Migration
             $table->unsignedBigInteger('division_id');
             $table->unsignedBigInteger('zila_id');
             $table->unsignedBigInteger('upozila_id');
-            $table->unsignedBigInteger('union_id');
+            $table->unsignedBigInteger('union_id'); 
+            $table->unsignedBigInteger('village_id');
             $table->integer('ward_id');
-            $table->string('village_name');
+           
             $table->timestamps();
             $table->integer('status')->comment('1=received,2=hold');
 
@@ -43,6 +44,10 @@ return new class extends Migration
 
         $table->foreign('union_id')->references('id')
             ->on('unions')
+            ->onDelete('cascade');
+
+        $table->foreign('village_id')->references('id')
+            ->on('villages')
             ->onDelete('cascade');
 
 

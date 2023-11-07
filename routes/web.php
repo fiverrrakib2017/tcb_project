@@ -78,6 +78,13 @@ Route::post('/filter-union', [UnionController::class,'filter_union']);
 /* Village Route*/
 Route::get('/admin/village/list',[VillageController::class,'index'])->name('admin.village.list')->middleware('is_admin');
 Route::post('/admin/village/add',[VillageController::class,'store'])->name('admin.village.store')->middleware('is_admin');
+Route::post('/filter_village', [VillageController::class,'filter_village']);
+Route::get('/admin/village/delete/{id}',[VillageController::class,'delete'])->name('admin.village.delete')->middleware('is_admin');
+Route::get('/admin/village/edit/{id}',[VillageController::class,'edit'])->name('admin.village.edit')->middleware('is_admin');
+Route::post('/admin/village/update/',[VillageController::class,'update'])->name('admin.village.update')->middleware('is_admin');
+
+Route::get('/get-village/{Id}', [VillageController::class,'get_village'])->middleware('is_admin');
+
 /* Beneficiries Route*/
 Route::get('/admin/beneficiries/list',[BeneficiriesController::class,'index'])->name('admin.beneficiries.list')->middleware('is_admin');
 Route::get('/admin/beneficiries/add',[BeneficiriesController::class,'add'])->name('admin.beneficiries.add')->middleware('is_admin');

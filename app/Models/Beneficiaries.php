@@ -21,7 +21,7 @@ class Beneficiaries extends Model
         'upozila_id',
         'union_id',
         'ward_id',
-        'village_name',
+        'village_id',
         'status'
     ];
     public function division()
@@ -42,5 +42,9 @@ class Beneficiaries extends Model
     public function union()
     {
         return $this->belongsTo(Union::class);
+    }
+    public function village()
+    {
+        return $this->belongsTo(Village::class);
     }
 }

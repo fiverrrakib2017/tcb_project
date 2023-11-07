@@ -21,10 +21,16 @@
                     <div class="panel-body">
 
                         <div class="row">
+                        <div class="col-sm-2" style="display: none;">
+                                <div class="form-group">
+                                    <label class="control-label">id</label>
+                                    <input  name="id" value="{{$union->id}}" required>
+                                </div><!-- form-group -->
+                            </div><!-- col-sm-2 -->
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
-
+                                    
                                     <select onchange="loadZilas();" name="division_id" id="division_id" style="width: 100%;"
                                         required>
                                         <option value="">---নির্বাচন করুন---</option>

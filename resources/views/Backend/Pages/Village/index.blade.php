@@ -157,10 +157,10 @@
                                 style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}</span>
                         </td> --}}
                         <td>
-                            <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.union.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.village.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
 
 
-                            <a type="button" onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{ route('admin.union.delete', $item->id) }}"><i class="icon ion-compose tx-28"></i>Delete</a>
+                            <a type="button" onclick="return confirm('Are you sure')" class="btn btn-danger btn-sm mr-3" href="{{ route('admin.village.delete', $item->id) }}"><i class="icon ion-compose tx-28"></i>Delete</a>
 
                         </td>
                     </tr>
@@ -332,6 +332,7 @@ function loadUnion() {
             .catch(error => console.error('Error:', error));
     }
 }
+
 function searchLoadUnion() {
     selectedUpZila = $("#search_upzila_id").val();
     var UpzilaId = selectedUpZila;
@@ -360,17 +361,19 @@ function searchLoadUnion() {
 
 
 $(document).ready(function() {
-            $('#search_division_id, #search_zila_id, #search_upzila_id').change(function() {
+            $('#search_division_id, #search_zila_id, #search_upzila_id,#search_union_id').change(function() {
                 var division_id = $('#search_division_id').val();
                 var zila_id = $('#search_zila_id').val();
                 var upzila_id = $('#search_upzila_id').val();
+                var union_id = $('#search_union_id').val();
                 $.ajax({
-                    url: '/filter-union',
+                    url: '/filter_village',
                     method: 'POST',
                     data: {
                         division_id: division_id,
                         zila_id: zila_id,
                         upzila_id: upzila_id,
+                        union_id: union_id,
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
@@ -382,11 +385,11 @@ $(document).ready(function() {
                         response_data.forEach(function(data) {
 
                             //create edit link
-                            var editUrl = '{{ route("admin.union.edit", ":id") }}';
+                            var editUrl = '{{ route("admin.village.edit", ":id") }}';
                             editUrl = editUrl.replace(':id', data.id);
 
                             //create delete link
-                            var deleteUrl = '{{ route("admin.union.delete", ":id") }}';
+                            var deleteUrl = '{{ route("admin.village.delete", ":id") }}';
                             deleteUrl = deleteUrl.replace(':id', data.id);
 
                             var row = '<tr>' +
@@ -394,6 +397,7 @@ $(document).ready(function() {
                             '<td>' + data.division.name_ban + '</td>' +
                             '<td>' + data.zila.name + '</td>' +
                             '<td>' + data.upzila.name + '</td>' +
+                            '<td>' + data.union.name + '</td>' +
                             '<td>' + data.name + '</td>' +
                             '<td>' +
                                 '<a class="btn btn-primary btn-sm mr-3 fillter_edit_button" href="' + editUrl + '" style="margin-right:5px"><i class="fa fa-edit"></i></a>' +

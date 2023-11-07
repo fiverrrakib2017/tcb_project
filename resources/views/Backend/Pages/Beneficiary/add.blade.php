@@ -69,7 +69,7 @@
                                 required>
                                 <option value="">---নির্বাচন করুন---</option>
                                 @foreach ($division as $division)
-                                    <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                    <option value="{{ $division->id }}">{{ $division->name_ban }}</option>
                                 @endforeach
                             </select>
 
@@ -103,7 +103,19 @@
                         <div class="form-group">
                             <label class="control-label">ইউনিয়ন</label>
 
-                            <select name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
+                            <select onchange="loadVillage();" name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+
+
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">গ্রাম</label>
+                            <select name="village_id"  id="village_id" style="width: 100%;" required>
                                 <option value="">---নির্বাচন করুন---</option>
 
 
@@ -130,15 +142,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">গ্রাম</label>
-
-                            <input type="text" name="village" value="{{old('village')}}" class="form-control"
-                                placeholder="গ্রামের নাম লিখুন" required />
-
-                        </div>
-                    </div>
+                    
 
 
 
@@ -184,6 +188,7 @@
             $("#upzila_id").select2();
             $("#union_id").select2();
             $("#ward_id").select2();
+            $("#village_id").select2();
         });
 
 
@@ -201,6 +206,9 @@
 
             var unionDropdown = $("#union_id");
             unionDropdown.empty(); // Clear Union options
+
+            var villageDropdown = $("#village_id");
+            villageDropdown.empty(); // Clear Union options
 
             if (divisionId) {
                 fetch('/get-zilas/' + divisionId)
@@ -268,6 +276,29 @@
                         data.forEach(final_data => {
                             var option = new Option(final_data.name, final_data.id, false, false);
                             unionDropdown.append(option).trigger('change');
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        } 
+        function loadVillage() {
+            selectedUnion = $("#union_id").val();
+            var unionId = selectedUnion;
+
+            var villageDropdown = $("#village_id");
+            villageDropdown.empty(); // Clear previous options
+
+            if (unionId) {
+                // Send an AJAX request to get the upzilas for the selected zila
+                fetch('/get-village/' + unionId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var defaultOption = new Option('------- গ্রাম নির্বাচন করুন -------', '');
+                        villageDropdown.append(defaultOption).trigger('change');
+
+                        data.forEach(final_data => {
+                            var option = new Option(final_data.name, final_data.id, false, false);
+                            villageDropdown.append(option).trigger('change');
                         });
                     })
                     .catch(error => console.error('Error:', error));

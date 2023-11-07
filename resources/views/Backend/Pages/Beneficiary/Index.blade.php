@@ -72,12 +72,12 @@
                             @endif
                         </td>
                         <td>{{ $item->card_no }}</td>
-                        <td>{{ $item->division->name }}</td>
+                        <td>{{ $item->division->name_ban }}</td>
                         <td>{{ $item->zila->name }}</td>
                         <td>{{ $item->upozila->name }}</td>
                         <td>{{ $item->union->name }}</td>
                         <td>{{ $item->ward_id }}</td>
-                        <td>{{ $item->village_name }}</td>
+                        <td>{{ $item->village->name }}</td>
                         <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                         <td>
                             <!-- Add your action buttons here -->

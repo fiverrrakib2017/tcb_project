@@ -7,6 +7,7 @@ use App\Models\Beneficiaries;
 use App\Models\Division;
 use App\Models\Union;
 use App\Models\Upozila;
+use App\Models\Village;
 use App\Models\Ward;
 use App\Models\Zila;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class BeneficiriesController extends Controller
     }
     public function add(){
         $division=Division::all();
+        
         return view('Backend.Pages.Beneficiary.add',compact('division'));
     }
     public function store(Request $request){
@@ -36,7 +38,7 @@ class BeneficiriesController extends Controller
             'upzila_id' => 'required',
             'union_id' => 'required',
             'ward_id' => 'required',
-            'village' => 'required',
+            'village_id' => 'required',
             'mobile' => [
                 'regex:/^(01[3-9]{1}\d{8})$/',
                 function ($attribute, $value, $fail) {
@@ -81,7 +83,7 @@ class BeneficiriesController extends Controller
         $beneficiary->upozila_id = $request->upzila_id;
         $beneficiary->union_id = $request->union_id;
         $beneficiary->ward_id = $request->ward_id;
-        $beneficiary->village_name = $request->village;
+        $beneficiary->village_id = $request->village_id;
         $beneficiary->phone_number = $request->mobile;
         $beneficiary->photo = $imageName; // Assuming you have a 'photo' column in your table
         $beneficiary->status = '0';
@@ -97,7 +99,8 @@ class BeneficiriesController extends Controller
         $zila=Zila::all();
         $upzila=Upozila::all();
         $union=Union::all();
-        return view('Backend.Pages.Beneficiary.Update',compact('item','division','zila','upzila','union'));
+        $village=Village::all();
+       return view('Backend.Pages.Beneficiary.Update',compact('item','division','zila','upzila','union','village'));
     }
     public function update(Request $request){
         $rules = [
@@ -111,7 +114,7 @@ class BeneficiriesController extends Controller
             'upzila_id' => 'required',
             'union_id' => 'required',
             'ward_id' => 'required',
-            'village' => 'required',
+            'village_id' => 'required',
             'mobile' => [
                 'regex:/^(01[3-9]{1}\d{8})$/',
                 function ($attribute, $value, $fail) use ($request) {
@@ -170,7 +173,7 @@ class BeneficiriesController extends Controller
         $beneficiary->upozila_id = $request->upzila_id;
         $beneficiary->union_id = $request->union_id;
         $beneficiary->ward_id = $request->ward_id;
-        $beneficiary->village_name = $request->village;
+        $beneficiary->village_id = $request->village_id;
         $beneficiary->phone_number = $request->mobile;
         $beneficiary->photo = $imageName; // Assuming you have a 'photo' column in your table
         $beneficiary->status = '0';
