@@ -20,15 +20,85 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="control-label">ভোটার আইডি নং</label>
+                            <label class="control-label">বিভাগ</label>
 
-                            <input type="text" name="nid" value="{{old('nid')}}" class="form-control" placeholder="ভোটার আইডি লিখুন"
-                                required />
-
+                            <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" style="width: 100%;"
+                                required>
+                                <option value="">---নির্বাচন করুন---</option>
+                                @foreach ($division as $division)
+                                    <option value="{{ $division->id }}">{{ $division->name_ban }}</option>
+                                @endforeach
+                            </select>
 
                         </div>
                     </div>
 
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">জেলা</label>
+
+                            <select onchange="loadUpZilas();" name="zila_id" value="{{old('zila_id')}}" id="zila_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+
+
+
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">উপজেলা</label>
+
+                            <select onchange="loadUnion();" name="upzila_id" value="{{old('upzila_id')}}" id="upzila_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">ইউনিয়ন</label>
+
+                            <select onchange="loadVillage();" name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+
+
+
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">ভাতার নাম</label>
+
+                            <select name="vatar_id" value="{{old('vatar_id')}}" id="vatar_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+                                @foreach ($vatar as $vatar)
+                                    <option value="{{ $vatar->id }}">{{ $vatar->name }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">ডিলার নাম</label>
+
+                            <select name="dealer_id" value="{{old('dealer_id')}}" id="dealer_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+                                @foreach ($dealer as $dealer)
+                                    <option value="{{ $dealer->id }}">{{ $dealer->name }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">উপকারভোগী নাম</label>
@@ -57,58 +127,6 @@
                             <input type="text" name="mother_name" value="{{old('mother_name')}}" class="form-control" placeholder="মাতার নাম লিখুন"
                                 required />
 
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">বিভাগ</label>
-
-                            <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" style="width: 100%;"
-                                required>
-                                <option value="">---নির্বাচন করুন---</option>
-                                @foreach ($division as $division)
-                                    <option value="{{ $division->id }}">{{ $division->name_ban }}</option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">জেলা</label>
-
-                            <select onchange="loadUpZilas();" name="zila_id" value="{{old('zila_id')}}" id="zila_id" style="width: 100%;" required>
-                                <option value="">---নির্বাচন করুন---</option>
-
-
-
-                            </select>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">উপজেলা</label>
-
-                            <select onchange="loadUnion();" name="upzila_id" value="{{old('upzila_id')}}" id="upzila_id" style="width: 100%;" required>
-                                <option value="">---নির্বাচন করুন---</option>
-
-                            </select>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">ইউনিয়ন</label>
-
-                            <select onchange="loadVillage();" name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
-                                <option value="">---নির্বাচন করুন---</option>
-
-
-
-                            </select>
 
                         </div>
                     </div>
@@ -142,9 +160,17 @@
                             </select>
                         </div>
                     </div>
-                    
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">ভোটার আইডি নং</label>
+
+                            <input type="number" name="nid" value="{{old('nid')}}" class="form-control" placeholder="ভোটার আইডি লিখুন"
+                                required />
 
 
+                        </div>
+                    </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
@@ -156,14 +182,14 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">ছবি (সর্বচ্চ ২ এম.বি)</label>
                             <input type="file" name="photo" id="photo" class="form-control"
                                 onchange="previewImage(event)" />
                             <div id="imageContainer"></div>
-                        </div><!-- form-group -->
-                    </div>
+                        </div>
+                    </div> -->
 
                 </div>
                 <button type="submit" class="btn btn-primary">সংরক্ষন রাখুন</button>
@@ -189,6 +215,8 @@
             $("#union_id").select2();
             $("#ward_id").select2();
             $("#village_id").select2();
+            $("#vatar_id").select2();
+            $("#dealer_id").select2();
         });
 
 
@@ -305,24 +333,8 @@
             }
         }
     </script>
-    @if (session('success'))
-        <script>
-            toastr.success('{{ session('success') }}');
-        </script>
-    @elseif(session('error'))
-        <script>
-            toastr.error('{{ session('error') }}');
-        </script>
-    @endif
+  
 
-    @if (session('errors'))
-        <script>
-            var errors = @json(session('errors'));
-            errors.forEach(function(error) {
-                toastr.error(error);
-            });
-        </script>
-    @endif
 
 
 @endsection

@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\StockController;
 use App\Http\Controllers\Backend\UnionController;
 use App\Http\Controllers\Backend\UpzilaController;
 use App\Http\Controllers\Backend\userController;
+use App\Http\Controllers\Backend\vatarController;
 use App\Http\Controllers\Backend\zilaController;
 use App\Http\Controllers\Backend\VillageController;
 use App\Http\Controllers\VillageController as ControllersVillageController;
@@ -75,7 +76,16 @@ Route::post('/admin/union/update/',[UnionController::class,'update'])->name('adm
 Route::get('/get-union/{Id}', [UnionController::class,'get_union'])->middleware('is_admin');
 Route::post('/filter-union', [UnionController::class,'filter_union']);
 
-/* Village Route*/
+
+/* ভাতার  Route*/
+Route::get('/admin/vatar-list',[vatarController::class,'index'])->name('admin.vatar.list')->middleware('is_admin');
+Route::post('/admin/vatar-add',[vatarController::class,'store'])->name('admin.vatar.store')->middleware('is_admin');
+Route::get('/admin/vatar/edit/{id}',[vatarController::class,'edit'])->name('admin.vatar.edit')->middleware('is_admin');
+Route::get('/admin/vatar/delete/{id}',[vatarController::class,'delete'])->name('admin.vatar.delete')->middleware('is_admin');
+Route::post('/admin/vatar/update/',[vatarController::class,'update'])->name('admin.vatar.update')->middleware('is_admin');
+
+
+/*Village Route*/
 Route::get('/admin/village/list',[VillageController::class,'index'])->name('admin.village.list')->middleware('is_admin');
 Route::post('/admin/village/add',[VillageController::class,'store'])->name('admin.village.store')->middleware('is_admin');
 Route::post('/filter_village', [VillageController::class,'filter_village']);

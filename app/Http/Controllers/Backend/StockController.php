@@ -96,6 +96,6 @@ class StockController extends Controller
          $object->amount=$request->amount;
         
          $object->update();
-         return redirect()->back()->with('success','সফল হয়েছে');
+         return redirect()->route('admin.stock.list')->with('success','সফল হয়েছে');
     }
 }

@@ -23,7 +23,6 @@
                     <th>ক্রমিক নং</th>
                     <th>বিভাগের নাম (বাংলা)</th> 
                     <th>বিভাগের নাম (ইংরেজি)</th>  
-                    <th>সংযোজন তারিখ</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -37,9 +36,7 @@
                         <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
                         <td>{{ $item->name_ban }}</td>
                         <td>{{ $item->name_eng }}</td>
-                        <td><span
-                                style="font-family:SutonnyMJ; font-size: 18px;">{{ date('d-m-Y',strtotime($item->created_at)) }}</span>
-                        </td>
+                        
                     </tr>
 
                 @endforeach

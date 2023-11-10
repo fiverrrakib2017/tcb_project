@@ -18,50 +18,6 @@
 
                         </div>
                     </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">ভোটার আইডি নং</label>
-
-                            <input type="text" name="nid" value="{{$item->nid}}" class="form-control" placeholder="ভোটার আইডি লিখুন"
-                                required />
-
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">উপকারভোগী নাম</label>
-
-                            <input type="text" name="name" value="{{$item->name}}" class="form-control"
-                                placeholder="উপকারভোগী নাম লিখুন" required />
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">উপকারভোগী পিতা/স্বামীর নাম</label>
-
-                            <input type="text" name="fh_name" value="{{$item->father_name}}" class="form-control"
-                                placeholder="উপকারভোগী পিতা/স্বামীর  নাম লিখুন" required />
-
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">মাতার নাম</label>
-
-                            <input type="text" name="mother_name" value="{{$item->mother_name}}" class="form-control" placeholder="মাতার নাম লিখুন"
-                                required />
-
-
-                        </div>
-                    </div>
-
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">বিভাগ</label>
@@ -114,7 +70,7 @@
                         <div class="form-group">
                             <label class="control-label">ইউনিয়ন</label>
 
-                            <select name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
+                            <select name="union_id"  id="union_id" style="width: 100%;" required>
                                 <option value="">---নির্বাচন করুন---</option>
 
                                 @foreach ($union as $union)
@@ -127,6 +83,69 @@
 
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">ভাতার তালিকা</label>
+
+                            <select name="vatar_id"  id="vatar_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+                                @foreach ($vatar as $vatar)
+                                <option value="{{ $vatar->id }}"
+                                    {{ $item->vatar_id == $vatar->id ? 'selected' : '' }}>{{ $vatar->name }}
+                                </option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">ডিলার নাম</label>
+
+                            <select name="dealer_id"  id="dealer_id" style="width: 100%;" required>
+                                <option value="">---নির্বাচন করুন---</option>
+                                @foreach ($dealer as $dealer)
+                                <option value="{{ $dealer->id }}"
+                                    {{ $item->dealer_id == $dealer->id ? 'selected' : '' }}>{{ $dealer->name }}
+                                </option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">উপকারভোগী নাম</label>
+
+                            <input type="text" name="name" value="{{$item->name}}" class="form-control"
+                                placeholder="উপকারভোগী নাম লিখুন" required />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">উপকারভোগী পিতা/স্বামীর নাম</label>
+
+                            <input type="text" name="fh_name" value="{{$item->father_name}}" class="form-control"
+                                placeholder="উপকারভোগী পিতা/স্বামীর  নাম লিখুন" required />
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">মাতার নাম</label>
+
+                            <input type="text" name="mother_name" value="{{$item->mother_name}}" class="form-control" placeholder="মাতার নাম লিখুন"
+                                required />
+
+
+                        </div>
+                    </div>
+
+                    
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">গ্রাম</label>
@@ -162,6 +181,19 @@
                         </div>
                     </div>
 
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">ভোটার আইডি নং</label>
+
+                            <input type="number" name="nid" value="{{$item->nid}}" class="form-control" placeholder="ভোটার আইডি লিখুন"
+                                required />
+
+
+                        </div>
+                    </div>
+
+                   
+
 
 
                     <div class="col-md-3">
@@ -174,7 +206,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">ছবি (সর্বচ্চ ২ এম.বি)</label>
                             <input type="file" name="photo" id="photo" class="form-control"
@@ -186,8 +218,8 @@
                                 @endif
 
                             <div id="imageContainer"></div>
-                        </div><!-- form-group -->
-                    </div>
+                        </div>
+                    </div> -->
 
                 </div>
                 <button type="submit" class="btn btn-primary">সংরক্ষন রাখুন</button>
@@ -213,6 +245,8 @@
             $("#union_id").select2();
             $("#village_id").select2();
             $("#ward_id").select2();
+            $("#vatar_id").select2();
+            $("#dealer_id").select2();
         });
 
 

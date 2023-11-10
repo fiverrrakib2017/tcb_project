@@ -27,10 +27,12 @@
 
                                     <select name="division_id" id="division_id" style="width: 100%;" required>
                                         <option value="" >---নির্বাচন করুন---</option>
-                                        @foreach($division as $division)
-                                            <option value="{{ $division->id }}" {{ $zila->division_id == $division->id ? 'selected' : '' }}>{{ $division->name }}</option>
-                                        @endforeach
 
+                                        @foreach ($division as $division)
+                                            <option value="{{ $division->id }}"
+                                                {{ $zila->division_id == $division->id ? 'selected' : '' }}>
+                                                {{ $division->name_ban }}</option>
+                                        @endforeach
 
                                     </select>
                                 </div>

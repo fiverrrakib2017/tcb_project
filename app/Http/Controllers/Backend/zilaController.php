@@ -46,7 +46,6 @@ class zilaController extends Controller
     public function edit($id){
         $zila=Zila::find($id);
         $division=Division::all();
-
         return view('Backend.Pages.Zila.Update',compact('zila','division'));
 
     }

@@ -29,7 +29,7 @@
                                         required>
                                         <option value="">---নির্বাচন করুন---</option>
                                         @foreach ($division as $division)
-                                            <option value="{{ $division->id }}">{{ $division->name_ban }}({{$division->name_eng   }})</option>
+                                            <option value="{{ $division->id }}">{{ $division->name_ban }}</option>
                                         @endforeach
                                     </select>
 
@@ -135,8 +135,8 @@
                             <select name="search_division_id" onchange="searchloadZilas();"  id="search_division_id" style="width: 100%;"
                                         required>
                                 <option value="">---নির্বাচন করুন---</option>
-                                    @foreach ($filter_div as $division)
-                                        <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                    @foreach ($filter_div as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name_ban }}</option>
                                     @endforeach
                             </select> 
                         </div>

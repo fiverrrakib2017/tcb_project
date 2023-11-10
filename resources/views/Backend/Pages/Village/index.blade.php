@@ -29,7 +29,7 @@
                                         <option value="" >---নির্বাচন করুন---</option>
                                         @foreach($division as $division)
 
-                                        <option value="{{$division->id}}">{{$division->name_ban}}({{$division->name_eng   }})</option>
+                                        <option value="{{$division->id}}">{{$division->name_ban}}</option>
 
                                         @endforeach
                                     </select>
@@ -89,7 +89,7 @@
                                         required>
                                 <option value="">---নির্বাচন করুন---</option>
                                     @foreach ($filter_div as $division)
-                                        <option value="{{ $division->id }}">{{ $division->name_ban }}({{$division->name_eng   }})</option>
+                                        <option value="{{ $division->id }}">{{ $division->name_ban }}</option>
                                     @endforeach
                             </select> 
                         </div>

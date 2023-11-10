@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Beneficiaries;
+use App\Models\Dealer;
 use App\Models\Division;
 use App\Models\Union;
 use App\Models\Upozila;
+use App\Models\Vatar;
 use App\Models\Village;
 use App\Models\Ward;
 use App\Models\Zila;
@@ -23,8 +25,9 @@ class BeneficiriesController extends Controller
     }
     public function add(){
         $division=Division::all();
-        
-        return view('Backend.Pages.Beneficiary.add',compact('division'));
+        $vatar=Vatar::all();
+        $dealer=Dealer::all();
+        return view('Backend.Pages.Beneficiary.add',compact('division','vatar','dealer'));
     }
     public function store(Request $request){
         $rules = [
@@ -37,6 +40,8 @@ class BeneficiriesController extends Controller
             'zila_id' => 'required',
             'upzila_id' => 'required',
             'union_id' => 'required',
+            'dealer_id' => 'required',
+            'vatar_id' => 'required',
             'ward_id' => 'required',
             'village_id' => 'required',
             'mobile' => [
@@ -53,7 +58,7 @@ class BeneficiriesController extends Controller
                     }
                 },
             ],
-            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -63,13 +68,13 @@ class BeneficiriesController extends Controller
         }
 
         // Handle file upload
-        if ($request->hasFile('photo')) {
-            $image = $request->file('photo');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-        }else{
-            $imageName ="121232.png";
-        }
+        // if ($request->hasFile('photo')) {
+        //     $image = $request->file('photo');
+        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('images'), $imageName);
+        // }else{
+        //     $imageName ="121232.png";
+        // }
 
         // Create a new Beneficiary instance and assign values
         $beneficiary = new Beneficiaries();
@@ -82,16 +87,18 @@ class BeneficiriesController extends Controller
         $beneficiary->zila_id = $request->zila_id;
         $beneficiary->upozila_id = $request->upzila_id;
         $beneficiary->union_id = $request->union_id;
+        $beneficiary->dealer_id = $request->dealer_id;
+        $beneficiary->vatar_id = $request->vatar_id;
         $beneficiary->ward_id = $request->ward_id;
         $beneficiary->village_id = $request->village_id;
         $beneficiary->phone_number = $request->mobile;
-        $beneficiary->photo = $imageName; // Assuming you have a 'photo' column in your table
+        // $beneficiary->photo = $imageName; 
         $beneficiary->status = '0';
 
         // Save the beneficiary to the database
         $beneficiary->save();
 
-        return redirect()->back()->with('success','উপকারভোগী তথ্য যুক্ত হয়েছে');
+        return redirect()->route('admin.beneficiries.list')->with('success','উপকারভোগী তথ্য যুক্ত হয়েছে');
     }
     public function edit($id){
         $item =Beneficiaries::find($id);
@@ -100,7 +107,9 @@ class BeneficiriesController extends Controller
         $upzila=Upozila::all();
         $union=Union::all();
         $village=Village::all();
-       return view('Backend.Pages.Beneficiary.Update',compact('item','division','zila','upzila','union','village'));
+        $vatar=Vatar::all();
+        $dealer=Dealer::all();
+       return view('Backend.Pages.Beneficiary.Update',compact('item','division','zila','upzila','union','village','vatar','dealer'));
     }
     public function update(Request $request){
         $rules = [
@@ -133,7 +142,7 @@ class BeneficiriesController extends Controller
                 },
             ],
 
-            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -143,22 +152,22 @@ class BeneficiriesController extends Controller
         }
 
         // Check if a new photo is uploaded
-        if ($request->hasFile('photo')) {
-            // Get the path of the old image
-             $oldImagePath = public_path('images/' . $request->photo);
+        // if ($request->hasFile('photo')) {
+        //     // Get the path of the old image
+        //      $oldImagePath = public_path('images/' . $request->photo);
             
-            // Check if the old image exists before trying to delete it
-            if(file_exists($oldImagePath)) {
-                unlink($oldImagePath); // Delete the old image
-            }
+        //     // Check if the old image exists before trying to delete it
+        //     if(file_exists($oldImagePath)) {
+        //         unlink($oldImagePath); // Delete the old image
+        //     }
 
-            // Handle file upload for the new image
-            $image = $request->file('photo');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-        } else {
-            $imageName = $request->photo; // Use the existing photo name
-        }
+        //     // Handle file upload for the new image
+        //     $image = $request->file('photo');
+        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('images'), $imageName);
+        // } else {
+        //     $imageName = $request->photo; // Use the existing photo name
+        // }
         
 
         // Create a new Beneficiary instance and assign values
@@ -172,16 +181,17 @@ class BeneficiriesController extends Controller
         $beneficiary->zila_id = $request->zila_id;
         $beneficiary->upozila_id = $request->upzila_id;
         $beneficiary->union_id = $request->union_id;
+        $beneficiary->vatar_id = $request->vatar_id;
         $beneficiary->ward_id = $request->ward_id;
         $beneficiary->village_id = $request->village_id;
         $beneficiary->phone_number = $request->mobile;
-        $beneficiary->photo = $imageName; // Assuming you have a 'photo' column in your table
+        // $beneficiary->photo = $imageName;
         $beneficiary->status = '0';
 
         // Save the beneficiary to the database
         $beneficiary->update();
 
-        return redirect()->back()->with('success','উপকারভোগী তথ্য পরিবর্তন হয়েছে');
+        return redirect()->route('admin.beneficiries.list')->with('success','উপকারভোগী তথ্য পরিবর্তন হয়েছে');
     }
     public function delete($id){
         $beneficiary = Beneficiaries::find($id);
