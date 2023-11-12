@@ -11,6 +11,6 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ftp.samkirkland.com
-        username: myFtpUserName
-        password: ${{ secrets.ftp_password }}
+        server: ftp.melandahbhata.gov.bd
+        username: fiverrrakib2017@melandahbhata.gov.bd
+        password: ${{ secrets.FTP_PASSWORD }}
