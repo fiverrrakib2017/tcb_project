@@ -14,4 +14,4 @@ jobs:
         server: ftp.melandahbhata.gov.bd
         username: fiverrrakib2017@melandahbhata.gov.bd
         password: ${{ secrets.FTP_PASSWORD }},
-        server-dir: /home/melandah/sohayota.gov.bd
+        server-dir: /home/melandah/sohayota.gov.bd/
