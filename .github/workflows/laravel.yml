@@ -11,7 +11,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: https://sohayota.gov.bd
+        server:  ftp.melandahbhata.gov.bd
         username: fiverrrakib2017@melandahbhata.gov.bd
-        password: ${{ secrets.FTP_PASSWORD }},
+        password: ${{ secrets.FTP_PASSWORD }}
         server-dir: /home/melandah/sohayota.gov.bd/
