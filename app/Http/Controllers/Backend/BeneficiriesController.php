@@ -13,14 +13,13 @@ use App\Models\Village;
 use App\Models\Ward;
 use App\Models\Zila;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class BeneficiriesController extends Controller
 {
     public function index(){
         $data=Beneficiaries::with('division','zila','upozila','union')->get();
-        //return $data;
+
         return view('Backend.Pages.Beneficiary.index',compact('data'));
     }
     public function add(){

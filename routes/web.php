@@ -134,7 +134,7 @@ Route::post('/filter-dealers', [dealerController::class,'filterDealers']);
 //test route
 
 Route::get("/test",[demoController::class,'index']);
-
+Route::get('/demo/test',[demoController::class,'index']);
 
 
 
