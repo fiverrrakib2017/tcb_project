@@ -28,7 +28,7 @@
         <li><a href="{{route('admin.vatar.list')}}"><i class="fa fa-list"></i> <span>ভাতার তালিকা</span></a></li>
         <li><a href="{{route('admin.dealer.list')}}"> <i class="fa fa-list"></i> ডিলার তালিকা</a></li>
         <li><a href="{{route('admin.beneficiries.add')}}"> <i class="fa fa-plus"></i> টিসিবি উপকারভোগী যুক্ত করুন</a></li>
-        <li><a href="{{route('admin.beneficiries.list')}}"> <i class="fa fa-plus"></i>উপকারভোগী তালিকা </a></li>
+        <li><a href="{{route('admin.beneficiries.list')}}"> <i class="fa fa-list"></i> উপকারভোগী তালিকা </a></li>
         <li><a href="#"> <i class="fa fa-upload"></i> উপকারভোগী আপলোড</a></li>
         <li><a href="#"> <i class="fa fa-share-square-o"></i> উপকারভোগী পণ্য প্রদান করুন</a></li>
       
