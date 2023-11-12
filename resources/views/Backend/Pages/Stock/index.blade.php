@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
 
-                                    <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" style="width: 100%;"
+                                    <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" class="form-control"
                                         required>
                                         <option value="">---নির্বাচন করুন---</option>
                                         @foreach ($division as $division)
@@ -234,7 +234,6 @@
         $(document).ready(function() {
             $('#basicTable').dataTable();
             $("#zila_id").select2();
-            $("#division_id").select2();
             $("#upzila_id").select2();
             $("#union_id").select2();
             $("#ward_id").select2();

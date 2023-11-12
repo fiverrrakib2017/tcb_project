@@ -25,8 +25,7 @@
                                 <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
 
-                                    <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" style="width: 100%;"
-                                        required>
+                                    <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" required>
                                         <option value="">---নির্বাচন করুন---</option>
                                         @foreach ($division as $division)
                                             <option value="{{ $division->id }}">{{ $division->name_ban }}</option>
@@ -224,7 +223,6 @@
         $(document).ready(function() {
             $('#basicTable').dataTable();
             $("#zila_id").select2();
-            $("#division_id").select2();
             $("#search_division_id").select2();
             $("#search_zila_id").select2();
             $("#search_upzila_id").select2();
