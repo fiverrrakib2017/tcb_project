@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Backend\BeneficiriesController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\dealerController;
+use App\Http\Controllers\Backend\demoController;
 use App\Http\Controllers\Backend\DivisionController;
 use App\Http\Controllers\Backend\StockController;
 use App\Http\Controllers\Backend\UnionController;
@@ -125,6 +126,13 @@ Route::post('/admin/dealer/update',[dealerController::class,'update'])->name('ad
 Route::get('/get-dealer/{Id}', [dealerController::class,'get_dealer'])->middleware('is_admin');
 Route::post('/filter-dealers', [dealerController::class,'filterDealers']);
 
+
+
+
+
+//test route
+
+Route::get("/test",[demoController::class,'index']);
 
 Auth::routes();
 
