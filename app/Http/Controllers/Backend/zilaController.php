@@ -51,8 +51,10 @@ class zilaController extends Controller
     }
     public function update(Request $request){
 
+
+
         $rules = [
-            'name' => 'required|unique:zilas|max:255',
+            'name' => 'required|max:255',
         ];
 
         $validator = Validator::make($request->all(), $rules);

@@ -104,7 +104,7 @@ class dealerController extends Controller
                 },
             ],
 
-            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         $validator = Validator::make($request->all(), $rules);

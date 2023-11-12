@@ -59,7 +59,7 @@ class VillageController extends Controller
     }
     public function update(Request $request){
         $rules = [
-            'name' => 'required|unique:unions|max:255',
+            'name' => 'required|max:255',
         ];
 
         $validator = Validator::make($request->all(), $rules);

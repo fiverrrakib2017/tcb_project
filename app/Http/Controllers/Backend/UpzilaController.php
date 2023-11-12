@@ -23,7 +23,7 @@ class UpzilaController extends Controller
         $rules = [
             'division_id' => 'required',
             'zila_id' => 'required',
-            'name' => 'required|unique:upozilas',
+            'name' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $rules);
