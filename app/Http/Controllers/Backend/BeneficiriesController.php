@@ -20,7 +20,7 @@ class BeneficiriesController extends Controller
     public function index(){
         $data=Beneficiaries::with('division','zila','upozila','union')->get();
 
-        return view('Backend.Pages.Beneficiary.index',compact('data'));
+        return view('Backend.Pages.Beneficiary.show',compact('data'));
     }
     public function add(){
         $division=Division::all();
@@ -195,13 +195,13 @@ class BeneficiriesController extends Controller
     public function delete($id){
         $beneficiary = Beneficiaries::find($id);
 
-        // Get the path of the image
-        $imagePath = public_path('images/' . $beneficiary->photo);
+        // // Get the path of the image
+        // $imagePath = public_path('images/' . $beneficiary->photo);
 
-        // Check if the image exists before trying to delete it
-        if(file_exists($imagePath)) {
-            unlink($imagePath); // Delete the image
-        }
+        // // Check if the image exists before trying to delete it
+        // if(file_exists($imagePath)) {
+        //     unlink($imagePath); // Delete the image
+        // }
 
         $beneficiary->delete();
 
