@@ -50,12 +50,11 @@ class VillageController extends Controller
          return redirect()->back()->with('success','সফল হয়েছে');
     }
     public function edit($id){
-        $village=Village::find($id);
-        $division=Division::all();  
-        $zila=Zila::all();   
-        $upzila= Upozila::all();
-        $union= Union::all();
-        return view('Backend.Pages.Village.Update',compact('division','zila','upzila','union','village'));
+        $village=Village::with('division','zila','upzila','union',)->where(['id'=>$id])->first();
+        $division=Division::latest()->get();
+       return view('Backend.Pages.Village.Update',compact('village','division'));
+
+
     }
     public function update(Request $request){
         $rules = [
