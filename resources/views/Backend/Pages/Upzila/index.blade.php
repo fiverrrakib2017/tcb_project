@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     <label class="control-label">জেলা</label>
 
-                                    <select name="zila_id" id="zila_id" style="width: 100%;" required>
+                                    <select name="zila_id" id="zila_id" class="form-control" required>
                                         <option value="" >---নির্বাচন করুন---</option>
 
                                     </select>
@@ -68,8 +68,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">বিভাগ</label>
-                            <select name="search_division_id" onchange="searchloadZilas();"  id="search_division_id" style="width: 100%;"
-                                        required>
+                            <select name="search_division_id" onchange="searchloadZilas();"  id="search_division_id" class="form-control" required>
                                 <option value="">---নির্বাচন করুন---</option>
                                     @foreach ($filter_div as $division)
                                         <option value="{{ $division->id }}">{{ $division->name_ban }} </option>
@@ -81,7 +80,7 @@
                         <div class="form-group">
                             <label class="control-label">জেলা</label>
 
-                            <select  id="search_zila_id" style="width: 100%;" required>
+                            <select  id="search_zila_id" class="form-control" required>
                                 <option value="">---নির্বাচন করুন---</option>
 
 
@@ -140,9 +139,9 @@
     <script>
         $(document).ready(function () {
             $('#basicTable').dataTable();
-            $("#zila_id").select2();
-            $("#search_division_id").select2();
-            $("#search_zila_id").select2();
+            //$("#zila_id").select2();
+            //$("#search_division_id").select2();
+            //$("#search_zila_id").select2();
         });
     </script>
 
@@ -180,7 +179,7 @@
                 fetch('/get-zilas/' + divisionId)
                     .then(response => response.json())
                     .then(data => {
-                        var defaultOption = new Option('------- জেলা নির্বাচন করুন -------', '');
+                        var defaultOption = new Option('---জেলা নির্বাচন করুন---', '');
                         zilaDropdown.append(defaultOption).trigger('change');
 
                       

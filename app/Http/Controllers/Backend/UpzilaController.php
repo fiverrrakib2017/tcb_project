@@ -45,16 +45,17 @@ class UpzilaController extends Controller
         return redirect()->back()->with('success','মুছে ফেলা সম্পূর্ণ  হয়েছে');
     }
     public function edit($id){
-        $division=Division::all();
-        $zila=Zila::all();
-        $upzila=Upozila::find($id);
-        return view('Backend.Pages.Upzila.Update',compact('upzila','division','zila'));
-
+         $upzila=Upozila::with('division','zila')->where(['id'=>$id])->first();
+         $division=Division::latest()->get();
+        return view('Backend.Pages.Upzila.Update',compact('upzila','division'));
     }
     public function update(Request $request){
 
+        
         $rules = [
-            'name' => 'required|unique:upozilas|max:255',
+            'division_id' => 'required|max:255',
+            'zila_id' => 'required|max:255',
+            'name' => 'required|max:255',
         ];
 
         $validator = Validator::make($request->all(), $rules);

@@ -57,8 +57,7 @@
                     <div class="col-md-3 col-sm-3">
                         <div class="form-group">
                             <label class="control-label">বিভাগ</label>
-                            <select  id="search_division_id" style="width: 100%;"
-                                        required>
+                            <select  id="search_division_id" class="form-control" required>
                                 <option value="">---নির্বাচন করুন---</option>
                                     @foreach ($filter_div as $division)
                                         <option value="{{ $division->id }}">{{ $division->name_ban }}</option>
@@ -135,7 +134,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#basicTable').dataTable();
-            $("#search_division_id").select2();
+           // $("#search_division_id").select2();
 
             $('#search_division_id').change(function() {
                 var division_id = $('#search_division_id').val();

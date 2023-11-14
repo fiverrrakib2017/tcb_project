@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
 
-                                    <select name="division_id" id="division_id" style="width: 100%;" required>
+                                    <select onchange="loadZilas();" name="division_id" id="division_id" class="form-control" required>
                                         <option value="">---নির্বাচন করুন---</option>
                                         @foreach ($division as $division)
                                             <option value="{{ $division->id }}"
@@ -41,13 +41,8 @@
                                 <div class="form-group">
                                     <label class="control-label">জেলা</label>
 
-                                    <select name="zila_id" id="zila_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        @foreach ($zila as $zila)
-                                            <option value="{{ $zila->id }}"
-                                                {{ $upzila->zila_id == $zila->id ? 'selected' : '' }}>{{ $zila->name }}
-                                            </option>
-                                        @endforeach
+                                    <select name="zila_id" id="zila_id" class="form-control" required>
+                                      <option value="{{$upzila->zila_id}}">{{ $upzila->zila->name }}</option>
                                     </select>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-2 -->
@@ -84,8 +79,36 @@
         </script>
     @endif
     <script>
-        $("#division_id").select2();
-        $("#zila_id").select2();
+        // $("#division_id").select2();
+        // $("#zila_id").select2();
+        function loadZilas() {
+            var selectedZila = null;
+            var divisionId = $("#division_id").val();
+
+            var zilaDropdown = $("#zila_id");
+            zilaDropdown.empty(); 
+
+            if (divisionId) {
+                fetch('/get-zilas/' + divisionId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var defaultOption = new Option('---জেলা নির্বাচন করুন---', '');
+                        zilaDropdown.append(defaultOption).trigger('change');
+
+                      
+                        data.forEach(zila => {
+                            var option = new Option(zila.name, zila.id, false, false);
+                            zilaDropdown.append(option).trigger('change');
+                        });
+
+                        
+                        if (selectedZila && data.some(zila => zila.id === selectedZila)) {
+                            zilaDropdown.val(selectedZila).trigger('change');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
     </script>
 
 
