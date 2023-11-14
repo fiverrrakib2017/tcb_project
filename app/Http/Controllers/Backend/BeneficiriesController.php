@@ -97,18 +97,27 @@ class BeneficiriesController extends Controller
         // Save the beneficiary to the database
         $beneficiary->save();
 
-        return redirect()->route('admin.beneficiries.list')->with('success','উপকারভোগী তথ্য যুক্ত হয়েছে');
+        return redirect()->back()->with('success','উপকারভোগী তথ্য যুক্ত হয়েছে');
     }
     public function edit($id){
-        $item =Beneficiaries::find($id);
-        $division=Division::all();
-        $zila=Zila::all();
-        $upzila=Upozila::all();
-        $union=Union::all();
-        $village=Village::all();
-        $vatar=Vatar::all();
-        $dealer=Dealer::all();
-       return view('Backend.Pages.Beneficiary.Update',compact('item','division','zila','upzila','union','village','vatar','dealer'));
+    //     $item =Beneficiaries::find($id);
+    //     $division=Division::all();
+    //     $zila=Zila::all();
+    //     $upzila=Upozila::all();
+    //     $union=Union::all();
+    //     $village=Village::all();
+    //     $vatar=Vatar::all();
+    //     $dealer=Dealer::all();
+    //    return view('Backend.Pages.Beneficiary.Update',compact('item','division','zila','upzila','union','village','vatar','dealer'));
+
+       $item=Beneficiaries::with('division','zila','upzila','union','village')->where(['id'=>$id])->first();
+       return $item; exit;
+       $division=Division::latest()->get();
+       $vatar=Vatar::latest()->get();
+        $dealer=Dealer::latest()->get();
+       return view('Backend.Pages.Beneficiary.Update',compact('item','dealer','division','vatar','dealer'));
+
+
     }
     public function update(Request $request){
         $rules = [

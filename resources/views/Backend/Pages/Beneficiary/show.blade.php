@@ -27,18 +27,16 @@
         </div><!-- panel -->
 
         <div class="contentpanel">
-            <h2 class="control-label text-center text-danger"> সকল উপকারভোগী তালিকা </h2>
-            <h3></h3>
+           
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
                 <tr>
                     <th>ক্রমিক নং</th>
                     <th>নাম</th>
                     <th>পিতার নাম</th>
-                    <th>মাতার নাম</th>
+                  
                     <th>আইডি কার্ড নং</th>
                     <th>মোবাইল নাম্ভার</th>
-                    <th>ছবি</th>
                     <th>কার্ড </th>
                     <th>বিভাগের নাম</th>
                     <th>জেলা</th>
@@ -46,7 +44,6 @@
                     <th>ইউনিয়ন</th>
                     <th>ওয়ার্ড নং</th>
                     <th>গ্রামের নাম</th>
-                    <th>সংযোজন তারিখ</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -60,17 +57,16 @@
                         <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ ++$key }}</span></td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->father_name }}</td>
-                        <td>{{ $item->mother_name }}</td>
                         <td>{{ $item->card_no }}</td>
                         <td>{{ $item->phone_number }}</td>
-                        <td>
+                        <!-- <td>
                             @if($item->photo)
                             <img class="img-circle" height="50px"  src="{{ asset('images/' . $item->photo) }}" alt="Photo">
 
                             @else
                                 <img src="{{ asset('images/no_image.png') }}" height="50px" alt="Default Photo">
                             @endif
-                        </td>
+                        </td> -->
                         <td>{{ $item->card_no }}</td>
                         <td>{{ $item->division->name_ban }}</td>
                         <td>{{ $item->zila->name }}</td>
@@ -78,7 +74,7 @@
                         <td>{{ $item->union->name }}</td>
                         <td>{{ $item->ward_id }}</td>
                         <td>{{ $item->village->name }}</td>
-                        <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
+                        <!-- <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td> -->
                         <td>
                             <!-- Add your action buttons here -->
                             <a class="btn btn-primary btn-sm mr-3" href="{{ route('admin.beneficiries.edit', $item->id) }}"><i class="fa fa-edit"></i></a>

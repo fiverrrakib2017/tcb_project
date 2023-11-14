@@ -8,20 +8,11 @@
             <form method="post" action="{{ route('admin.beneficiries.update') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">কার্ড নং</label>
-
-                            <input type="text" name="card_no" value="{{$item->card_no}}" class="form-control"/>
-
-                            <input type="hidden" name="id" value="{{$item->id}}" class="form-control d-none" required />
-
-                        </div>
-                    </div>
+                    
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">বিভাগ</label>
-
+                            <input type="hidden" name="id" value="{{$item->id}}" class="form-control d-none" required />
                             <select name="division_id" onchange="loadZilas();" value="{{$item->division_id}}" id="division_id" style="width: 100%;"
                                 required>
                                 <option value="">---নির্বাচন করুন---</option>
@@ -38,13 +29,8 @@
                         <div class="form-group">
                             <label class="control-label">জেলা</label>
 
-                            <select onchange="loadUpZilas();" name="zila_id"  id="zila_id" style="width: 100%;" required>
-                                <option value="">---নির্বাচন করুন---</option>
-                                @foreach ($zila as $zila)
-                                <option value="{{ $zila->id }}"
-                                    {{ $item->zila_id == $zila->id ? 'selected' : '' }}>{{ $zila->name }}
-                                </option>
-                            @endforeach
+                            <select onchange="loadUpZilas();" name="zila_id"  id="zila_id" class="form-control" required>
+                            <option value="{{$item->zila_id}}">{{ $item->zila->name }}</option>
 
 
                             </select>
@@ -55,13 +41,8 @@
                         <div class="form-group">
                             <label class="control-label">উপজেলা</label>
 
-                            <select onchange="loadUnion();" name="upzila_id" id="upzila_id" style="width: 100%;" required>
-                                <option value="">---নির্বাচন করুন---</option>
-                                @foreach ($upzila as $upzila)
-                                    <option value="{{ $upzila->id }}"
-                                        {{ $item->upozila_id == $upzila->id ? 'selected' : '' }}>{{ $upzila->name }}
-                                    </option>
-                                @endforeach
+                            <select onchange="loadUnion();" name="upzila_id" id="upzila_id" class="form-control" required>
+                            <option value="{{$item->upozila_id}}">{{ $item->upzila->name }}</option>
                             </select>
 
                         </div>
@@ -70,14 +51,8 @@
                         <div class="form-group">
                             <label class="control-label">ইউনিয়ন</label>
 
-                            <select name="union_id"  id="union_id" style="width: 100%;" required>
-                                <option value="">---নির্বাচন করুন---</option>
-
-                                @foreach ($union as $union)
-                                <option value="{{ $union->id }}"
-                                    {{ $item->union_id == $union->id ? 'selected' : '' }}>{{ $union->name }}
-                                </option>
-                                @endforeach
+                            <select name="union_id"  id="union_id" class="form-control" required>
+                            <option value="{{$item->union_id}}">{{ $item->union->name }}</option>
 
                             </select>
 
@@ -87,7 +62,7 @@
                         <div class="form-group">
                             <label class="control-label">ভাতার তালিকা</label>
 
-                            <select name="vatar_id"  id="vatar_id" style="width: 100%;" required>
+                            <select name="vatar_id"  id="vatar_id" class="form-control" required>
                                 <option value="">---নির্বাচন করুন---</option>
                                 @foreach ($vatar as $vatar)
                                 <option value="{{ $vatar->id }}"
@@ -149,7 +124,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">গ্রাম</label>
-                            <select name="village_id"  id="village_id" style="width: 100%;" required>
+                            <select name="village_id"  id="village_id" class="form-control" required>
                                 <option value="">---নির্বাচন করুন---</option>
                                 @foreach ($village as $village)
                                 <option value="{{ $village->id }}"
@@ -206,6 +181,16 @@
                         </div>
                     </div>
 
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">কার্ড নং</label>
+
+                            <input type="text" name="card_no" value="{{$item->card_no}}" class="form-control"/>
+
+                           
+
+                        </div>
+                    </div>
                     <!-- <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">ছবি (সর্বচ্চ ২ এম.বি)</label>

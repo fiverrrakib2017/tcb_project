@@ -34,7 +34,7 @@ class Beneficiaries extends Model
         return $this->belongsTo(Zila::class);
     }
 
-    public function upozila()
+    public function upzila()
     {
         return $this->belongsTo(Upozila::class);
     }
