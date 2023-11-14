@@ -1,5 +1,5 @@
 @extends('Backend.Layout.App')
-@section('title','সকল উনিয়নের তালিকা')
+@section('title','সকল ইউনিয়ন তালিকা')
 @section('content')
     <div class="mainpanel">
         <div class="pageheader">
@@ -9,7 +9,7 @@
                 </div>
                 <div class="media-body">
 
-                    <h4>উনিয়ন যুক্ত করুন</h4>
+                    <h4>ইউনিয়ন যুক্ত করুন</h4>
                 </div>
             </div><!-- media -->
         </div><!-- pageheader -->
@@ -37,9 +37,9 @@
                             </div><!-- col-sm-2 -->
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                    <label class="control-label">জেলা</label>
+                                    <label class="control-label">জেলা</label> 
 
-                                    <select onchange="loadUpZilas();" name="zila_id" id="zila_id" style="width: 100%;" required>
+                                    <select onchange="loadUpZilas();" name="zila_id" id="zila_id" class="form-control" required>
                                         <option value="" >---নির্বাচন করুন---</option>
 
                                     </select>
@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                     <label class="control-label">উপজেলা</label>
 
-                                    <select name="upzila_id" id="upzila_id" style="width: 100%;" required>
+                                    <select name="upzila_id" id="upzila_id" class="form-control" required>
                                         <option value="" >---নির্বাচন করুন---</option>
 
                                     </select>
@@ -76,8 +76,8 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">বিভাগ</label>
-                            <select name="search_division_id" onchange="searchloadZilas();"  id="search_division_id" style="width: 100%;"
-                                        required>
+                            <select name="search_division_id" onchange="searchloadZilas();"  id="search_division_id"
+                                class="form-control"        required>
                                 <option value="">---নির্বাচন করুন---</option>
                                     @foreach ($filter_div as $division)
                                         <option value="{{ $division->id }}">{{ $division->name_ban }} </option>
@@ -89,7 +89,7 @@
                         <div class="form-group">
                             <label class="control-label">জেলা</label>
 
-                            <select onchange="searchloadUpZilas();" name="search_zila_id"  id="search_zila_id" style="width: 100%;" required>
+                            <select onchange="searchloadUpZilas();" name="search_zila_id"  id="search_zila_id"  class="form-control"  required>
                                 <option value="">---নির্বাচন করুন---</option>
 
 
@@ -102,7 +102,7 @@
                         <div class="form-group">
                             <label class="control-label">উপজেলা</label>
 
-                            <select  name="search_upzila_id"  id="search_upzila_id" style="width: 100%;" required>
+                            <select  name="search_upzila_id"  id="search_upzila_id" class="form-control"   required>
                                 <option value="">---নির্বাচন করুন---</option>
 
                             </select>
@@ -163,11 +163,11 @@
     <script>
         $(document).ready(function () {
             $('#basicTable').dataTable();
-            $("#zila_id").select2();
-            $("#upzila_id").select2();
-            $("#search_division_id").select2();
-            $("#search_zila_id").select2();
-            $("#search_upzila_id").select2();
+            // $("#zila_id").select2();
+            // $("#upzila_id").select2();
+            // $("#search_division_id").select2();
+            // $("#search_zila_id").select2();
+            // $("#search_upzila_id").select2();
         });
 
 
@@ -186,10 +186,10 @@ function searchloadZilas() {
         fetch('/get-zilas/' + divisionId)
             .then(response => response.json())
             .then(data => {
-                var defaultOption = new Option('------- জেলা নির্বাচন করুন -------', '');
+                var defaultOption = new Option('--- জেলা নির্বাচন করুন ---', '');
                 zilaDropdown.append(defaultOption).trigger('change');
 
-                var defaultOption2 = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                var defaultOption2 = new Option('--- উপজেলা নির্বাচন করুন ---', '');
                 upzilaDropdown.append(defaultOption2).trigger('change');
 
                 data.forEach(zila => {
@@ -218,10 +218,10 @@ function loadZilas() {
         fetch('/get-zilas/' + divisionId)
             .then(response => response.json())
             .then(data => {
-                var defaultOption = new Option('------- জেলা নির্বাচন করুন -------', '');
+                var defaultOption = new Option('--- জেলা নির্বাচন করুন ---', '');
                 zilaDropdown.append(defaultOption).trigger('change');
 
-                var defaultOption2 = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                var defaultOption2 = new Option('--- উপজেলা নির্বাচন করুন ---', '');
                 upzilaDropdown.append(defaultOption2).trigger('change');
 
                 data.forEach(zila => {
@@ -250,7 +250,7 @@ function searchloadUpZilas() {
         fetch('/get-upzila/' + zilaId)
             .then(response => response.json())
             .then(data => {
-                var defaultOption = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                var defaultOption = new Option('--- উপজেলা নির্বাচন করুন ---', '');
                 upzilaDropdown.append(defaultOption).trigger('change');
 
                 data.forEach(upzila => {
@@ -273,7 +273,7 @@ function loadUpZilas() {
         fetch('/get-upzila/' + zilaId)
             .then(response => response.json())
             .then(data => {
-                var defaultOption = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                var defaultOption = new Option('--- উপজেলা নির্বাচন করুন ---', '');
                 upzilaDropdown.append(defaultOption).trigger('change');
 
                 data.forEach(upzila => {

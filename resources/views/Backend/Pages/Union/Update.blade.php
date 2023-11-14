@@ -31,7 +31,7 @@
                                 <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
                                     
-                                    <select onchange="loadZilas();" name="division_id" id="division_id" style="width: 100%;"
+                                    <select onchange="loadZilas();" name="division_id" id="division_id" class="form-control"
                                         required>
                                         <option value="">---নির্বাচন করুন---</option>
                                         @foreach ($division as $division)
@@ -47,29 +47,18 @@
                                 <div class="form-group">
                                     <label class="control-label">জেলা</label>
 
-                                    <select onchange="loadUpZilas();" name="zila_id" id="zila_id" style="width: 100%;"
+                                    <select onchange="loadUpZilas();" name="zila_id" id="zila_id" class="form-control"
                                         required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        @foreach ($zila as $zila)
-                                            <option value="{{ $zila->id }}"
-                                                {{ $union->zila_id == $zila->id ? 'selected' : '' }}>{{ $zila->name }}
-                                            </option>
-                                        @endforeach
-
+                                        <option value="{{$union->zila_id}}">{{ $union->zila->name }}</option>
                                     </select>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-2 -->
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label class="control-label">উপজেলা</label>
-
-                                    <select name="upzila_id" id="upzila_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        @foreach ($upzila as $upzila)
-                                            <option value="{{ $upzila->id }}"
-                                                {{ $union->upozila_id == $upzila->id ? 'selected' : '' }}>{{ $upzila->name }}
-                                            </option>
-                                        @endforeach
+                                    <select name="upzila_id" id="upzila_id" class="form-control" required>
+                                    <option value="{{$union->upzila_id}}">{{ $union->upzila->name }}</option>
+                                     
                                     </select>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-2 -->
@@ -100,9 +89,9 @@
     <script>
         $(document).ready(function() {
             $('#basicTable').dataTable();
-            $("#zila_id").select2();
-            $("#division_id").select2();
-            $("#upzila_id").select2();
+            // $("#zila_id").select2();
+            // $("#division_id").select2();
+            // $("#upzila_id").select2();
         });
 
 
@@ -121,10 +110,10 @@
                 fetch('/get-zilas/' + divisionId)
                     .then(response => response.json())
                     .then(data => {
-                        var defaultOption = new Option('------- জেলা নির্বাচন করুন -------', '');
+                        var defaultOption = new Option('--- জেলা নির্বাচন করুন ---', '');
                         zilaDropdown.append(defaultOption).trigger('change');
 
-                        var defaultOption2 = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                        var defaultOption2 = new Option('--- উপজেলা নির্বাচন করুন ---', '');
                         upzilaDropdown.append(defaultOption2).trigger('change');
 
                         data.forEach(zila => {
@@ -153,7 +142,7 @@
                 fetch('/get-upzila/' + zilaId)
                     .then(response => response.json())
                     .then(data => {
-                        var defaultOption = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                        var defaultOption = new Option('--- উপজেলা নির্বাচন করুন ---', '');
                         upzilaDropdown.append(defaultOption).trigger('change');
 
                         data.forEach(upzila => {

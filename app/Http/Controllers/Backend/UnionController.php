@@ -48,9 +48,9 @@ class UnionController extends Controller
         return redirect()->back()->with('success','মুছে ফেলা সম্পূর্ণ  হয়েছে');
     }
     public function edit($id){
-        $union=Union::find($id);
-        $division=Division::all();  $zila=Zila::all();   $upzila= Upozila::all();
-        return view('Backend.Pages.Union.Update',compact('union','division','zila','upzila'));
+        $union=Union::with('division','zila','upzila')->where(['id'=>$id])->first();
+        $division=Division::latest()->get();
+        return view('Backend.Pages.Union.Update',compact('union','division'));
 
     }
     public function update(Request $request){
