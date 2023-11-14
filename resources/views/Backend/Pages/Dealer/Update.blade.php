@@ -32,7 +32,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
-                                    <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" style="width: 100%;"
+                                    <select name="division_id" onchange="loadZilas();" value="{{old('division_id')}}" id="division_id" class="form-control"
                                         required>
 
                                         <option value="">---নির্বাচন করুন---</option>
@@ -51,14 +51,8 @@
                                 <div class="form-group">
                                     <label class="control-label">জেলা</label>
 
-                                    <select onchange="loadUpZilas();" name="zila_id" value="{{old('zila_id')}}" id="zila_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-
-                                        @foreach ($zila as $zila)
-                                            <option value="{{ $zila->id }}"
-                                                {{ $dealer->zila_id == $zila->id ? 'selected' : '' }}>{{ $zila->name }}
-                                            </option>
-                                        @endforeach
+                                    <select onchange="loadUpZilas();" name="zila_id" value="{{old('zila_id')}}" id="zila_id" class="form-control" required>
+                                    <option value="{{$dealer->zila_id}}">{{ $dealer->zila->name }}</option>
 
                                     </select>
 
@@ -68,13 +62,8 @@
                                 <div class="form-group">
                                     <label class="control-label">উপজেলা</label>
 
-                                    <select onchange="loadUnion();" name="upzila_id" value="{{old('upzila_id')}}" id="upzila_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        @foreach ($upzila as $upzila)
-                                            <option value="{{ $upzila->id }}"
-                                                {{ $dealer->upzila_id == $upzila->id ? 'selected' : '' }}>{{ $upzila->name }}
-                                            </option>
-                                        @endforeach
+                                    <select onchange="loadUnion();" name="upzila_id" value="{{old('upzila_id')}}" id="upzila_id" class="form-control" required>
+                                    <option value="{{$dealer->upzila_id}}">{{ $dealer->upzila->name }}</option>
                                     </select>
 
                                 </div>
@@ -83,13 +72,8 @@
                                 <div class="form-group">
                                     <label class="control-label">ইউনিয়ন</label>
 
-                                    <select name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        @foreach ($union as $union)
-                                            <option value="{{ $union->id }}"
-                                                {{ $dealer->union_id == $union->id ? 'selected' : '' }}>{{ $union->name }}
-                                            </option>
-                                        @endforeach
+                                    <select name="union_id" value="{{old('union_id')}}" id="union_id" class="form-control" required>
+                                    <option value="{{$dealer->union_id}}">{{ $dealer->union->name }}</option>
                                        
                                     </select>
 
@@ -105,29 +89,29 @@
                            
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label"> মোবাইল নাম্ভার </label>
+                                    <label class="control-label"> মোবাইল নাম্বার </label>
                                     <input type="number" name="mobile" value="{{$dealer->phone_number}}" class="form-control" placeholder="ডিলার মোবাইল " required/>
 
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">এনআইডি নাম্ভার </label>
-                                    <input type="text" name="nid_number" value="{{$dealer->nid_no}}" class="form-control" placeholder="ডিলার এনআইডি নাম্ভার  লিখুন " required/>
+                                    <label class="control-label">এনআইডি নাম্বার </label>
+                                    <input type="text" name="nid_number" value="{{$dealer->nid_no}}" class="form-control" placeholder="ডিলার এনআইডি নাম্বার  লিখুন " required/>
 
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">কার্ড নাম্ভার শুরু</label>
-                                    <input type="text" name="card_number_start" value="{{$dealer->card_no_start}}" class="form-control" placeholder="ডিলার কার্ড নাম্ভার" required/>
+                                    <label class="control-label">কার্ড নাম্বার শুরু</label>
+                                    <input type="text" name="card_number_start" value="{{$dealer->card_no_start}}" class="form-control" placeholder="ডিলার কার্ড নাম্বার" required/>
 
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">কার্ড নাম্ভার শেষ </label>
-                                    <input type="text" name="card_number_end" value="{{$dealer->card_no_end}}" class="form-control" placeholder="ডিলার কার্ড নাম্ভার লিখুন " required/>
+                                    <label class="control-label">কার্ড নাম্বার শেষ </label>
+                                    <input type="text" name="card_number_end" value="{{$dealer->card_no_end}}" class="form-control" placeholder="ডিলার কার্ড নাম্বার লিখুন " required/>
 
                                 </div>
                             </div>
@@ -142,7 +126,7 @@
                         </div>
                     </div><!-- panel-body -->
                     <div class="panel-footer">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> সংরক্ষন
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> পরিবর্তন করুন
                         </button>
                     </div><!-- panel-footer -->
                 </div><!-- panel -->
@@ -157,12 +141,12 @@
 <script type="text/javascript">
         $(document).ready(function() {
             $('#basicTable').dataTable();
-            $("#zila_id").select2();
-            $("#division_id").select2();
-            $("#upzila_id").select2();
-            $("#union_id").select2();
-            $("#ward_id").select2();
-            $("#month").select2();
+            // $("#zila_id").select2();
+            // $("#division_id").select2();
+            // $("#upzila_id").select2();
+            // $("#union_id").select2();
+            // $("#ward_id").select2();
+            // $("#month").select2();
         });
 
 
@@ -185,10 +169,10 @@
                 fetch('/get-zilas/' + divisionId)
                     .then(response => response.json())
                     .then(data => {
-                        var defaultOption = new Option('------- জেলা নির্বাচন করুন -------', '');
+                        var defaultOption = new Option('--- জেলা নির্বাচন করুন ---', '');
                         zilaDropdown.append(defaultOption).trigger('change');
 
-                        var defaultOption2 = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                        var defaultOption2 = new Option('--- উপজেলা নির্বাচন করুন ---', '');
                         upzilaDropdown.append(defaultOption2).trigger('change');
 
                         data.forEach(zila => {
@@ -217,7 +201,7 @@
                 fetch('/get-upzila/' + zilaId)
                     .then(response => response.json())
                     .then(data => {
-                        var defaultOption = new Option('------- উপজেলা নির্বাচন করুন -------', '');
+                        var defaultOption = new Option('--- উপজেলা নির্বাচন করুন ---', '');
                         upzilaDropdown.append(defaultOption).trigger('change');
 
                         data.forEach(upzila => {
@@ -241,7 +225,7 @@
                 fetch('/get-union/' + upZilaId)
                     .then(response => response.json())
                     .then(data => {
-                        var defaultOption = new Option('------- ইউনিয়ন নির্বাচন করুন -------', '');
+                        var defaultOption = new Option('--- ইউনিয়ন নির্বাচন করুন ---', '');
                         unionDropdown.append(defaultOption).trigger('change');
 
                         data.forEach(final_data => {

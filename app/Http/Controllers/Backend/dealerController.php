@@ -67,12 +67,9 @@ class dealerController extends Controller
         return redirect()->back()->with('success','সফল হয়েছে');
     }
     public function edit($requestID){
-        $division=Division::all();
-        $dealer=Dealer::find($requestID);
-        $zila=Zila::all();
-        $upzila=Upozila::all();
-        $union=Union::all();
-        return view('Backend.Pages.Dealer.Update',compact('division','dealer','zila','upzila','union'));
+        $dealer=Dealer::with('division','zila','upzila','union')->where(['id'=>$requestID])->first();
+        $division=Division::latest()->get();
+        return view('Backend.Pages.Dealer.Update',compact('dealer','division'));
 
     }
     public function delete($id){
