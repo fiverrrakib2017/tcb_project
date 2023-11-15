@@ -1,8 +1,19 @@
 @extends('Backend.Layout.App')
-@section('title', 'টিসিবি উপকারভোগী যুক্ত করুন')
+@section('title', 'টিসিবি উপকারভোগী পরিবর্তন করুন')
 @section('content')
 
     <div class="mainpanel">
+    <div class="pageheader">
+            <div class="media">
+                <div class="pageicon pull-left">
+                    <i class="fa fa-th-list"></i>
+                </div>
+                <div class="media-body">
+
+                    <h4>টিসিবি উপকারভোগী পরিবর্তন করুন</h4>
+                </div>
+            </div><!-- media -->
+        </div><!-- pageheader -->
         <div class="contentpanel">
 
             <form method="post" action="{{ route('admin.beneficiries.update') }}" enctype="multipart/form-data">
@@ -13,7 +24,7 @@
                         <div class="form-group">
                             <label class="control-label">বিভাগ</label>
                             <input type="hidden" name="id" value="{{$item->id}}" class="form-control d-none" required />
-                            <select name="division_id" onchange="loadZilas();" value="{{$item->division_id}}" id="division_id" style="width: 100%;"
+                            <select name="division_id" onchange="loadZilas();" class="form-control" value="{{$item->division_id}}" id="division_id" style="width: 100%;"
                                 required>
                                 <option value="">---নির্বাচন করুন---</option>
                                 @foreach ($division as $division)
@@ -42,7 +53,7 @@
                             <label class="control-label">উপজেলা</label>
 
                             <select onchange="loadUnion();" name="upzila_id" id="upzila_id" class="form-control" required>
-                            <option value="{{$item->upozila_id}}">{{ $item->upzila->name }}</option>
+                            <option value="{{$item->upozila_id}}">{{ $item->upozila->name }}</option>
                             </select>
 
                         </div>
@@ -54,6 +65,17 @@
                             <select name="union_id"  id="union_id" class="form-control" required>
                             <option value="{{$item->union_id}}">{{ $item->union->name }}</option>
 
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">ডিলার নাম</label>
+
+                            <select name="dealer_id"  id="dealer_id" class="form-control" required>
+                                                             
+                                <option value="{{$item->dealer_id}}">{{ $item->dealer->name }}</option>
                             </select>
 
                         </div>
@@ -73,21 +95,7 @@
 
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">ডিলার নাম</label>
-
-                            <select name="dealer_id"  id="dealer_id" style="width: 100%;" required>
-                                <option value="">---নির্বাচন করুন---</option>
-                                @foreach ($dealer as $dealer)
-                                <option value="{{ $dealer->id }}"
-                                    {{ $item->dealer_id == $dealer->id ? 'selected' : '' }}>{{ $dealer->name }}
-                                </option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                    </div>
+                    
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">উপকারভোগী নাম</label>
@@ -125,13 +133,8 @@
                         <div class="form-group">
                             <label class="control-label">গ্রাম</label>
                             <select name="village_id"  id="village_id" class="form-control" required>
-                                <option value="">---নির্বাচন করুন---</option>
-                                @foreach ($village as $village)
-                                <option value="{{ $village->id }}"
-                                    {{ $item->village_id == $village->id ? 'selected' : '' }}>{{ $village->name }}
-                                </option>
-                                @endforeach
-
+                             
+                                <option value="{{$item->village_id}}">{{ $item->village->name }}</option>
 
                             </select>
 
@@ -141,7 +144,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">ওয়ার্ড নং </label>
-                            <select name="ward_id"  id="ward_id" style="width: 100%;" required>
+                            <select name="ward_id"  id="ward_id" class="form-control" required>
                                 <option value="">---নির্বাচন করুন---</option>
                                 <option value="1" {{ $item->ward_id == 1 ? 'selected' : '' }}>1</option>
                                 <option value="2" {{ $item->ward_id ==2 ? 'selected' : '' }}>2</option>
@@ -224,14 +227,14 @@
     <script>
         $(document).ready(function() {
             $('#basicTable').dataTable();
-            $("#zila_id").select2();
-            $("#division_id").select2();
-            $("#upzila_id").select2();
-            $("#union_id").select2();
-            $("#village_id").select2();
-            $("#ward_id").select2();
-            $("#vatar_id").select2();
-            $("#dealer_id").select2();
+            // $("#zila_id").select2();
+            // $("#division_id").select2();
+            // $("#upzila_id").select2();
+            // $("#union_id").select2();
+            // $("#village_id").select2();
+            // $("#ward_id").select2();
+            // $("#vatar_id").select2();
+            // $("#dealer_id").select2();
         });
 
 

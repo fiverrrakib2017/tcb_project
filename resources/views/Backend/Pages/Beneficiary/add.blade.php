@@ -3,6 +3,17 @@
 @section('content')
 
     <div class="mainpanel">
+    <div class="pageheader">
+            <div class="media">
+                <div class="pageicon pull-left">
+                    <i class="fa fa-th-list"></i>
+                </div>
+                <div class="media-body">
+
+                    <h4>টিসিবি উপকারভোগী যুক্ত করুন</h4>
+                </div>
+            </div><!-- media -->
+        </div><!-- pageheader -->
         <div class="contentpanel">
 
             <form method="post" action="{{ route('admin.beneficiries.store') }}" enctype="multipart/form-data">

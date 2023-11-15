@@ -18,7 +18,7 @@ class Beneficiaries extends Model
         'card_no',
         'division_id',
         'zila_id',
-        'upozila_id',
+        'upzila_id',
         'union_id',
         'ward_id',
         'village_id',
@@ -34,7 +34,7 @@ class Beneficiaries extends Model
         return $this->belongsTo(Zila::class);
     }
 
-    public function upzila()
+    public function upozila()
     {
         return $this->belongsTo(Upozila::class);
     }
@@ -46,5 +46,13 @@ class Beneficiaries extends Model
     public function village()
     {
         return $this->belongsTo(Village::class);
+    }
+    public function dealer()
+    {
+        return $this->belongsTo(Dealer::class);
+    }
+    public function vatar()
+    {
+        return $this->belongsTo(Vatar::class);
     }
 }

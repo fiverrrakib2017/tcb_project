@@ -19,7 +19,7 @@ class BeneficiriesController extends Controller
 {
     public function index(){
         $data=Beneficiaries::with('division','zila','upozila','union')->get();
-
+        // return $data;exit;
         return view('Backend.Pages.Beneficiary.show',compact('data'));
     }
     public function add(){
@@ -30,7 +30,7 @@ class BeneficiriesController extends Controller
     }
     public function store(Request $request){
         $rules = [
-            'card_no' => 'required',
+            'card_no' => 'required|unique:beneficiaries,card_no',
             'nid' => 'required',
             'name' => 'required',
             'fh_name' => 'required',
@@ -100,15 +100,15 @@ class BeneficiriesController extends Controller
         return redirect()->back()->with('success','উপকারভোগী তথ্য যুক্ত হয়েছে');
     }
     public function edit($id){
-    //     $item =Beneficiaries::find($id);
-    //     $division=Division::all();
+         $item =Beneficiaries::find($id);
+         $division=Division::all();
     //     $zila=Zila::all();
     //     $upzila=Upozila::all();
     //     $union=Union::all();
     //     $village=Village::all();
-    //     $vatar=Vatar::all();
-    //     $dealer=Dealer::all();
-    //    return view('Backend.Pages.Beneficiary.Update',compact('item','division','zila','upzila','union','village','vatar','dealer'));
+        $vatar=Vatar::all();
+         $dealer=Dealer::all();
+        return view('Backend.Pages.Beneficiary.Update',compact('item','division','vatar'));
 
        $item=Beneficiaries::with('division','zila','upzila','union','village')->where(['id'=>$id])->first();
        return $item; exit;
@@ -121,7 +121,8 @@ class BeneficiriesController extends Controller
     }
     public function update(Request $request){
         $rules = [
-            'card_no' => 'required',
+           
+            'card_no' => 'required|unique:beneficiaries,card_no,'.$request->id,
             'nid' => 'required',
             'name' => 'required',
             'fh_name' => 'required',

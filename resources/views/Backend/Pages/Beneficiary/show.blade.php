@@ -42,6 +42,8 @@
                     <th>জেলা</th>
                     <th>উপজেলা</th>
                     <th>ইউনিয়ন</th>
+                    <th>ডিলার নাম</th>
+                    <th>ভাতার নাম</th>
                     <th>ওয়ার্ড নং</th>
                     <th>গ্রামের নাম</th>
                     <th></th>
@@ -72,6 +74,8 @@
                         <td>{{ $item->zila->name }}</td>
                         <td>{{ $item->upozila->name }}</td>
                         <td>{{ $item->union->name }}</td>
+                        <td>{{ $item->dealer->name }}</td>
+                        <td>{{ $item->vatar->name }}</td>
                         <td>{{ $item->ward_id }}</td>
                         <td>{{ $item->village->name }}</td>
                         <!-- <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td> -->
