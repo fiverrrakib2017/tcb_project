@@ -22,7 +22,7 @@
 
                         <div class="row">
 
-                            <div class="col-sm-2">
+                            <div class="col-md-4 col-sm-3">
                                 <div class="form-group">
                                     <label class="control-label">বিভাগ</label>
 
@@ -36,7 +36,7 @@
                                     </select>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
-                            <div class="col-sm-2">
+                            <div class="col-md-4 col-sm-3">
                                 <div class="form-group">
                                     <label class="control-label">জেলার নাম</label>
                                         <input type="text" name="name"  class="form-control" placeholder="জেলার নাম লিখুন" required/>
@@ -54,7 +54,7 @@
 
         <div class="contentpanel">
             <div class="row">
-                    <div class="col-md-3 col-sm-3">
+                    <div class="col-md-4 col-sm-3">
                         <div class="form-group">
                             <label class="control-label">বিভাগ</label>
                             <select  id="search_division_id" class="form-control" required>
