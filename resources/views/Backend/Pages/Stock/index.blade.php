@@ -39,7 +39,7 @@
                                 <div class="form-group">
                                     <label class="control-label">জেলা</label>
 
-                                    <select onchange="loadUpZilas();" name="zila_id" value="{{old('zila_id')}}" id="zila_id" style="width: 100%;" required>
+                                    <select onchange="loadUpZilas();" name="zila_id" value="{{old('zila_id')}}" id="zila_id" class="form-control" required>
                                         <option value="">---নির্বাচন করুন---</option>
 
 
@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <label class="control-label">উপজেলা</label>
 
-                                    <select onchange="loadUnion();" name="upzila_id" value="{{old('upzila_id')}}" id="upzila_id" style="width: 100%;" required>
+                                    <select onchange="loadUnion();" name="upzila_id" value="{{old('upzila_id')}}" id="upzila_id" class="form-control" required>
                                         <option value="">---নির্বাচন করুন---</option>
 
                                     </select>
@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <label class="control-label">ইউনিয়ন</label>
 
-                                    <select onchange="loadDealer();" name="union_id" value="{{old('union_id')}}" id="union_id" style="width: 100%;" required>
+                                    <select onchange="loadDealer();" name="union_id" value="{{old('union_id')}}" id="union_id" class="form-control" required>
                                         <option value="">---নির্বাচন করুন---</option>
 
 
@@ -75,7 +75,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label class="control-label">ডিলার নাম </label>
-                                    <select name="dealer_id" value="{{old('dealer_id')}}" id="dealer_id" style="width: 100%;" required>
+                                    <select name="dealer_id" value="{{old('dealer_id')}}" id="dealer_id" class="form-control" required>
                                         <option value="">---নির্বাচন করুন---</option>
                                        
                                     </select>
@@ -102,7 +102,7 @@
                                 <div class="form-group">
                                     <label class="control-label">মাস</label>
 
-                                    <select data-placeholder="Choose One" name="month" id="month" class="form-select" style="width: 100%;" required>
+                                    <select data-placeholder="Choose One" name="month" id="month" class="form-control" required>
                                             <option value="">---নির্বাচন করুন---</option>
                                             <option value="january">জানুয়ারি</option>
                                             <option value="february">ফেব্রুয়ারি</option>
@@ -116,17 +116,6 @@
                                             <option value="october">অক্টোবর</option>
                                             <option value="november">নভেম্বর</option>
                                             <option value="december">ডিসেম্বর</option>
-                                    </select>
-                                </div><!-- form-group -->
-                            </div><!-- col-sm-6 -->
-
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label class="control-label">অর্থ বছর</label>
-                                    <select data-placeholder="Choose One" name="year" class="form-control" required>
-                                        <option value="">---নির্বাচন করুন---</option>
-                                        <option value="2021" @if(date('Y') == 2021) selected @endif >২০২১-২০২২</option>
-                                        <option value="2022">২০২২-২০২৩</option> 
                                     </select>
                                 </div><!-- form-group -->
                             </div><!-- col-sm-6 -->
@@ -152,8 +141,7 @@
         </div><!-- panel -->
 
         <div class="contentpanel">
-            <h2 class="control-label text-center text-danger">গুদামে মজুদকৃত চাউল তালিকা</h2>
-            <h3></h3>
+           
             <table id="basicTable" class="table table-striped  table-hover">
                 <thead>
                 <tr>
@@ -163,7 +151,6 @@
                     <th>উপজেলার নাম</th>
                     <th>ইউনিয়নের নাম</th>
                     <th>মাস</th>
-                    <th>অর্থ বছর</th>
                     <th>পরিমান</th> 
                     <th></th>
                 </tr>
@@ -208,7 +195,6 @@
                         ডিসেম্বর
                     @endif
                     </td>
-                    <td>{{ $item->year }}</td>
                     <td><span style="font-family:SutonnyMJ; font-size: 18px;">{{ $item->amount }}</span></td>
                    
                     <td>
@@ -233,12 +219,12 @@
 <script type="text/javascript">
         $(document).ready(function() {
             $('#basicTable').dataTable();
-            $("#zila_id").select2();
-            $("#upzila_id").select2();
-            $("#union_id").select2();
-            $("#ward_id").select2();
-            $("#month").select2();
-            $("#dealer_id").select2();
+            // $("#zila_id").select2();
+            // $("#upzila_id").select2();
+            // $("#union_id").select2();
+            // $("#ward_id").select2();
+            // $("#month").select2();
+            // $("#dealer_id").select2();
         });
 
 

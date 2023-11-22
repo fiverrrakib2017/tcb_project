@@ -38,4 +38,8 @@ class Stock extends Model
     {
         return $this->belongsTo(Union::class);
     }
+    public function dealer()
+    {
+        return $this->belongsTo(Dealer::class);
+    }
 }

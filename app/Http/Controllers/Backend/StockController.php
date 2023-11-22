@@ -27,7 +27,6 @@ class StockController extends Controller
             'upzila_id' => 'required',
             'union_id' => 'required',
             'month' => 'required',
-            'year' => 'required',
             'amount' => 'required',
             'dealer_id' => 'required',
         ];
@@ -44,7 +43,7 @@ class StockController extends Controller
         $object->union_id=$request->union_id;
         //$object->ward_id=$request->ward_id;
         $object->month=$request->month;
-        $object->year=$request->year;
+        $object->year=date('Y');
         $object->amount=$request->amount;
         $object->dealer_id=$request->dealer_id;
         $object->status='1';
@@ -52,13 +51,12 @@ class StockController extends Controller
         return redirect()->back()->with('success','সফল হয়েছে');
     }
     public function edit($id){
+        
+        $stocks=Stock::with('division','zila','upzila')->where(['id'=>$id])->first();
+
         $division=Division::all();
-        $zila=Zila::all();
-        $upzila=Upozila::all();
-        $union=Union::all();
-        $stocks=Stock::find($id);
-        $dealer=Dealer::all();
-        return view('Backend.Pages.Stock.Update',compact('division','stocks','zila','upzila','union','dealer'));
+       
+        return view('Backend.Pages.Stock.Update',compact('division','stocks'));
     }
     public function delete($id){
         $object=Stock::find($id);
@@ -73,7 +71,6 @@ class StockController extends Controller
             'upzila_id' => 'required',
             'union_id' => 'required',
             'month' => 'required',
-            'year' => 'required',
             'amount' => 'required',
             'dealer_id' => 'required',
         ];
@@ -90,9 +87,8 @@ class StockController extends Controller
          $object->upzila_id=$request->upzila_id;
          $object->union_id=$request->union_id; 
          $object->dealer_id=$request->dealer_id;
-         //$object->ward_id=$request->ward_id;
          $object->month=$request->month;
-         $object->year=$request->year;
+         $object->year=date('Y'); 
          $object->amount=$request->amount;
         
          $object->update();
