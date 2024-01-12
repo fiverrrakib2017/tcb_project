@@ -98,26 +98,25 @@ class BeneficiriesController extends Controller
         // Save the beneficiary to the database
         $beneficiary->save();
 
-        $distribution=new Distribution();
-        $distribution->beneficiary_id=$beneficiary->id;
-        $distribution->distribution_date=date('Y-m-d');
-        $distribution->division_id = $beneficiary->division_id;
-        $distribution->zila_id = $beneficiary->zila_id;
-        $distribution->upozila_id = $beneficiary->upzila_id;
-        $distribution->union_id = $beneficiary->union_id;
-        $distribution->ward_id = $beneficiary->ward_id;
-        
+        $distributionArray = [
+            'beneficiary_id' => $beneficiary->id,
+            'status' => 0,
+            'distribution_date' =>date('Y-m-d'),
+            'division_id' =>$request->division_id,
+            'zila_id' =>$request->zila_id,
+            'upozila_id' =>$request->upzila_id,
+            'union_id' =>$request->union_id,
+            'ward_id' => $request->ward_id,
+        ];
+        Distribution::create($distributionArray);
+
         return redirect()->back()->with('success','উপকারভোগী তথ্য যুক্ত হয়েছে');
     }
     public function edit($id){
-         $item =Beneficiaries::find($id);
-         $division=Division::all();
-    //     $zila=Zila::all();
-    //     $upzila=Upozila::all();
-    //     $union=Union::all();
-    //     $village=Village::all();
+        $item =Beneficiaries::find($id);
+        $division=Division::all();
         $vatar=Vatar::all();
-         $dealer=Dealer::all();
+        $dealer=Dealer::all();
         return view('Backend.Pages.Beneficiary.Update',compact('item','division','vatar'));
 
        $item=Beneficiaries::with('division','zila','upzila','union','village')->where(['id'=>$id])->first();
