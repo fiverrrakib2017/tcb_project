@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Beneficiaries;
 use App\Models\Dealer;
+use App\Models\Distribution;
 use App\Models\Division;
 use App\Models\Union;
 use App\Models\Upozila;
@@ -97,6 +98,15 @@ class BeneficiriesController extends Controller
         // Save the beneficiary to the database
         $beneficiary->save();
 
+        $distribution=new Distribution();
+        $distribution->beneficiary_id=$beneficiary->id;
+        $distribution->distribution_date=date('Y-m-d');
+        $distribution->division_id = $beneficiary->division_id;
+        $distribution->zila_id = $beneficiary->zila_id;
+        $distribution->upozila_id = $beneficiary->upzila_id;
+        $distribution->union_id = $beneficiary->union_id;
+        $distribution->ward_id = $beneficiary->ward_id;
+        
         return redirect()->back()->with('success','উপকারভোগী তথ্য যুক্ত হয়েছে');
     }
     public function edit($id){
