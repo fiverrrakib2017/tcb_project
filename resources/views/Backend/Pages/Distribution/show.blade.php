@@ -30,25 +30,19 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-sm-8">
-                            <div class="form-group">
-                                <h2 class="control-label text-center">মাসের নাম নির্বাচন করুন</h2>
-                                <hr>
-                                <a class="btn btn-primary" href="{{url('admin/january/distribution')}}">জানুয়ারি</a>
-                                <a class="btn btn-success" href="{{url('admin/february/distribution')}}">ফেব্রুয়ারি</a>
-                                <a class="btn btn-info" href="">মার্চ</a>
-                                <a class="btn btn-danger" href="">এপ্রিল</a>
-                                <a class="btn btn-primary" href="">মে</a>
-                                <a class="btn btn-success" href="">জুন </a>
-                                <a class="btn btn-info" href="">জুলাই</a>
-                                <a class="btn btn-danger" href="">আগস্ট</a>
-                                <a class="btn btn-primary" href="">সেপ্টেম্বর</a>
-                                <a class="btn btn-success" href="">অক্টোবর</a>
-                                <a class="btn btn-info" href="">নভেম্বর </a>
-                                <a class="btn btn-danger" href="">ডিসেম্বর</a>
-                            </div>
-                        </div>
 
+                        <form action="https://www.tcb.melandahbhata.gov.bd/admin/january/distribution/february">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                <select id="selectedMonth" class="form-control">
+                                    <option value="">Select Month</option>
+                                    @for ($month = 1; $month <= 12; $month++)
+                                        <option value="{{ sprintf('%02d', $month) }}">{{ date("F", mktime(0, 0, 0, $month, 1)) }}</option>
+                                    @endfor
+                                </select>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div><!-- panel-body -->
             </div><!-- panel -->
@@ -70,7 +64,6 @@
                     <th>গ্রাম</th>
                     <th>ওয়ার্ড নং</th>
                     <th>মোবাইল নম্বর</th>
-                    <th>Date</th>
                     <th>একশন</th>
                 </tr>
                 </thead>
@@ -93,7 +86,13 @@
        "serverSide":true,
        beforeSend: function () {
        },
-       ajax: "{{ route('admin.distribution.get_all_data') }}",
+       ajax: {
+            url: "{{ route('admin.distribution.get_all_data') }}",
+            type: 'GET',
+            data: function (d) {
+                d.selectedMonth = $('#selectedMonth').val();
+            }
+        },
        language: {
          searchPlaceholder: 'Search...',
          sSearch: '',
@@ -102,54 +101,60 @@
        "columns":[
         
          {
-           "data":"beneficiary.name",
+           "data":"name",
          },
          {
-           "data":"beneficiary.card_no",
+           "data":"card_no",
          },
          {
-           "data":"beneficiary.nid",
+           "data":"nid",
          },
          {
-           "data":"beneficiary.father_name"
+           "data":"father_name"
          },
          {
-           "data":"division.name"
+           "data":"division"
          },
          {
-           "data":"zila.name"
+           "data":"zila"
          },
          {
-           "data":"upozila.name"
+           "data":"upozila"
          },
          {
-           "data":"union.name"
+           "data":"union"
          },
          {
-           "data":"village.name"
+           "data":"village"
          },
          {
            "data":"ward_id"
          },
          {
-           "data":"beneficiary.phone_number"
+           "data":"phone_number"
          },
          {
-           "data":"created_at"
-         },
-         {
-           render: function (data, type, row) {
-            return '<button onclick="editRow(' + row.id + ')">Edit</button>';
-           } 
+          "data":"status",
+          "render": function (data, type, row) {
+            if (data===1) {
+              return `<button class="btn btn-success btn-sm mr-3 " disabled data-id="${row.id}"><i class="fa fa-money"></i> প্রদান হয়েছে</button>`;
+            }else{
+               return `<button class="btn btn-danger btn-sm mr-3 confirm-btn" data-id="${row.id}"><i class="fa fa-hand-o-up"></i> প্রদান করুন</button>`;
+            }
+           
+          }
 
          },
        ],
        order:[
-         [0, "desc"]
+         [10, "desc"]
        ],
 
      });
-     $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+     //$('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+      $('#selectedMonth').change(function () {
+        table.ajax.reload();
+      });
    });
     </script>
 

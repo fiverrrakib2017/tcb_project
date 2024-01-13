@@ -67,15 +67,6 @@ class BeneficiriesController extends Controller
             return redirect()->back()->with('errors', $validator->errors()->all())->withInput();
         }
 
-        // Handle file upload
-        // if ($request->hasFile('photo')) {
-        //     $image = $request->file('photo');
-        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-        //     $image->move(public_path('images'), $imageName);
-        // }else{
-        //     $imageName ="121232.png";
-        // }
-
         // Create a new Beneficiary instance and assign values
         $beneficiary = new Beneficiaries();
         $beneficiary->card_no = $request->card_no;
@@ -106,9 +97,10 @@ class BeneficiriesController extends Controller
             'zila_id' =>$request->zila_id,
             'upozila_id' =>$request->upzila_id,
             'union_id' =>$request->union_id,
+            'village_id' =>$request->village_id,
             'ward_id' => $request->ward_id,
         ];
-        Distribution::create($distributionArray);
+        Distribution::insert($distributionArray);
 
         return redirect()->back()->with('success','উপকারভোগী তথ্য যুক্ত হয়েছে');
     }
@@ -168,24 +160,6 @@ class BeneficiriesController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->with('errors', $validator->errors()->all())->withInput();
         }
-
-        // Check if a new photo is uploaded
-        // if ($request->hasFile('photo')) {
-        //     // Get the path of the old image
-        //      $oldImagePath = public_path('images/' . $request->photo);
-            
-        //     // Check if the old image exists before trying to delete it
-        //     if(file_exists($oldImagePath)) {
-        //         unlink($oldImagePath); // Delete the old image
-        //     }
-
-        //     // Handle file upload for the new image
-        //     $image = $request->file('photo');
-        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-        //     $image->move(public_path('images'), $imageName);
-        // } else {
-        //     $imageName = $request->photo; // Use the existing photo name
-        // }
         
 
         // Create a new Beneficiary instance and assign values
@@ -213,17 +187,7 @@ class BeneficiriesController extends Controller
     }
     public function delete($id){
         $beneficiary = Beneficiaries::find($id);
-
-        // // Get the path of the image
-        // $imagePath = public_path('images/' . $beneficiary->photo);
-
-        // // Check if the image exists before trying to delete it
-        // if(file_exists($imagePath)) {
-        //     unlink($imagePath); // Delete the image
-        // }
-
         $beneficiary->delete();
-
         return redirect()->back()->with('success','মুছে ফেলা সম্পূর্ণ  হয়েছে');
     }
 

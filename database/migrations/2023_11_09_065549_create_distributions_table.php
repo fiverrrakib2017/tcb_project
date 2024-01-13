@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('zila_id');
             $table->unsignedBigInteger('upozila_id');
             $table->unsignedBigInteger('union_id');
+            $table->unsignedBigInteger('village_id')->nullable();
             $table->integer('ward_id');
             $table->timestamps();
 
@@ -46,6 +47,11 @@ return new class extends Migration
             $table->foreign('union_id')
             ->references('id')
                 ->on('unions')
+                ->onDelete('cascade');
+
+            $table->foreign('village_id')
+            ->references('id')
+                ->on('villages')
                 ->onDelete('cascade');
 
 
