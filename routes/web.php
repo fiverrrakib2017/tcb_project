@@ -137,6 +137,11 @@ Route::get('/admin/distribution/all/data',[DistributionController::class,'get_al
 /* OTP Route*/
 Route::get('/admin/otp/generate/{id}',[OtpController::class,'generateOtp'])->name('admin.otp_generate')->middleware('is_admin');
 
+Route::get('/admin/otp/verify/{userId}/{enteredOtp}', [OtpController::class, 'verifyOtp'])
+    ->name('admin.otp_verify')
+    ->middleware('is_admin');
+
+
 //test route
 
 Route::get("/test",[demoController::class,'index']);

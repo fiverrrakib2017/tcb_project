@@ -74,6 +74,31 @@
             </table>
         </div><!-- panel -->
     </div><!-- mainwrapper -->
+
+  <!-- Add this modal structure to your HTML -->
+  <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="otpModalLabel">Enter OTP</h5>
+                  <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button> -->
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                      <label for="otpInput">OTP:</label>
+                      <input type="number" class="form-control" id="otpInput">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success" id="confirmOtpBtn">Confirm OTP</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
 @endsection
 
 @section('script')
@@ -155,15 +180,17 @@
       $('#selectedMonth').change(function () {
         table.ajax.reload();
       });
-   });
-   $(document).on('click', '.confirm-btn', function () {
+  
+  $(document).on('click', '.confirm-btn', function () {
     var userId = $(this).data('id');
     $.ajax({
         url: '/admin/otp/generate/' + userId,
         method: 'GET',
         success: function (response) {
-          if (response) {
+          if (response.success) {
             toastr.success("OTP মোবাইল এ পাঠানো হয়েছে"); 
+            $('#otpModal').modal('show');
+            $('#otpModal').data('userId', userId);
           }
         },
         error: function () {
@@ -171,7 +198,29 @@
         }
     });
   });
-
+   $(document).on('click', '#confirmOtpBtn', function () {
+      var enteredOtp = $('#otpInput').val();
+      var userId = $('#otpModal').data('userId');
+        $.ajax({
+          url: '/admin/otp/verify/' + userId + '/' + enteredOtp,
+          method: 'GET',
+          success: function (verificationResponse) {
+              if (verificationResponse.success) {
+                table.ajax.reload(null, false);
+                $('#otpModal').modal('hide');
+                  toastr.success('Verify Completed');
+                  $("#otpInput").val('');
+                  
+              } else {
+                  toastr.error('Please try again');
+              }
+          },
+          error: function () {
+              toastr.error('Error updating status for User ID: ' + userId);
+          }
+        });
+    });
+  });
   </script>
 
     
