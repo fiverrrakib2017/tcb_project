@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\dealerController;
 use App\Http\Controllers\Backend\demoController;
 use App\Http\Controllers\Backend\DistributionController;
 use App\Http\Controllers\Backend\DivisionController;
+use App\Http\Controllers\Backend\OtpController;
 use App\Http\Controllers\Backend\StockController;
 use App\Http\Controllers\Backend\UnionController;
 use App\Http\Controllers\Backend\UpzilaController;
@@ -132,6 +133,9 @@ Route::post('/filter-dealers', [dealerController::class,'filterDealers']);
 /* Distribution Route*/
 Route::get('/admin/distribution/list',[DistributionController::class,'index'])->name('admin.distribution.list')->middleware('is_admin');
 Route::get('/admin/distribution/all/data',[DistributionController::class,'get_all_data'])->name('admin.distribution.get_all_data')->middleware('is_admin');
+
+/* OTP Route*/
+Route::get('/admin/otp/generate/{id}',[OtpController::class,'generateOtp'])->name('admin.otp_generate')->middleware('is_admin');
 
 //test route
 

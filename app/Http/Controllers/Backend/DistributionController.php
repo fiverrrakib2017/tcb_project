@@ -40,6 +40,7 @@ class DistributionController extends Controller
 
     foreach ($items as $item) {
         $data[] = [
+            'id' => $item->beneficiary->id,
             'name' => $item->beneficiary->name,
             'card_no' => $item->beneficiary->card_no,
             'nid' => $item->beneficiary->nid,

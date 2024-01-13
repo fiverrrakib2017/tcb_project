@@ -137,7 +137,7 @@
           "data":"status",
           "render": function (data, type, row) {
             if (data===1) {
-              return `<button class="btn btn-success btn-sm mr-3 " disabled data-id="${row.id}"><i class="fa fa-money"></i> প্রদান হয়েছে</button>`;
+              return `<button class="btn btn-success btn-sm mr-3 " disabled "><i class="fa fa-money"></i> প্রদান হয়েছে</button>`;
             }else{
                return `<button class="btn btn-danger btn-sm mr-3 confirm-btn" data-id="${row.id}"><i class="fa fa-hand-o-up"></i> প্রদান করুন</button>`;
             }
@@ -156,28 +156,25 @@
         table.ajax.reload();
       });
    });
-    </script>
+   $(document).on('click', '.confirm-btn', function () {
+    var userId = $(this).data('id');
+    $.ajax({
+        url: '/admin/otp/generate/' + userId,
+        method: 'GET',
+        success: function (response) {
+          if (response) {
+            toastr.success("OTP মোবাইল এ পাঠানো হয়েছে"); 
+          }
+        },
+        error: function () {
+          toastr.error('Error generating OTP.');
+        }
+    });
+  });
 
-    @if(session('success'))
-    <script>
-        toastr.success('{{ session('success') }}');
-    </script>
-    @elseif(session('error'))
-    <script>
-        toastr.error('{{ session('error') }}');
-    </script>
-    @endif
+  </script>
 
-
-
-    @if(session('errors'))
-        <script>
-            var errors = @json(session('errors'));
-            errors.forEach(function(error) {
-                toastr.error(error);
-            });
-        </script>
-    @endif
+    
 
 
 @endsection
